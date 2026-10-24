@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-06-26T13:49:48.793Z",
+  "runs": 1,
+  "turnsPerRun": 8,
+  "perRun": [
+    {
+      "run": 1,
+      "finalModel": "zai-glm-4.7+script-scenes",
+      "llmSceneTurns": 8,
+      "totalSceneTurns": 8,
+      "cast": [
+        "Tajomaru",
+        "Masago",
+        "Takehiro"
+      ],
+      "endingPreview": "*No one has moved. The samurai stands with his chest bared t"
+    }
+  ],
+  "usableForSubmission": true
+}

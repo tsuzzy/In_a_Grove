@@ -1,0 +1,141 @@
+{
+ "generatedAt": "2026-08-01T07:41:55.777Z",
+ "games": [
+  {
+   "id": "A",
+   "name": "run-06",
+   "feasible": 11,
+   "betaStar": 0.05,
+   "gammaStar": 0.2,
+   "equilibria": 6,
+   "settles": "settled",
+   "cycling": [],
+   "truthful": null
+  },
+  {
+   "id": "C",
+   "name": "akutagawa",
+   "feasible": 22,
+   "betaStar": 0.55,
+   "gammaStar": 0,
+   "equilibria": 10,
+   "settles": "settled",
+   "cycling": [],
+   "truthful": null
+  }
+ ],
+ "ties": {
+  "run-06": {
+   "perWitness": {
+    "Tajomaru": 7,
+    "Masago": 7,
+    "Takehiro": 1
+   },
+   "profiles": 49,
+   "spread3": 32,
+   "jsat": 1,
+   "tajUnacc": 21
+  },
+  "akutagawa": {
+   "perWitness": {
+    "Tajomaru": 2,
+    "Masago": 14,
+    "Takehiro": 2
+   },
+   "profiles": 56,
+   "spread3": 36,
+   "jsat": 0,
+   "tajUnacc": 0
+  }
+ },
+ "space": {
+  "states": 12910,
+  "causalSignatures": 44,
+  "extendedSignatures": 44
+ },
+ "worlds": [
+  {
+   "name": "run-06",
+   "title": "the scene our own agents left",
+   "note": "dagger wound to the throat; both blades at the scene; the longsword unbloodied; Masago still there",
+   "feasible": 11,
+   "gap": 11,
+   "costs": {
+    "Tajomaru": 14,
+    "Masago": 0,
+    "Takehiro": 0
+   },
+   "duelSurvives": false,
+   "distinctClaims": 3,
+   "provenLies": 2,
+   "picks": [
+    {
+     "witness": "Tajomaru",
+     "account": "Masago — dagger killing (dagger, throat)",
+     "blames": "Masago"
+    },
+    {
+     "witness": "Masago",
+     "account": "Tajomaru — dagger killing (dagger, throat)",
+     "blames": "Tajomaru"
+    },
+    {
+     "witness": "Takehiro",
+     "account": "Takehiro (self) — suicide (dagger, throat)",
+     "blames": "Takehiro"
+    }
+   ]
+  },
+  {
+   "name": "akutagawa",
+   "title": "Akutagawa's canonical scene",
+   "note": "a stab wound to the chest, weapon never named; neither blade found; nobody at the scene",
+   "feasible": 22,
+   "gap": 22,
+   "costs": {
+    "Tajomaru": 0,
+    "Masago": 0,
+    "Takehiro": 0
+   },
+   "duelSurvives": true,
+   "distinctClaims": 3,
+   "provenLies": 2,
+   "picks": [
+    {
+     "witness": "Tajomaru",
+     "account": "Tajomaru — sword duel (longsword, chest)",
+     "blames": "Tajomaru"
+    },
+    {
+     "witness": "Masago",
+     "account": "Tajomaru — dagger killing (dagger, chest)",
+     "blames": "Tajomaru"
+    },
+    {
+     "witness": "Takehiro",
+     "account": "Takehiro (self) — suicide (dagger, chest)",
+     "blames": "Takehiro"
+    }
+   ]
+  }
+ ],
+ "correction": {
+  "was": {
+   "costOfHonesty": {
+    "Tajomaru": 14,
+    "Masago": 0,
+    "Takehiro": 0
+   },
+   "constraintBites": true
+  },
+  "now": {
+   "costOfHonesty": {
+    "Tajomaru": 14,
+    "Masago": 0,
+    "Takehiro": 0
+   },
+   "constraintBites": true
+  },
+  "cause": "argmax was taken over causal signatures; U_i also depends on who cut the rope, so the reported optimum depended on which representative history was stored."
+ }
+}

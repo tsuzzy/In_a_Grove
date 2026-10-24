@@ -1,0 +1,371 @@
+{
+ "statesExplored": 3631,
+ "resolvedCount": 350,
+ "nAssertions": 22,
+ "nFeasible": 11,
+ "facts": {
+  "dead": [
+   {
+    "who": "Takehiro",
+    "part": "throat",
+    "weapon": "dagger"
+   }
+  ],
+  "alivePresent": [
+   "Masago"
+  ],
+  "gone": [
+   "Tajomaru"
+  ],
+  "bloodied": [
+   "dagger"
+  ],
+  "notBloodied": [
+   "longsword"
+  ],
+  "rope": "cut"
+ },
+ "assertions": [
+  {
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "blames": "wife",
+   "manner": "strike",
+   "blade": "dagger",
+   "bound": true,
+   "armed": false,
+   "feasible": true,
+   "u": {
+    "bandit": 58,
+    "wife": 43,
+    "samurai": 33
+   }
+  },
+  {
+   "sig": "Masago|strike|longsword|bound:true|armed:false",
+   "blames": "wife",
+   "manner": "strike",
+   "blade": "longsword",
+   "bound": true,
+   "armed": false,
+   "feasible": false,
+   "u": {
+    "bandit": 58,
+    "wife": 43,
+    "samurai": 33
+   }
+  },
+  {
+   "sig": "Masago|strike|dagger|bound:false|armed:false",
+   "blames": "wife",
+   "manner": "strike",
+   "blade": "dagger",
+   "bound": false,
+   "armed": false,
+   "feasible": true,
+   "u": {
+    "bandit": 58,
+    "wife": 43,
+    "samurai": 42
+   }
+  },
+  {
+   "sig": "Takehiro|impale_on_held|dagger|bound:false|armed:false",
+   "blames": "samurai",
+   "manner": "impale",
+   "blade": "dagger",
+   "bound": false,
+   "armed": false,
+   "feasible": true,
+   "u": {
+    "bandit": 58,
+    "wife": 75,
+    "samurai": 73
+   }
+  },
+  {
+   "sig": "Tajomaru|strike|longsword|bound:true|armed:false",
+   "blames": "bandit",
+   "manner": "strike",
+   "blade": "longsword",
+   "bound": true,
+   "armed": false,
+   "feasible": false,
+   "u": {
+    "bandit": 42,
+    "wife": 75,
+    "samurai": 33
+   }
+  },
+  {
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "blames": "bandit",
+   "manner": "strike",
+   "blade": "dagger",
+   "bound": true,
+   "armed": false,
+   "feasible": true,
+   "u": {
+    "bandit": 42,
+    "wife": 75,
+    "samurai": 33
+   }
+  },
+  {
+   "sig": "Masago|strike|dagger|bound:true|armed:true",
+   "blames": "wife",
+   "manner": "strike",
+   "blade": "dagger",
+   "bound": true,
+   "armed": true,
+   "feasible": true,
+   "u": {
+    "bandit": 58,
+    "wife": 43,
+    "samurai": 33
+   }
+  },
+  {
+   "sig": "Masago|strike|longsword|bound:false|armed:false",
+   "blames": "wife",
+   "manner": "strike",
+   "blade": "longsword",
+   "bound": false,
+   "armed": false,
+   "feasible": false,
+   "u": {
+    "bandit": 58,
+    "wife": 43,
+    "samurai": 42
+   }
+  },
+  {
+   "sig": "Takehiro|impale_on_held|longsword|bound:false|armed:false",
+   "blames": "samurai",
+   "manner": "impale",
+   "blade": "longsword",
+   "bound": false,
+   "armed": false,
+   "feasible": false,
+   "u": {
+    "bandit": 58,
+    "wife": 75,
+    "samurai": 73
+   }
+  },
+  {
+   "sig": "Masago|strike|longsword|bound:true|armed:true",
+   "blames": "wife",
+   "manner": "strike",
+   "blade": "longsword",
+   "bound": true,
+   "armed": true,
+   "feasible": false,
+   "u": {
+    "bandit": 58,
+    "wife": 43,
+    "samurai": 33
+   }
+  },
+  {
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "blames": "samurai",
+   "manner": "self_strike",
+   "blade": "dagger",
+   "bound": false,
+   "armed": true,
+   "feasible": true,
+   "u": {
+    "bandit": 58,
+    "wife": 75,
+    "samurai": 80
+   }
+  },
+  {
+   "sig": "Masago|strike|dagger|bound:false|armed:true",
+   "blames": "wife",
+   "manner": "strike",
+   "blade": "dagger",
+   "bound": false,
+   "armed": true,
+   "feasible": true,
+   "u": {
+    "bandit": 58,
+    "wife": 43,
+    "samurai": 48
+   }
+  },
+  {
+   "sig": "Takehiro|self_strike|longsword|bound:false|armed:true",
+   "blames": "samurai",
+   "manner": "self_strike",
+   "blade": "longsword",
+   "bound": false,
+   "armed": true,
+   "feasible": false,
+   "u": {
+    "bandit": 58,
+    "wife": 75,
+    "samurai": 80
+   }
+  },
+  {
+   "sig": "Takehiro|impale_on_held|dagger|bound:false|armed:true",
+   "blames": "samurai",
+   "manner": "impale",
+   "blade": "dagger",
+   "bound": false,
+   "armed": true,
+   "feasible": true,
+   "u": {
+    "bandit": 58,
+    "wife": 75,
+    "samurai": 73
+   }
+  },
+  {
+   "sig": "Tajomaru|strike|longsword|bound:false|armed:false",
+   "blames": "bandit",
+   "manner": "strike",
+   "blade": "longsword",
+   "bound": false,
+   "armed": false,
+   "feasible": false,
+   "u": {
+    "bandit": 48,
+    "wife": 75,
+    "samurai": 42
+   }
+  },
+  {
+   "sig": "Tajomaru|strike|longsword|bound:true|armed:true",
+   "blames": "bandit",
+   "manner": "strike",
+   "blade": "longsword",
+   "bound": true,
+   "armed": true,
+   "feasible": false,
+   "u": {
+    "bandit": 72,
+    "wife": 75,
+    "samurai": 33
+   }
+  },
+  {
+   "sig": "Tajomaru|strike|dagger|bound:false|armed:false",
+   "blames": "bandit",
+   "manner": "strike",
+   "blade": "dagger",
+   "bound": false,
+   "armed": false,
+   "feasible": true,
+   "u": {
+    "bandit": 48,
+    "wife": 75,
+    "samurai": 42
+   }
+  },
+  {
+   "sig": "Masago|strike|longsword|bound:false|armed:true",
+   "blames": "wife",
+   "manner": "strike",
+   "blade": "longsword",
+   "bound": false,
+   "armed": true,
+   "feasible": false,
+   "u": {
+    "bandit": 58,
+    "wife": 43,
+    "samurai": 48
+   }
+  },
+  {
+   "sig": "Takehiro|impale_on_held|longsword|bound:false|armed:true",
+   "blames": "samurai",
+   "manner": "impale",
+   "blade": "longsword",
+   "bound": false,
+   "armed": true,
+   "feasible": false,
+   "u": {
+    "bandit": 58,
+    "wife": 75,
+    "samurai": 73
+   }
+  },
+  {
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:true",
+   "blames": "bandit",
+   "manner": "strike",
+   "blade": "dagger",
+   "bound": true,
+   "armed": true,
+   "feasible": true,
+   "u": {
+    "bandit": 42,
+    "wife": 75,
+    "samurai": 33
+   }
+  },
+  {
+   "sig": "Tajomaru|strike|longsword|bound:false|armed:true",
+   "blames": "bandit",
+   "manner": "strike",
+   "blade": "longsword",
+   "bound": false,
+   "armed": true,
+   "feasible": false,
+   "u": {
+    "bandit": 72,
+    "wife": 75,
+    "samurai": 48
+   }
+  },
+  {
+   "sig": "Tajomaru|strike|dagger|bound:false|armed:true",
+   "blames": "bandit",
+   "manner": "strike",
+   "blade": "dagger",
+   "bound": false,
+   "armed": true,
+   "feasible": true,
+   "u": {
+    "bandit": 48,
+    "wife": 75,
+    "samurai": 48
+   }
+  }
+ ],
+ "agents": {
+  "bandit": {
+   "maxAll": 72,
+   "maxFeas": 58,
+   "bites": true,
+   "nTiedAtMax": 7,
+   "nTiedNamingSelf": 0,
+   "bestWhileOwningIt": 48
+  },
+  "wife": {
+   "maxAll": 75,
+   "maxFeas": 75,
+   "bites": false,
+   "nTiedAtMax": 7,
+   "nTiedNamingSelf": 0,
+   "bestWhileOwningIt": 43
+  },
+  "samurai": {
+   "maxAll": 80,
+   "maxFeas": 80,
+   "bites": false,
+   "nTiedAtMax": 1,
+   "nTiedNamingSelf": 1,
+   "bestWhileOwningIt": 80
+  }
+ },
+ "checks": {
+  "factorsAsMannerByBlade": true,
+  "cutIsExactlyTheBlade": true,
+  "onlyOneAgentIsBitten": true,
+  "optimumNeedsArmed": true,
+  "optimumNeedsUnbound": false
+ }
+}

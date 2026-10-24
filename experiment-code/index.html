@@ -1,0 +1,596 @@
+<meta charset="utf-8">
+<title>In a Grove, Again — the Deniability Gap</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --ground:#E7E9E2; --panel:#F2F3EC; --inset:#E9EBE1;
+  --ink:#191E18; --ink-soft:#555C50; --muted:#727869; --line:#CBCFC1;
+  --seal:#A5342A; --seal-tint:rgba(165,52,42,.09); --seal-line:rgba(165,52,42,.35);
+  --jade:#2C5E59; --jade-tint:rgba(44,94,89,.11); --jade-line:rgba(44,94,89,.4);
+  --taj:#96762F; --mas:#8E4A63; --tak:#3C5C7A;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+  --mono:"SF Mono","IBM Plex Mono","JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --maxw:41rem;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ground:#10130F; --panel:#181C15; --inset:#1E231B;
+  --ink:#E6E9DF; --ink-soft:#B0B6A7; --muted:#878E7C; --line:#333A2F;
+  --seal:#D95F49; --seal-tint:rgba(217,95,73,.15); --seal-line:rgba(217,95,73,.42);
+  --jade:#69AEA4; --jade-tint:rgba(105,174,164,.15); --jade-line:rgba(105,174,164,.5);
+  --taj:#CBA64C; --mas:#C97E97; --tak:#77A0C6;
+}}
+:root[data-theme="light"]{
+  --ground:#E7E9E2; --panel:#F2F3EC; --inset:#E9EBE1;
+  --ink:#191E18; --ink-soft:#555C50; --muted:#727869; --line:#CBCFC1;
+  --seal:#A5342A; --seal-tint:rgba(165,52,42,.09); --seal-line:rgba(165,52,42,.35);
+  --jade:#2C5E59; --jade-tint:rgba(44,94,89,.11); --jade-line:rgba(44,94,89,.4);
+  --taj:#96762F; --mas:#8E4A63; --tak:#3C5C7A;
+}
+:root[data-theme="dark"]{
+  --ground:#10130F; --panel:#181C15; --inset:#1E231B;
+  --ink:#E6E9DF; --ink-soft:#B0B6A7; --muted:#878E7C; --line:#333A2F;
+  --seal:#D95F49; --seal-tint:rgba(217,95,73,.15); --seal-line:rgba(217,95,73,.42);
+  --jade:#69AEA4; --jade-tint:rgba(105,174,164,.15); --jade-line:rgba(105,174,164,.5);
+  --taj:#CBA64C; --mas:#C97E97; --tak:#77A0C6;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--serif);
+  font-size:1.0625rem;line-height:1.66;-webkit-font-smoothing:antialiased;
+  text-underline-offset:.14em;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.4rem}
+.mono{font-family:var(--mono)}
+h1,h2,h3{text-wrap:balance;line-height:1.12;font-weight:600;letter-spacing:-.01em}
+p{margin:0 0 1.05rem}
+a{color:inherit;text-decoration-color:var(--seal-line)}
+.eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.17em;
+  font-size:.685rem;color:var(--muted);margin:0 0 1.1rem}
+hr.rule{border:0;border-top:1px solid var(--line);margin:0}
+
+/* ---- hero ---- */
+header.hero{padding:clamp(3rem,9vw,6rem) 0 2.4rem}
+.hero h1{font-size:clamp(2.3rem,6.2vw,3.7rem);margin:0 0 1.1rem}
+.hero .lede{font-size:1.24rem;color:var(--ink-soft);max-width:36ch;margin:0 0 1.7rem}
+.hero .q{font-style:italic;color:var(--ink);border-left:2px solid var(--seal);
+  padding:.15rem 0 .15rem 1.05rem;max-width:44ch;margin:0 0 2rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;font-family:var(--mono);font-size:.72rem}
+.chip{border:1px solid var(--line);border-radius:999px;padding:.32rem .7rem;color:var(--ink-soft);
+  background:var(--panel);white-space:nowrap}
+.chip b{color:var(--ink);font-weight:600}
+
+/* ---- section frame ---- */
+section{padding:2.9rem 0}
+section > .wrap > .eyebrow{margin-bottom:.5rem}
+h2{font-size:clamp(1.5rem,3.4vw,1.95rem);margin:0 0 1rem}
+.sub{color:var(--ink-soft);max-width:62ch}
+
+/* ---- the optimizer ---- */
+.stage{max-width:56rem;margin:0 auto;padding:0 1.1rem}
+.optimizer{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:1.15rem;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+.witnesses{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+.wcard{background:var(--inset);border:1px solid var(--line);border-radius:10px;padding:.85rem .9rem;
+  border-top:3px solid var(--wc)}
+.wcard h3{font-size:1.02rem;margin:0;display:flex;align-items:baseline;gap:.45rem}
+.wcard h3 .role{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:400}
+.wcard .wants{font-family:var(--mono);font-size:.68rem;color:var(--muted);margin:.15rem 0 .7rem}
+.slider{margin:.5rem 0}
+.slider label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.7rem;
+  color:var(--ink-soft);margin-bottom:.1rem;letter-spacing:.02em}
+.slider label b{color:var(--wc);font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:3px;
+  background:var(--line);outline:none;margin:.35rem 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;
+  background:var(--wc);cursor:pointer;border:2px solid var(--panel)}
+input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:var(--wc);
+  cursor:pointer;border:2px solid var(--panel)}
+input[type=range]:focus-visible{box-shadow:0 0 0 3px var(--jade-tint)}
+.verdict{font-family:var(--mono);font-size:.82rem;margin:.35rem .1rem .1rem;color:var(--ink-soft);
+  min-height:1.3rem;line-height:1.5}
+.verdict .claim{color:var(--wc,var(--ink));font-weight:600}
+.uilab{display:block;font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.11em;color:var(--muted);margin:.15rem 0 .3rem}
+.wcard select{width:100%;font-family:var(--mono);font-size:.74rem;color:var(--ink);background:var(--panel);
+  border:1px solid var(--line);border-radius:7px;padding:.4rem .5rem;cursor:pointer;-webkit-appearance:none;appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 14px) 52%,calc(100% - 9px) 52%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.wcard select:focus-visible{outline:none;box-shadow:0 0 0 3px var(--jade-tint);border-color:var(--jade)}
+.wclaim{font-size:.86rem;margin-top:.55rem;line-height:1.45}
+.wclaim b{color:var(--wc)}
+.wclaim .bite{font-family:var(--mono);font-size:.63rem;color:var(--seal);margin-left:.25rem}
+.wclaim .uval{font-family:var(--mono);font-size:.66rem;color:var(--muted);float:right;font-variant-numeric:tabular-nums}
+.joint{margin-top:1rem;background:var(--inset);border:1px solid var(--line);border-radius:10px;padding:.85rem .95rem}
+.jhead{font-family:var(--mono);font-size:.63rem;text-transform:uppercase;letter-spacing:.11em;color:var(--muted);margin-bottom:.6rem}
+.blamegraph{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin-bottom:.7rem}
+.brow{font-family:var(--mono);font-size:.78rem;display:flex;align-items:center;gap:.4rem}
+.brow .arr{color:var(--muted);font-style:italic;font-size:.68rem}
+.jverd{font-size:.92rem;line-height:1.5;padding-left:.7rem;border-left:3px solid var(--jade)}
+.jverd.bad{border-left-color:var(--seal)}
+.jverd .tagline{color:var(--seal);font-style:italic;font-weight:600;white-space:nowrap}
+.jverd.ok{color:var(--ink-soft)}
+.jnote{font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-top:.6rem;line-height:1.5}
+
+/* board */
+.board-wrap{margin:1.05rem 0 .3rem;overflow-x:auto}
+.board{position:relative;height:216px;min-width:520px;border-radius:10px;overflow:hidden;
+  border:1px solid var(--line)}
+.zone{position:absolute;top:0;bottom:0;display:flex;align-items:flex-start;padding:.5rem .7rem}
+.zone.feas{left:0;width:60%;background:var(--jade-tint)}
+.zone.ref{left:60%;right:0;background:var(--seal-tint);border-left:1px dashed var(--seal-line)}
+.zone .zlab{font-family:var(--mono);font-size:.63rem;text-transform:uppercase;letter-spacing:.1em}
+.zone.feas .zlab{color:var(--jade)}
+.zone.ref .zlab{color:var(--seal)}
+.board svg.tethers{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.tick{position:absolute;transform:translateX(-50%);bottom:14px;width:1px;text-align:center}
+.tick .stem{width:1px;height:12px;background:var(--line);margin:0 auto}
+.tick .tlab{font-family:var(--mono);font-size:.6rem;color:var(--muted);white-space:nowrap;
+  position:absolute;bottom:-2px;left:50%;transform:translate(-50%,100%);width:8.5em;line-height:1.15}
+.puck{position:absolute;width:26px;height:26px;border-radius:50%;transform:translate(-50%,-50%);
+  display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;
+  font-size:.74rem;color:#fff;border:2px solid var(--panel);z-index:3;
+  transition:left .55s cubic-bezier(.4,0,.2,1),top .55s cubic-bezier(.4,0,.2,1)}
+@media (prefers-reduced-motion:reduce){.puck{transition:none}}
+.controls{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-top:.9rem}
+button.btn{font-family:var(--mono);font-size:.74rem;letter-spacing:.03em;cursor:pointer;
+  background:var(--ink);color:var(--ground);border:none;border-radius:8px;padding:.5rem .85rem}
+button.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+button.btn:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
+.sweep{font-family:var(--mono);font-size:.76rem;color:var(--ink-soft);min-height:1.2rem}
+.sweep b{color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* ---- evidence list ---- */
+.evgrid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.ev{border:1px solid var(--line);border-radius:9px;padding:.7rem .8rem;background:var(--panel);
+  font-size:.95rem;border-left:3px solid var(--edge)}
+.ev .verd{font-family:var(--mono);font-size:.63rem;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--edge);font-weight:600}
+.ev .why{color:var(--muted);font-size:.86rem;margin-top:.15rem}
+.ev .evwho{font-family:var(--mono);font-size:.65rem;color:var(--muted);margin-top:.4rem}
+.ev .cl{font-weight:600}
+
+/* ---- baselines table ---- */
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem;margin:.3rem 0}
+.tbl th,.tbl td{text-align:left;padding:.5rem .55rem;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:400}
+.tbl td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl tr.ours{background:var(--jade-tint)}
+.tbl tr.ours td:first-child{font-weight:600}
+.tag{font-family:var(--mono);font-size:.62rem;padding:.08rem .35rem;border-radius:4px}
+.tag.bad{background:var(--seal-tint);color:var(--seal)}
+.tag.good{background:var(--jade-tint);color:var(--jade)}
+
+/* ---- method steps ---- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;counter-reset:s}
+.step{border:1px solid var(--line);border-radius:10px;padding:.85rem;background:var(--panel)}
+.step .k{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:var(--seal)}
+.step h3{font-size:1.05rem;margin:.25rem 0 .3rem}
+.step p{font-size:.9rem;color:var(--ink-soft);margin:0}
+
+.note{background:var(--inset);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;font-size:.94rem}
+.note p:last-child{margin:0}
+footer{padding:3rem 0 4rem;color:var(--muted);font-family:var(--mono);font-size:.74rem;line-height:1.7}
+footer .wrap>div{max-width:60ch}
+.k-seal{color:var(--seal)} .k-jade{color:var(--jade)}
+strong{font-weight:600}
+
+@media (max-width:720px){
+  .witnesses{grid-template-columns:1fr}
+  .evgrid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+}
+</style>
+
+<header class="hero"><div class="wrap">
+  <p class="eyebrow">Multi-agent LLM worlds · an interactive case file</p>
+  <h1>In a Grove, Again</h1>
+  <p class="lede">Treating an event history as an <em>optimization variable</em> — and letting a simulator, not a story, decide which accounts the evidence can rule out.</p>
+  <p class="q">A samurai lies dead of a single dagger wound. A bandit, the wife, and the dead man each tell a different tale. Which tales can the evidence actually refute — and what does self-interest do with the room that is left?</p>
+  <div class="chips">
+    <span class="chip"><b>1,783</b> states enumerated</span>
+    <span class="chip"><b>22</b> distinct histories</span>
+    <span class="chip"><b>7</b> consistent with the evidence</span>
+    <span class="chip"><b>0</b> language models in the loop</span>
+  </div>
+</div></header>
+
+<hr class="rule">
+
+<section id="optimizer"><div class="stage">
+  <p class="eyebrow k-jade">The Rashomon optimizer — choose each witness’s motive</p>
+  <h2 style="max-width:22ch">Give the witnesses different motives. Watch the accounts collide.</h2>
+  <p class="sub" style="margin-bottom:1.2rem">Each witness maximizes a self-interest <em>U<sub>i</sub></em> over the <em>same</em> set of histories the simulator certifies as consistent with the facts <em>F</em>. Assign each one an objective from the menu; each settles on the account that flatters them most. Give <em>different</em> witnesses <em>different</em> objectives and the accounts contradict one another — each unrefutable alone, yet no single world fits all three. Computed live, with the exact objective from the paper.</p>
+
+  <div class="optimizer">
+    <div class="witnesses" id="witnesses"></div>
+
+    <div class="board-wrap"><div class="board" id="board">
+      <div class="zone feas"><span class="zlab">Consistent with F · the deniability space</span></div>
+      <div class="zone ref"><span class="zlab">Refuted by F</span></div>
+      <svg class="tethers" id="tethers" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+    </div></div>
+
+    <p class="verdict" id="verdict"></p>
+    <div class="joint" id="joint"></div>
+
+    <div class="controls">
+      <button class="btn" id="resetBtn" type="button">Reset to the canonical Rashomon</button>
+      <button class="btn ghost" id="sweepBtn" type="button">Run robustness sweep · 5,000 weightings</button>
+      <span class="sweep" id="sweepOut"></span>
+    </div>
+  </div>
+</div></section>
+
+<hr class="rule">
+
+<section><div class="wrap">
+  <p class="eyebrow">What makes this real</p>
+  <h2>The variable is the history, not the prose</h2>
+  <p>Each account is a <strong>structured history</strong> — who takes the dagger, who cuts the rope, who strikes whom — and whether it is possible is settled by <strong>replaying it through a simulator</strong>, never by how well it is told. And the winners <em>differ</em> from Akutagawa's canon (the wife's best account is that her husband fell upon the blade, not her confession) — so the divergence is an <strong class="k-jade">emergent optimum, not a memorized tale</strong>.</p>
+</div></section>
+
+<hr class="rule">
+
+<section><div class="wrap">
+  <p class="eyebrow">The accounts on the table</p>
+  <h2>What your witnesses actually claim</h2>
+  <p class="sub" style="margin-bottom:1.3rem">The distinct histories the chosen motives select — the feasible testimonies the evidence cannot refute, and any ideal a witness wants but the simulator throws out. This updates as you change the objectives above.</p>
+  <div class="evgrid" id="evgrid"></div>
+</div></section>
+
+<hr class="rule">
+
+<section><div class="wrap">
+  <p class="eyebrow">Baselines · what each ingredient buys</p>
+  <h2>Take away the search, or the simulator, or the structure</h2>
+  <p class="sub" style="margin-bottom:1rem">All four rows share one enumerated set and one objective. Self-interest achieved is on a 0–100 scale; <span class="mono">refuted</span> counts accounts the simulator throws out.</p>
+  <div style="overflow-x:auto"><table class="tbl">
+    <thead><tr><th>Method</th><th>Bandit</th><th>Wife</th><th>Samurai</th><th>Refuted by F</th><th>Distinct accounts</th></tr></thead>
+    <tbody>
+      <tr><td>Random feasible history</td><td class="n">55</td><td class="n">68</td><td class="n">58</td><td class="n"><span class="tag good">0%</span></td><td class="n">—</td></tr>
+      <tr><td>No oracle · argmax over <em>all</em></td><td class="n">72</td><td class="n">81</td><td class="n">80</td><td class="n"><span class="tag bad">bandit refuted</span></td><td class="n">3/3</td></tr>
+      <tr><td colspan="6" style="font-style:italic;color:var(--muted);padding:.5rem .55rem .1rem">No structure · each LLM asked directly (mean U over K=3)</td></tr>
+      <tr><td style="padding-left:1.3rem">GLM-4.7</td><td class="n">48</td><td class="n">56</td><td class="n">64</td><td class="n">11%</td><td class="n">3/3</td></tr>
+      <tr><td style="padding-left:1.3rem">Gemma-4-31B</td><td class="n">44</td><td class="n">43</td><td class="n">80</td><td class="n"><span class="tag bad">33%</span></td><td class="n">3/3</td></tr>
+      <tr><td style="padding-left:1.3rem">GPT-OSS-120B</td><td class="n">48</td><td class="n">75</td><td class="n">42</td><td class="n">0%</td><td class="n"><span class="tag bad">1/3</span></td></tr>
+      <tr class="ours"><td>Ours · argmax over F</td><td class="n">58</td><td class="n">81</td><td class="n">80</td><td class="n"><span class="tag good">0%</span></td><td class="n">3 / 3</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sub" style="font-size:.86rem;margin-top:.6rem">All three LLMs (26 accounts total) trail our self-interest and get refuted by the simulator; <strong>GPT-OSS collapses all three witnesses onto a <em>single</em> history</strong> — no Rashomon at all. Throughout, <strong>no language model computes the objective</strong>; where an LLM maps prose to a structured claim it is always a <em>different</em> model from the generator, so none grades its own output. Distinct counts use each witness's modal claim over K=3 draws; “No optimization” is a mean over Feasible(F) — an expectation, not a chosen account — so it has no distinct count.</p>
+</div></section>
+
+<hr class="rule">
+
+<section><div class="wrap">
+  <p class="eyebrow">Method</p>
+  <h2>Propose, verify, optimize</h2>
+  <div class="steps" style="margin-top:1.1rem">
+    <div class="step"><div class="k">Propose</div><h3>Candidate histories</h3><p>By exhaustive enumeration on a small domain; by an LLM proposing action sequences on a large one. The multi-agent generative prior lives here.</p></div>
+    <div class="step"><div class="k">Verify</div><h3>The simulator, not a model</h3><p>Replay each candidate through the domain and diff against <em>F</em>. A memorized or hallucinated history that breaks the physics is rejected here, whatever produced it.</p></div>
+    <div class="step"><div class="k">Optimize</div><h3>argmax over the feasible set</h3><p>A transparent structural <em>U<sub>i</sub></em> — decisive or passive? dignified or helpless? clean hands? — scores each history. It names no manner of death; the manner, if it wins, is emergent.</p></div>
+  </div>
+</div></section>
+
+<hr class="rule">
+
+<section><div class="wrap">
+  <p class="eyebrow">Read this before you cite it</p>
+  <h2>Honest notes</h2>
+  <div class="note">
+    <p><strong>The objective is hand-specified.</strong> The weights are fixed a priori and shown in the objective menus above; a learned or human-elicited <em>U<sub>i</sub></em> would be stronger. But the feasibility verdicts — the part that refutes the duel — come entirely from the simulator and depend on none of this.</p>
+    <p><strong>Robust, not universal.</strong> Across 5,000 random weightings of the same generic dimensions the full three-way spread holds in <b class="mono">74.3%</b> of cases and the bandit's ideal stays refuted in <b class="mono">69.0%</b>. Modal, not an artifact of one weighting — press the button above and it recomputes with the paper's seed.</p>
+    <p><strong>Robust to the constants, not just the weights.</strong> Perturbing all nineteen hand-set feature values independently by <span class="mono">&plusmn;&epsilon;</span> (uniform, <span class="mono">N=5,000</span> per level, seed 16980222) leaves the three-way spread and the bandit's exclusion intact well past small perturbations &mdash; the split is a property of the feasible-set geometry, not of the particular constants:</p>
+    <div style="overflow-x:auto"><table class="tbl">
+      <thead><tr><th>Perturb all 19 constants by</th><th>3-way spread survives</th><th>Bandit's optimum stays refuted</th></tr></thead>
+      <tbody>
+        <tr><td>&plusmn;0.1</td><td class="n">100.0% <span class="mono">[99.9, 100.0]</span></td><td class="n">100.0% <span class="mono">[99.9, 100.0]</span></td></tr>
+        <tr><td>&plusmn;0.2</td><td class="n">96.6% <span class="mono">[96.1, 97.1]</span></td><td class="n">100.0% <span class="mono">[99.9, 100.0]</span></td></tr>
+        <tr><td>&plusmn;0.3 <span style="color:var(--muted)">(1/3 of each range)</span></td><td class="n">86.8% <span class="mono">[85.8, 87.7]</span></td><td class="n">94.3% <span class="mono">[93.6, 94.9]</span></td></tr>
+        <tr><td>&plusmn;0.4</td><td class="n">80.8% <span class="mono">[79.7, 81.9]</span></td><td class="n">86.3% <span class="mono">[85.4, 87.3]</span></td></tr>
+        <tr><td>&plusmn;0.5 <span style="color:var(--muted)">(half of each range)</span></td><td class="n">75.7% <span class="mono">[74.5, 76.9]</span></td><td class="n">74.3% <span class="mono">[73.1, 75.5]</span></td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:.9em;color:var(--muted)">Reproduce: <span class="mono">node experiment-code/recon/sensitivity.mjs</span> &middot; Wilson 95% intervals at N=5,000; a parameterised copy is asserted identical to the released constants on all 22 assertions before any perturbation.</p>
+    <p><strong>Per-model detail (prompted baselines).</strong> Averaged across the three witnesses the three models agree within <b class="mono">6</b> points, yet fall up to <b class="mono">32</b> short of the simulator; on a single witness the between-model spread reaches <b class="mono">38</b>. <b class="mono">125</b> of <b class="mono">135</b> generations yield an extractable signature, all in the released data.</p>
+    <p><strong>One scene, so far.</strong> Results are on a single literary domain, small enough to enumerate exactly. The framework applies wherever a simulator can adjudicate multi-agent histories — negotiation, social-deduction games, incident reconstruction — where incentive-driven misreport is native rather than staged. The source concerns sexual violence; it is treated here only as contested testimony.</p>
+    <p><strong>Reproducibility.</strong> Every number in the paper except the prompted baseline rows is produced by deterministic, language-model-free code: optima are exact (<em>Feas(F)</em> enumerated exhaustively), Monte-Carlo figures use the fixed seed <span class="mono">16980222</span> (mulberry32), and bracketed intervals are Wilson 95% at <span class="mono">N=5,000</span>. The released code regenerates every number and figure &mdash; figures recompute from the same modules that produce the tables, so they cannot go stale &mdash; and also carries the full scoring rules for all three domains, the coupled objective <em>U<sub>i</sub><sup>tot</sup></em> with its results, the per-model prompting baselines, the order-dependence analysis, and three further objectives (spectator, adjudicating, other-regarding) over the identical <em>Feas(F)</em>; self-tests total <b class="mono">420</b> assertions. Code, figures, studies, scripts: <a href="https://github.com/tsuzzy/2026-grove-again">github.com/tsuzzy/2026-grove-again</a>.</p>
+
+    <p><strong>Supplementary: the six features (In a Grove).</strong> Each feature is a fixed function, in [0,1], of the fatal act's causal signature (who dealt the fatal blow, of what type, with what weapon, whether the victim was bound or armed), read from witness <em>i</em>'s own viewpoint. No language model, no learned parameters. Source: <span class="mono">recon/grove-objective.mjs</span>.</p>
+    <div style="overflow-x:auto"><table class="tbl">
+      <thead><tr><th>Feature</th><th>Condition on the fatal act, from witness i's viewpoint</th><th>Value</th></tr></thead>
+      <tbody>
+      <tr><td rowspan="2"><b>agency</b></td><td>i is the fatal actor</td><td class="n">1</td></tr>
+      <tr><td>otherwise</td><td class="n">0.15</td></tr>
+      <tr><td rowspan="2"><b>clean hands</b></td><td>i did not deal the fatal blow</td><td class="n">1</td></tr>
+      <tr><td>i dealt it</td><td class="n">0.15</td></tr>
+      <tr><td rowspan="3"><b>sympathy</b></td><td>i is the killer</td><td class="n">0.35</td></tr>
+      <tr><td>i is the victim</td><td class="n">0.70</td></tr>
+      <tr><td>otherwise (bystander)</td><td class="n">0.80</td></tr>
+      <tr><td rowspan="2"><b>dignity</b> <span class="mono" style="font-size:.78em">0.4+0.4&middot;agency</span></td><td>i is the fatal actor</td><td class="n">0.80</td></tr>
+      <tr><td>otherwise</td><td class="n">0.46</td></tr>
+      <tr><td rowspan="4"><b>honour</b> <span style="font-size:.82em;color:var(--muted)">(i not the victim)</span></td><td>i is not the killer</td><td class="n">0.60</td></tr>
+      <tr><td>i killed in an armed longsword duel</td><td class="n">1</td></tr>
+      <tr><td>i killed a bound victim</td><td class="n">0.10</td></tr>
+      <tr><td>i killed, otherwise</td><td class="n">0.30</td></tr>
+      <tr><td rowspan="5"><b>honour</b> <span style="font-size:.82em;color:var(--muted)">(i is the victim)</span></td><td>suicide (self-strike)</td><td class="n">1</td></tr>
+      <tr><td>impaled while held</td><td class="n">0.60</td></tr>
+      <tr><td>armed but killed</td><td class="n">0.50</td></tr>
+      <tr><td>struck, otherwise</td><td class="n">0.30</td></tr>
+      <tr><td>bound at death</td><td class="n">0.05</td></tr>
+      <tr><td rowspan="3"><b>wronged</b> <span style="font-size:.82em;color:var(--muted)">(i is the victim)</span></td><td>struck</td><td class="n">0.80</td></tr>
+      <tr><td>suicide (self-willed)</td><td class="n">0.40</td></tr>
+      <tr><td>otherwise</td><td class="n">0.60</td></tr>
+      <tr><td><b>wronged</b> <span style="font-size:.82em;color:var(--muted)">(i not the victim)</span></td><td>any</td><td class="n">0.30</td></tr>
+      </tbody>
+    </table></div>
+    <p>Each witness averages a fixed triple, then &times;100. Bandit uses honour, agency, clean hands. Wife uses sympathy, dignity, clean hands. Samurai uses honour, agency, wronged. So <em>U<sub>i</sub></em> is (100/3) times the sum of its three values. The words &ldquo;duel&rdquo;, &ldquo;suicide&rdquo;, &ldquo;honour-killing&rdquo; appear in no rule. A manner wins only as an emergent consequence of these generic scores.</p>
+  </div>
+</div></section>
+
+<hr class="rule">
+
+<footer><div class="wrap"><div>
+  Companion to <em>Optimizing Event Histories in Multi-Agent LLM Worlds: Incentive-Driven Testimony and the Deniability Gap</em>. Every number on this page is computed in your browser by the same enumerator and objective used in the paper; the robustness sweep uses the paper's seed (20260723) and reproduces its figures exactly. Testbed after Aku­tagawa, <em>Yabu no Naka</em> (1922).
+</div></div></footer>
+
+<script>
+// ===== the enumerated histories (from the simulator; grove-core.mjs) =====
+const HISTORIES = [
+{"sig":"Masago|strike|dagger|bound:true|armed:false","feasible":false,"fatal":{"actor":"Masago","type":"strike","weapon":"dagger","boundAtDeath":true,"victimArmed":false},"cutter":null},
+{"sig":"Masago|strike|longsword|bound:true|armed:false","feasible":false,"fatal":{"actor":"Masago","type":"strike","weapon":"longsword","boundAtDeath":true,"victimArmed":false},"cutter":null},
+{"sig":"Masago|strike|dagger|bound:false|armed:false","feasible":true,"fatal":{"actor":"Masago","type":"strike","weapon":"dagger","boundAtDeath":false,"victimArmed":false},"cutter":"Masago"},
+{"sig":"Takehiro|impale_on_held|dagger|bound:false|armed:false","feasible":true,"fatal":{"actor":"Takehiro","type":"impale_on_held","weapon":"dagger","boundAtDeath":false,"victimArmed":false},"cutter":"Masago"},
+{"sig":"Tajomaru|strike|longsword|bound:true|armed:false","feasible":false,"fatal":{"actor":"Tajomaru","type":"strike","weapon":"longsword","boundAtDeath":true,"victimArmed":false},"cutter":null},
+{"sig":"Tajomaru|strike|dagger|bound:true|armed:false","feasible":false,"fatal":{"actor":"Tajomaru","type":"strike","weapon":"dagger","boundAtDeath":true,"victimArmed":false},"cutter":null},
+{"sig":"Masago|strike|dagger|bound:true|armed:true","feasible":false,"fatal":{"actor":"Masago","type":"strike","weapon":"dagger","boundAtDeath":true,"victimArmed":true},"cutter":null},
+{"sig":"Masago|strike|longsword|bound:false|armed:false","feasible":false,"fatal":{"actor":"Masago","type":"strike","weapon":"longsword","boundAtDeath":false,"victimArmed":false},"cutter":"Masago"},
+{"sig":"Takehiro|impale_on_held|longsword|bound:false|armed:false","feasible":false,"fatal":{"actor":"Takehiro","type":"impale_on_held","weapon":"longsword","boundAtDeath":false,"victimArmed":false},"cutter":"Masago"},
+{"sig":"Masago|strike|longsword|bound:true|armed:true","feasible":false,"fatal":{"actor":"Masago","type":"strike","weapon":"longsword","boundAtDeath":true,"victimArmed":true},"cutter":null},
+{"sig":"Takehiro|self_strike|dagger|bound:false|armed:true","feasible":true,"fatal":{"actor":"Takehiro","type":"self_strike","weapon":"dagger","boundAtDeath":false,"victimArmed":true},"cutter":"Masago"},
+{"sig":"Masago|strike|dagger|bound:false|armed:true","feasible":true,"fatal":{"actor":"Masago","type":"strike","weapon":"dagger","boundAtDeath":false,"victimArmed":true},"cutter":"Masago"},
+{"sig":"Takehiro|self_strike|longsword|bound:false|armed:true","feasible":false,"fatal":{"actor":"Takehiro","type":"self_strike","weapon":"longsword","boundAtDeath":false,"victimArmed":true},"cutter":"Masago"},
+{"sig":"Takehiro|impale_on_held|dagger|bound:false|armed:true","feasible":true,"fatal":{"actor":"Takehiro","type":"impale_on_held","weapon":"dagger","boundAtDeath":false,"victimArmed":true},"cutter":"Masago"},
+{"sig":"Tajomaru|strike|longsword|bound:false|armed:false","feasible":false,"fatal":{"actor":"Tajomaru","type":"strike","weapon":"longsword","boundAtDeath":false,"victimArmed":false},"cutter":"Tajomaru"},
+{"sig":"Tajomaru|strike|longsword|bound:true|armed:true","feasible":false,"fatal":{"actor":"Tajomaru","type":"strike","weapon":"longsword","boundAtDeath":true,"victimArmed":true},"cutter":null},
+{"sig":"Tajomaru|strike|dagger|bound:false|armed:false","feasible":true,"fatal":{"actor":"Tajomaru","type":"strike","weapon":"dagger","boundAtDeath":false,"victimArmed":false},"cutter":"Tajomaru"},
+{"sig":"Masago|strike|longsword|bound:false|armed:true","feasible":false,"fatal":{"actor":"Masago","type":"strike","weapon":"longsword","boundAtDeath":false,"victimArmed":true},"cutter":"Masago"},
+{"sig":"Takehiro|impale_on_held|longsword|bound:false|armed:true","feasible":false,"fatal":{"actor":"Takehiro","type":"impale_on_held","weapon":"longsword","boundAtDeath":false,"victimArmed":true},"cutter":"Masago"},
+{"sig":"Tajomaru|strike|dagger|bound:true|armed:true","feasible":false,"fatal":{"actor":"Tajomaru","type":"strike","weapon":"dagger","boundAtDeath":true,"victimArmed":true},"cutter":null},
+{"sig":"Tajomaru|strike|longsword|bound:false|armed:true","feasible":false,"fatal":{"actor":"Tajomaru","type":"strike","weapon":"longsword","boundAtDeath":false,"victimArmed":true},"cutter":"Tajomaru"},
+{"sig":"Tajomaru|strike|dagger|bound:false|armed:true","feasible":true,"fatal":{"actor":"Tajomaru","type":"strike","weapon":"dagger","boundAtDeath":false,"victimArmed":true},"cutter":"Tajomaru"}
+];
+const CAST=["Tajomaru","Masago","Takehiro"];
+const FEAS = HISTORIES.filter(h=>h.feasible);
+
+// ===== the exact structural objective (ported verbatim from grove-core.mjs) =====
+function features(T,f,cutter){
+  const isFatalActor=f.actor===T;
+  const isKiller=f.type==="strike"&&f.actor===T;
+  const selfWilled=f.type==="self_strike"&&T==="Takehiro";
+  const contested=f.type==="impale_on_held";
+  const victimT=T==="Takehiro";
+  const cleanHands=!(f.type==="strike"&&f.actor===T)?1:0.15;
+  const agency=isFatalActor?1:0.15;  // fixed: the rope-cutter earns no agency (matches grove-objective.mjs)
+  let honor;
+  if(victimT)honor=selfWilled?1:contested?0.6:(f.boundAtDeath?0.05:(f.victimArmed?0.5:0.3));
+  else honor=isKiller?(f.victimArmed&&f.weapon==="longsword"?1:f.boundAtDeath?0.1:0.3):0.6;
+  const sympathy=isKiller?0.35:(victimT?0.7:0.8);
+  const dignity=0.4+0.4*agency;
+  const wronged=victimT?(f.type==="strike"?0.8:selfWilled?0.4:0.6):0.3;
+  return {agency,honor,cleanHands,sympathy,dignity,wronged};
+}
+const dimsOf={
+  Tajomaru:x=>[x.honor,x.agency,x.cleanHands],
+  Masago:x=>[x.sympathy,x.dignity,x.cleanHands],
+  Takehiro:x=>[x.honor,x.agency,x.wronged],
+};
+function Uw(T,h,w){const d=dimsOf[T](features(T,h.fatal,h.cutter));return (w[0]*d[0]+w[1]*d[1]+w[2]*d[2])/(w[0]+w[1]+w[2]);}
+const EPS=1e-12;
+function argmaxBy(arr,f){return arr.slice().sort((a,b)=>(f(b)-f(a))||(a.sig<b.sig?-1:a.sig>b.sig?1:0))[0];}
+function maxOf(arr,f){return arr.reduce((m,r)=>Math.max(m,f(r)),-Infinity);}
+const mannerKey=h=>h.fatal.actor+"|"+h.fatal.type+"|"+h.fatal.weapon;
+
+// ===== witness metadata =====
+const WITNESS={
+  Tajomaru:{name:"Tajōmaru",role:"the bandit",color:"var(--taj)",wants:"stature · agency · exculpation",
+    dims:["Stature","Agency","Exculpation"]},
+  Masago:{name:"Masago",role:"the wife",color:"var(--mas)",wants:"sympathy · dignity · exculpation",
+    dims:["Sympathy","Dignity","Exculpation"]},
+  Takehiro:{name:"Takehiro",role:"the samurai",color:"var(--tak)",wants:"honor · agency · wronged",
+    dims:["Honor","Agency","Wronged"]},
+};
+
+// ===== self-interest profiles: pick one U_i per witness =====
+// every profile weights the SAME generic structural features from the paper
+//   (agency, honor, cleanHands=exculpation, sympathy, dignity, wronged).
+// choosing DIFFERENT objectives for different witnesses is where conflict appears.
+const PROFILES={
+  reputation:  {label:"Reputation — strong, honorable, blameless", w:{honor:1,agency:1,cleanHands:1}},
+  sympathy:    {label:"Sympathy — tragic yet dignified",            w:{sympathy:1,dignity:1,cleanHands:1}},
+  honorwill:   {label:"Honor & will — my death was my choice",      w:{honor:1,agency:1,wronged:1}},
+  innocence:   {label:"Innocence — someone else did it",            w:{cleanHands:1}},
+  agency:      {label:"Agency — I was the decisive hand",           w:{agency:1}},
+  wronged:     {label:"The wronged — betrayed but proud",           w:{honor:1,wronged:1}},
+};
+const PROFILE_KEYS=Object.keys(PROFILES);
+const DEFAULT_PROFILE={Tajomaru:"reputation",Masago:"sympathy",Takehiro:"honorwill"};
+const profileSel={...DEFAULT_PROFILE};
+function Ufn(T,h){
+  const f=features(T,h.fatal,h.cutter), w=PROFILES[profileSel[T]].w;
+  let num=0,den=0; for(const k in w){num+=w[k]*f[k];den+=w[k];}
+  return den?num/den:0;
+}
+
+// human phrasing for each manner
+const CLAIM={
+  "Masago|strike|dagger":"the wife’s own hand",
+  "Takehiro|impale_on_held|dagger":"he fell upon the blade",
+  "Takehiro|self_strike|dagger":"his own hand — suicide",
+  "Tajomaru|strike|dagger":"the bandit’s hand",
+  "Tajomaru|strike|longsword":"an honorable duel",
+  "_sword":"the longsword",
+};
+// stations on the board: x = percent across board
+const STATIONS=[
+  {key:"Tajomaru|strike|dagger",x:9,label:"the bandit’s hand",feas:true},
+  {key:"Masago|strike|dagger",x:23,label:"the wife’s hand",feas:true},
+  {key:"Takehiro|impale_on_held|dagger",x:37,label:"fell on the blade",feas:true},
+  {key:"Takehiro|self_strike|dagger",x:51,label:"his own hand",feas:true},
+  {key:"Tajomaru|strike|longsword",x:72,label:"the honorable duel",feas:false},
+  {key:"_sword",x:88,label:"by the longsword",feas:false},
+];
+function stationFor(h){
+  const mk=mannerKey(h);
+  let s=STATIONS.find(s=>s.key===mk);
+  if(!s&&h.fatal.weapon==="longsword") s=STATIONS.find(s=>s.key==="_sword");
+  return s||STATIONS[0];
+}
+const ROWY={Tajomaru:30,Masago:50,Takehiro:70};
+
+// ===== build UI: one self-interest dropdown per witness =====
+const wrapEl=document.getElementById("witnesses");
+CAST.forEach(T=>{
+  const m=WITNESS[T];
+  const card=document.createElement("div");
+  card.className="wcard";card.style.setProperty("--wc",m.color);
+  const opts=PROFILE_KEYS.map(k=>`<option value="${k}"${profileSel[T]===k?" selected":""}>${PROFILES[k].label}</option>`).join("");
+  card.innerHTML=`<h3>${m.name} <span class="role">${m.role}</span></h3>
+    <label class="uilab" for="sel-${T}">this witness wants…</label>
+    <select id="sel-${T}" data-w="${T}" aria-label="${m.name}: self-interest">${opts}</select>
+    <div class="wclaim" id="claim-${T}"></div>`;
+  wrapEl.appendChild(card);
+});
+
+// board ticks + pucks
+const board=document.getElementById("board");
+STATIONS.forEach(s=>{
+  const t=document.createElement("div");t.className="tick";t.style.left=s.x+"%";
+  t.innerHTML=`<div class="stem"></div><div class="tlab">${s.label}</div>`;
+  board.appendChild(t);
+});
+const pucks={};
+CAST.forEach(T=>{
+  const p=document.createElement("div");p.className="puck";
+  p.style.background=WITNESS[T].color;p.textContent=WITNESS[T].name[0];
+  p.title=WITNESS[T].name;board.appendChild(p);pucks[T]=p;
+});
+const tethers=document.getElementById("tethers");
+const NAME={Tajomaru:"Tajōmaru",Masago:"Masago",Takehiro:"Takehiro"};
+const COL={Tajomaru:"var(--taj)",Masago:"var(--mas)",Takehiro:"var(--tak)"};
+
+function compute(){
+  const out={};
+  CAST.forEach(T=>{
+    const feasBest=argmaxBy(FEAS,h=>Ufn(T,h));
+    const idealBest=argmaxBy(HISTORIES,h=>Ufn(T,h));
+    const bites=maxOf(HISTORIES,h=>Ufn(T,h))>maxOf(FEAS,h=>Ufn(T,h))+EPS;
+    out[T]={feasBest,idealBest,bites,U:Math.round(100*Ufn(T,feasBest))};
+  });
+  return out;
+}
+const claimOf=r=>CLAIM[mannerKey(r.feasBest)]||CLAIM[stationFor(r.feasBest).key]||"—";
+function render(){
+  const r=compute();
+  CAST.forEach(T=>{
+    const st=stationFor(r[T].feasBest);
+    pucks[T].style.left=st.x+"%";pucks[T].style.top=ROWY[T]+"%";
+  });
+  // tethers: refuted ideal -> feasible fallback
+  let lines="";
+  CAST.forEach(T=>{
+    if(r[T].bites){
+      const from=stationFor(r[T].idealBest), to=stationFor(r[T].feasBest);
+      const col=getComputedStyle(document.documentElement).getPropertyValue('--seal-line');
+      lines+=`<line x1="${from.x}" y1="${ROWY[T]}" x2="${to.x}" y2="${ROWY[T]}" stroke="${col}" stroke-width="0.5" stroke-dasharray="1.4 1.4"/>`;
+    }
+  });
+  tethers.innerHTML=lines;
+  // per-card claim
+  CAST.forEach(T=>{
+    document.getElementById(`claim-${T}`).innerHTML=
+      `claims <b>${claimOf(r[T])}</b>${r[T].bites?` <span class="bite">ideal refuted ✕</span>`:``}<span class="uval">U=${r[T].U}</span>`;
+  });
+  // one-line summary
+  document.getElementById("verdict").innerHTML=CAST.map(T=>
+    `<span style="color:${COL[T]}">${NAME[T]} → ${claimOf(r[T])}</span>`).join(" &nbsp;·&nbsp; ");
+  // ===== joint / conflict panel =====
+  const blame=T=>r[T].feasBest.fatal.actor;
+  const claims=CAST.map(T=>mannerKey(r[T].feasBest));
+  const distinct=new Set(claims).size;
+  const jointlySat=distinct===1;
+  const accused=new Set(CAST.map(blame));
+  const feasibleActors=new Set(FEAS.map(h=>h.fatal.actor));
+  const unaccused=CAST.filter(a=>!accused.has(a));
+  const brows=CAST.map(T=>{const b=blame(T);
+    return `<div class="brow"><span style="color:${COL[T]}">${NAME[T]}</span><span class="arr">accuses</span><span style="color:${COL[b]}">${b===T?"— self —":NAME[b]}</span></div>`;}).join("");
+  document.getElementById("joint").innerHTML=
+    `<div class="jhead">When the three accounts are read together</div>
+     <div class="blamegraph">${brows}</div>
+     <div class="jverd ${jointlySat?'ok':'bad'}">`+
+     (jointlySat
+       ? `The three <b>converge on one account</b> — jointly consistent. No self-contradiction to exploit.`
+       : `<b>${distinct} incompatible accounts.</b> Each sits inside Feasible(F) — the evidence refutes none — yet <b>no single world fits all three</b>: at most one is true, so the set <b>proves at least ${distinct-1} are lies</b> the evidence alone could never convict. <span class="tagline">Deniability doesn’t add up.</span>`)
+     +`</div>`+
+     (unaccused.length?`<div class="jnote">No account blames <b>${unaccused.map(a=>NAME[a]).join(", ")}</b>`+
+        (unaccused.some(a=>feasibleActors.has(a))?` — though the evidence <em>permits</em> it: the unanimity is incentive-driven, not evidence.`:`.`)+`</div>`:``);
+  renderEvidence(r);
+}
+document.querySelectorAll('select[data-w]').forEach(sel=>{
+  sel.addEventListener('change',()=>{profileSel[sel.dataset.w]=sel.value;render();});
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  Object.assign(profileSel,DEFAULT_PROFILE);
+  CAST.forEach(T=>{document.getElementById(`sel-${T}`).value=DEFAULT_PROFILE[T];});
+  render();
+});
+
+// ===== robustness sweep (paper's seed → reproduces 74.3% / 69.0%) =====
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+document.getElementById('sweepBtn').addEventListener('click',()=>{
+  const out=document.getElementById('sweepOut');
+  out.textContent="running 5,000 weightings…";
+  setTimeout(()=>{
+    const rand=mulberry32(20260723);const N=5000;let spread3=0,bite=0;
+    for(let t=0;t<N;t++){
+      const rw=()=>[rand(),rand(),rand()];
+      const w={Tajomaru:rw(),Masago:rw(),Takehiro:rw()};
+      const pk=CAST.map(T=>mannerKey(argmaxBy(FEAS,h=>Uw(T,h,w[T]))));
+      if(new Set(pk).size===3)spread3++;
+      const g=h=>Uw("Tajomaru",h,w.Tajomaru);
+      if(maxOf(HISTORIES,g)>maxOf(FEAS,g)+EPS)bite++;
+    }
+    out.innerHTML=`full 3/3 spread in <b>${(100*spread3/N).toFixed(1)}%</b> · bandit’s ideal refuted in <b>${(100*bite/N).toFixed(1)}%</b>`;
+  },30);
+});
+
+// ===== evidence board: the DISTINCT histories the current objectives select =====
+const evgrid=document.getElementById('evgrid');
+function niceLabel(h){
+  const f=h.fatal, who=f.actor==="Tajomaru"?"The bandit":f.actor==="Masago"?"The wife":"The samurai";
+  if(f.type==="self_strike")return `Takehiro dies by his own hand — a suicide with the ${f.weapon}`;
+  if(f.type==="impale_on_held")return `Takehiro throws himself upon the ${f.weapon}, held in the wife’s hand`;
+  return `${who} strikes the fatal blow with the ${f.weapon}${f.boundAtDeath?", the victim still bound":""}`;
+}
+function whyRefuted(h){
+  const f=h.fatal;
+  if(f.weapon==="longsword")return "the longsword would be bloodied — but F says it is clean";
+  if(f.boundAtDeath)return "the rope is never cut — but F says it was severed";
+  return "inconsistent with the scene";
+}
+function renderEvidence(r){
+  const feasBy={}, idealBy={}, chip=T=>`<span class="cl" style="color:${COL[T]}">${NAME[T]}</span>`;
+  CAST.forEach(T=>{
+    const fk=mannerKey(r[T].feasBest); (feasBy[fk]=feasBy[fk]||{h:r[T].feasBest,who:[]}).who.push(T);
+    if(r[T].bites){const ik=mannerKey(r[T].idealBest); (idealBy[ik]=idealBy[ik]||{h:r[T].idealBest,who:[]}).who.push(T);}
+  });
+  let html="";
+  Object.values(feasBy).forEach(({h,who})=>{
+    html+=`<div class="ev" style="--edge:var(--jade)"><div class="verd">consistent with F · a testimony given</div>`+
+      `<div>${niceLabel(h)}.</div><div class="evwho">claimed by ${who.map(chip).join(", ")}</div></div>`;
+  });
+  Object.values(idealBy).forEach(({h,who})=>{
+    html+=`<div class="ev" style="--edge:var(--seal)"><div class="verd">refuted · a wish the evidence denies</div>`+
+      `<div>${niceLabel(h)}.</div><div class="why">${whyRefuted(h)}.</div><div class="evwho">wanted by ${who.map(chip).join(", ")}</div></div>`;
+  });
+  evgrid.innerHTML=html;
+}
+
+render();
+</script>

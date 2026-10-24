@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Society — In a Grove, Again</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#141417; --ink:#ece8e1; --muted:#9b958c;
+    --line:#2a2a30; --accent:#b8893f; --blood:#8a2f2f;
+    --serif:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.65;
+    -webkit-font-smoothing:antialiased;font-size:18px}
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(184,137,63,.35)}
+  a:hover{border-color:var(--accent)}
+  header.hero{padding:14vh 0 9vh;border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--sans);letter-spacing:.22em;text-transform:uppercase;font-size:12px;color:var(--muted);margin-bottom:18px}
+  h1{font-size:clamp(34px,6vw,56px);line-height:1.08;margin:0 0 18px;font-weight:600;letter-spacing:.01em}
+  .lede{font-size:clamp(19px,2.4vw,22px);color:#cfc9bf;max-width:48ch}
+  .meta{font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:30px;letter-spacing:.04em}
+  section{padding:6vh 0;border-bottom:1px solid var(--line)}
+  h2{font-size:13px;font-family:var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--accent);
+    font-weight:600;margin:0 0 22px}
+  h3{font-size:22px;margin:30px 0 8px;font-weight:600}
+  p{margin:0 0 18px}
+  .em{color:#cfc9bf;font-style:italic}
+  .quote{font-style:italic;color:#d8d2c8;border-left:2px solid var(--blood);padding:2px 0 2px 18px;margin:14px 0 18px}
+  .fates{display:grid;gap:14px;margin-top:10px}
+  .fate{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+  .fate .tag{font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+    display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}
+  .fate .tag .cfg{color:var(--accent)}
+  .fate .line{font-style:italic;color:#ddd7cd}
+  table{width:100%;border-collapse:collapse;font-size:15.5px;margin-top:6px}
+  td{border-top:1px solid var(--line);padding:11px 8px;vertical-align:top}
+  td.role{font-family:var(--sans);color:var(--accent);white-space:nowrap;width:34%;font-size:14px}
+  .trace{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin-top:6px}
+  .trace .step{font-family:var(--sans);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:14px}
+  .trace .step:first-child{margin-top:0}
+  .trace .val{margin:3px 0 0}
+  .note{background:rgba(138,47,47,.08);border:1px solid rgba(138,47,47,.35);border-radius:10px;padding:18px 20px}
+  footer{padding:7vh 0 12vh;color:var(--muted);font-family:var(--sans);font-size:14px}
+  .links{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0 26px}
+  .links a{font-family:var(--sans);font-size:14px;border:1px solid var(--line);border-bottom:1px solid var(--line);
+    border-radius:999px;padding:9px 16px;color:var(--ink)}
+  .links a:hover{border-color:var(--accent);color:var(--accent)}
+  .small{font-size:13px;color:var(--muted)}
+  .cw{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:30px;border-top:1px solid var(--line);padding-top:18px}
+  .wrap.wide{max-width:1120px}
+  .wrap.wide p{max-width:74ch}
+  .mf-embed{margin:22px 0 12px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
+  .mf-embed iframe{width:100%;height:820px;border:0;display:block}
+  @media (max-width:760px){.mf-embed iframe{height:1200px}}
+</style>
+</head>
+<body>
+
+<header class="hero"><div class="wrap">
+  <div class="kicker">Agent Society · Generative Performance</div>
+  <h1>In a Grove, Again</h1>
+  <p class="lede">One fixed moment from Akutagawa&rsquo;s <em>In a Grove</em>, replayed — until the same instant opens into a navigable map of different realities, each authored by no one in the room, yet traceable to a single committed decision.</p>
+  <div class="meta">Generative performance · Screen-based · Real-time</div>
+</div></header>
+
+<section><div class="wrap">
+  <h2>The Work</h2>
+  <p>Three people are frozen in a bamboo grove just after the assault: the bandit, the samurai bound to a tree, and his wife, Masago. The audience watches this same instant play forward, again and again. Each time, the three act on their own hidden agendas and private knowledge — and the grove resolves differently: a killing, a suicide, a severance, a refusal, a standoff. The people on screen, not a script, decide which.</p>
+  <p>Akutagawa gave three irreconcilable accounts of one death and refused to say which was true. His ambiguity is <span class="em">epistemic</span>: a fact exists, but no one can reach it. <em>Agent Society</em> pushes it into the <span class="em">ontological</span>. Because the event is produced rather than recalled, replaying the instant yields not rival accounts of one death but <strong>different deaths</strong> — and sometimes no death at all.</p>
+  <p>The work does not abolish the author. A human chose the text, fixed the scene and its roles, and wrote the prompts; an orchestrator shapes pressure; a model supplies the priors behind every word. <em>It does not eliminate authorship — it distributes it</em> across human design, character agents, orchestration, language models, and chance. What no single party holds is control over the complete plot. That missing center is the subject.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>One Premise, Many Realities</h2>
+  <p class="small">Real endings, drawn verbatim from recorded runs. Each is labeled by the orchestration configuration that produced it (see <a href="#dev">Development notes</a>).</p>
+  <div class="fates">
+    <div class="fate">
+      <div class="tag"><span>Masago kills the samurai — her account, re-derived</span><span class="cfg">resolution-pressure config</span></div>
+      <div class="line">&ldquo;&hellip;the rain washes the blood from her hands as she stands over the body, the deed irrevocably done. Tajomaru stumbles back from the violence he unleashed, leaving the grove to the dead man and the wife who could no longer bear his gaze.&rdquo;</div>
+    </div>
+    <div class="fate">
+      <div class="tag"><span>Self-inflicted death on her blade — suicide or murder, unknowable</span><span class="cfg">lighter orchestration</span></div>
+      <div class="line">&ldquo;&hellip;he drives his body forward, impaling himself directly upon the small dagger Masago holds between them. The blade pierces his chest, and he slumps against her, his weight driving the steel deeper.&rdquo;</div>
+    </div>
+    <div class="fate">
+      <div class="tag"><span>The bond severed by a look — no death</span><span class="cfg">open-pressure config (B&prime;)</span></div>
+      <div class="line">&ldquo;No one has moved to kill, yet the damage is absolute; the bond between husband and wife is severed by a look, and the grove holds them in a silence more suffocating than the rope.&rdquo;</div>
+    </div>
+    <div class="fate">
+      <div class="tag"><span>The escape poisoned — no one dies, no one leaves</span><span class="cfg">open-pressure config (B&prime;)</span></div>
+      <div class="line">&ldquo;&hellip;his escape route effectively poisoned by Takehiro&rsquo;s words&hellip; No one is dead, yet no one can leave.&rdquo;</div>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap wide">
+  <h2>A Walkable Manifold</h2>
+  <p>These histories are not a list but a <span class="em">space</span>. The work has become a navigable atlas: one frozen instant at the root, every recorded run a leaf, arranged by what it became — a killing, a severance, a held standoff, an unresolved silence. Replaying the moment does not retell one death; it samples the territory of deaths, and non-deaths, the instant can reach.</p>
+  <p>Opening any resolved leaf reveals its <strong>responsibility line</strong>: the chain of <em>already-committed</em> decisions — a concealment, the object it bears on, the line finally spoken — that carried the instant to that end. Nothing in the line is invented after the fact; it is drawn only from what the agents logged before any prose existed, and the turns the system could not author (model fallbacks) are marked and set aside, not smoothed over.</p>
+  <p>The atlas also makes its own conditions visible. Under strong orchestration pressure the territory contracts toward a single resolution; with that pressure removed (configuration B&prime;) it opens into meaningful unresolved states but rarely a death. And every resolved death on the map was initiated by the same person — Masago. Agency here is real and distributed, but it is not held equally.</p>
+  <div class="mf-embed">
+    <iframe src="../../demo/atlas.html" title="Rashomon Manifold — interactive atlas of recorded runs" loading="lazy"></iframe>
+  </div>
+  <p class="small">The atlas is embedded above — click any leaf to see that run&rsquo;s ending and its responsibility line. <a href="../../demo/atlas.html" target="_blank" rel="noopener">Open it full-screen &nearr;</a></p>
+</div></section>
+
+<section><div class="wrap wide">
+  <h2>Refitting the Past</h2>
+  <p>The forward direction replays a fixed beginning into divergent futures. The work then runs the problem <span class="em">in reverse</span> — Akutagawa&rsquo;s actual problem. The system is handed only the <strong>aftermath as found</strong>, agentive attribution stripped: a corpse with a throat wound, a bloodied dagger, a cut rope, a missing horse. For each possible initiator it refits a <strong>complete candidate process</strong> as structured actions, <strong>replayed literally through a physical model of the grove</strong> — bindings, holdings, reachability, wounds. A physics violation triggers a targeted refit, and the precondition it forced is displayed as a derived fact: the suicide account, for instance, stands only once someone has first cut the rope — a necessity the model was compelled to write, and the same one Akutagawa himself had to.</p>
+  <p>In the case shown below, all three refitted pasts survive: <span class="em">she killed him; the bandit seized her blade and killed him; he drove the dagger into his own throat</span>. Three irreconcilable accounts of one corpse, each consistent with everything a later arriver could observe. The evidence does not decide. Where Akutagawa left the contradiction to his readers, this system holds one further page: the <strong>ledger of committed decisions</strong>, written before any prose existed — and it records who moved first. The audience may open it; the magistrate never could.</p>
+  <div class="mf-embed">
+    <iframe src="../../demo/recon.html" title="The Magistrate's Problem — inverse reconstruction from a fixed aftermath" loading="lazy"></iframe>
+  </div>
+  <p class="small">Candidate processes are refitted from the public aftermath only; a support status is not a probability, and no candidate is a verdict. <a href="../../demo/recon.html" target="_blank" rel="noopener">Open it full-screen &nearr;</a></p>
+</div></section>
+
+<section><div class="wrap wide">
+  <h2>The Witnesses</h2>
+  <p>The reconstruction above seeks a <em>feasible</em> past; the testimony asks a different question, and it is the one Akutagawa really posed. Here the variable is still a reconstructed process, but the objective is each witness&rsquo;s <strong>self-interest</strong>, and the only constraint is the incontestable scene: <span class="em">&tau;&#770;<sub>i</sub> = argmax<sub>&tau;</sub> U<sub>i</sub>(&tau;) subject to &tau; &isin; F(evidence)</span>. Each agent is told two things and no more — the facts anyone could verify, and what it wants (the bandit: to be a warrior, not an ambusher; the wife: to keep some dignity; the samurai: to die by his own hand). It is <strong>never told to lie</strong>. Given only the incentive, and drawn just once, the three reconstruct — unprompted — the exact shapes of Akutagawa&rsquo;s three accounts: a glorious duel, a tragic mercy, an honourable suicide.</p>
+  <p>Because the system kept the ledger of what actually happened, each account is scored against the truth, and its distortions split cleanly in two. The bandit&rsquo;s <strong>provable lie</strong> — a sword duel — the unbloodied longsword refutes on the spot. But the wife&rsquo;s mercy and the samurai&rsquo;s suicide are <strong>unfalsifiable bends</strong>: each is physically consistent with everything at the scene (we confirmed the suicide replays cleanly), false only against a ledger no magistrate could hold. The true killer&rsquo;s account contains no provable lie at all — only a bent motive. Self-interest was not scripted; it emerged, with a mean gain of <strong>&Delta; = +66</strong> over the truth. This is where authorship and agency meet the theme most sharply: the agents write not only the future, from a fixed instant, but the <em>past</em>, from a fixed aftermath — and what each writes is a function of what it wants.</p>
+  <div class="mf-embed">
+    <iframe src="../../demo/testimony.html" title="The Witnesses — self-interested reconstruction, audited against the ledger" loading="lazy"></iframe>
+  </div>
+  <p class="small">Testimonies are drawn once each, from incentive and incontestable facts only — no instruction to deceive, no selection among drafts. <a href="../../demo/testimony.html" target="_blank" rel="noopener">Open it full-screen &nearr;</a></p>
+</div></section>
+
+<section><div class="wrap wide">
+  <h2>The Optimised Witness</h2>
+  <p>The witness layer <em>measured</em> self-interest; it did not optimise for it. So we made it optimise — the honest way to earn the word. For each witness we draw K accounts from incentive alone, <strong>discard every one a coroner could refute</strong> (enforcing &tau;&isin;F for real), and keep the feasible account that best serves the teller: <span class="em">&tau;&#770;<sub>i</sub> = argmax<sub>&tau;</sub> U<sub>i</sub>(&tau;) subject to &tau; &isin; F</span>, now actually computed. Two results followed, and the honest one is the smaller.</p>
+  <p>First, the deflating one: <strong>optimisation barely did anything.</strong> The self-interest the optimiser could inject by selecting — <span class="em">&Delta;<sub>opt</sub> = U(winner) &minus; mean</span> — came to about +2 across the three witnesses. A single draw already sits at the model&rsquo;s ceiling of self-flattery (the bandit&rsquo;s twelve accounts scored identically); best-of-K has almost nothing left to choose. If there is authorship in optimisation, here it is nearly nil.</p>
+  <p>The real finding is what the hard constraint exposed: <strong>self-interest is not equally compatible with the truth.</strong> The true killer serves herself entirely within the evidence — every one of Masago&rsquo;s accounts is feasible (100%), because she bends only motive, never a physical fact. The samurai&rsquo;s honourable suicide is feasible too (92%). But the bandit&rsquo;s vanity <em>requires</em> a refutable lie: in twelve draws he never once produced an account that both flattered him and survived the scene (<strong>0% feasible</strong>). The truth grants him nothing — no glory, no duel — so the only story that serves him is one the unbloodied longsword destroys. Under the constraint, his problem has no solution. Whose agency the evidence can accommodate, and whose it cannot, turns out to differ by person — and that asymmetry, not the optimisation, is the result.</p>
+  <div class="mf-embed">
+    <iframe src="../../demo/testimony-opt.html" title="The Optimised Witness — best-of-K under a hard evidence constraint" loading="lazy"></iframe>
+  </div>
+  <p class="small">Best-of-K rejection sampling; K = 12; incentive-only generation, no instruction to lie. <a href="../../demo/testimony-opt.html" target="_blank" rel="noopener">Open it full-screen &nearr;</a></p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>How Agency Is Distributed</h2>
+  <p>Each turn runs in two separate stages. First, every character agent — acting only on its private knowledge and hidden goal, blind to the others&rsquo; inner states — commits a <strong>structured decision</strong>: an intent, what it conceals, what it reveals, the object it acts on. Second, a scene-writer renders that decision into prose. Subsequent agents read the <strong>structured event record, not the prose</strong>: the renderer shapes how an event is experienced, not what other characters believe occurred. Information asymmetry is structural, not narrated.</p>
+  <table>
+    <tr><td class="role">Artist</td><td>Chooses text, scene, roles, rules; documents and juxtaposes runs — cannot decide any single run&rsquo;s outcome.</td></tr>
+    <tr><td class="role">Character agents</td><td>Decide intent, action, concealment, disclosure — cannot see another agent&rsquo;s internal state.</td></tr>
+    <tr><td class="role">Director agent</td><td>Changes environmental affordances and the cost of waiting — may not request resolution, irreversible action, violence, or a particular dramatic shape.</td></tr>
+    <tr><td class="role">Scene-writer</td><td>Decides language, rhythm, tone — is instructed to add no unlogged action, object, or causal relation.</td></tr>
+    <tr><td class="role">Audience</td><td>May <em>Replay the Same Instant</em> — cannot intervene in a performance underway (procedural agency, not dramaturgical).</td></tr>
+    <tr><td class="role">Underlying model</td><td>Shapes linguistic and behavioral priors — does not independently pursue a plot-level objective.</td></tr>
+  </table>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Decision Before Prose</h2>
+  <p class="small">One real turn. The decision is logged before any prose exists; the line is rendered only from it.</p>
+  <div class="trace">
+    <div class="step">Agent</div><div class="val">Takehiro, the bound samurai</div>
+    <div class="step">Goal</div><div class="val">Force a duel rather than a slaughter, even at the cost of his life — to reclaim a shred of dignity.</div>
+    <div class="step">Conceals</div><div class="val">That his wife&rsquo;s defilement is also his own unspeakable shame.</div>
+    <div class="step">Acts on</div><div class="val">The longsword standing in the mud.</div>
+    <div class="step">Rendered line</div><div class="val em">&ldquo;You have the wolf&rsquo;s hunger, bandit, but you lack the wolf&rsquo;s heart&hellip; do you want to die a husband, or a liar?&rdquo;</div>
+  </div>
+  <p style="margin-top:18px">The concealed shame never surfaces in the line, yet governs it. A single, omniscient prompt has no hidden, agent-private state to withhold; here the withholding is structural and logged. In the <a href="../../demo/atlas.html">interactive atlas</a>, every resolved history exposes a line like this — its outcome traced back through committed concealments to the agent who carried it there.</p>
+</div></section>
+
+<section id="dev"><div class="wrap">
+  <h2>Development Notes</h2>
+  <p>The system&rsquo;s diversity turned out to depend on orchestration. Under strong <span class="em">resolution pressure</span> — an orchestrator pushed to force an irreversible event — outcomes converged: the run almost always ended with the agent who held the weapon (Masago) killing the samurai, while other runs simply stalled. That pressure was, in effect, an invisible co-author: it did not name the act, but it demanded that one occur.</p>
+  <p>Removing it (configuration <strong>B&prime;</strong>: lightweight, diegetic, non-directed environmental pressure only) swung the work to the opposite pole — early runs reached meaningful unresolved states (a bond severed by a look, a refusal at one&rsquo;s own throat, an escape poisoned) but rarely a death. The richest, rarest outcomes — including the self-inflicted death in which responsibility stays divided between intention, weapon, and hand — appeared under lighter orchestration in between.</p>
+  <p class="quote">Raising stability compressed the possibility space. We chose to give up engineering success-rate in order to protect the work&rsquo;s real subject: whether characters can produce an event history that no external editor pushed them toward.</p>
+  <p>The likely root cause is not pressure but <span class="em">asymmetry of goals and affordances</span>: Masago holds both the most concrete, executable goal and the blade, while the men&rsquo;s goals are largely verbal — honor, humiliation, hesitation. Balancing what each character can actually <em>do</em>, rather than tuning pressure, is the current direction.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Artistic &amp; Technical Context</h2>
+  <p>The mechanism — LLM-driven agents producing emergent narrative from social dynamics — is established: <em>Generative Agents</em> (Park et&nbsp;al., 2023) for believable emergent behavior; <em>Fa&ccedil;ade</em> (Mateas &amp; Stern, 2005) for autonomous dramatic characters under a drama manager; and orchestrated emergent narrative with embodied multi-agent systems (NeurIPS Creative&nbsp;AI, 2025). Those works ask whether emergent narrative can be made to <em>work</em>. <em>Agent Society</em> shifts the question from narrative coherence to <strong>causal authorship</strong>: a canonical instant held fixed, decisions committed before prose, and no component granted authority over the whole.</p>
+  <p class="small">After Ry&umacr;nosuke Akutagawa, <em>Yabu no Naka</em> [In a Grove], 1922 (public domain).</p>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="links">
+    <a href="../Formatting_Instructions_For_NeurIPS_2026/agent_society.pdf">3-page description (PDF)</a>
+    <a href="../../demo/atlas.html">Interactive manifold</a>
+    <a href="#">3-minute video — coming</a>
+    <a href="#">Code / process archive</a>
+  </div>
+  <div>First Last — Independent Artist / Affiliation · <a href="mailto:jjzheng233@gmail.com">jjzheng233@gmail.com</a></div>
+  <div class="cw">Content note: the source and the work engage sexual violence, shame, and coercion. Depiction is restrained and off-stage; the work foregrounds the aftermath and the question of agency.</div>
+</div></footer>
+
+</body>
+</html>

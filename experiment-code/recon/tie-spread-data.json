@@ -1,0 +1,108 @@
+{
+ "note": "tie-break robustness of Table 1's \"distinct accounts selected: 3/3\"",
+ "grove": {
+  "feasible": 11,
+  "widths": [
+   7,
+   7,
+   1
+  ],
+  "profiles": 49,
+  "fractions": {
+   "r.sig (benchmark key)": {
+    "three": 34,
+    "total": 49,
+    "pct": 69.4
+   },
+   "fatal act (claimKey)": {
+    "three": 32,
+    "total": 49,
+    "pct": 65.3
+   }
+  },
+  "banditTiedActors": [
+   "Masago",
+   "Takehiro"
+  ],
+  "banditBlamesAnotherInAllTies": true
+ },
+ "ring": {
+  "feasible": 36,
+  "widths": [
+   2,
+   2,
+   4
+  ],
+  "profiles": 16,
+  "fractions": {
+   "r.assertion (benchmark key)": {
+    "three": 16,
+    "total": 16,
+    "pct": 100
+   }
+  },
+  "distinctKillerValues": 1
+ },
+ "site": {
+  "feasible": 162,
+  "widths": [
+   4,
+   2,
+   36
+  ],
+  "profiles": 288,
+  "fractions": {
+   "r.sig (benchmark key)": {
+    "three": 286,
+    "total": 288,
+    "pct": 99.3
+   },
+   "fatal act (actor|cause)": {
+    "three": 0,
+    "total": 288,
+    "pct": 0
+   }
+  },
+  "coordinates": [
+   "victim",
+   "actor",
+   "cause",
+   "railInPlace",
+   "railRemovedBy",
+   "harnessIssuedBy",
+   "tagSignedBy",
+   "inspectedBy"
+  ],
+  "coordinatesUnreadByEveryU": []
+ },
+ "ops": {
+  "feasible": 48,
+  "widths": [
+   4,
+   8,
+   9
+  ],
+  "profiles": 288,
+  "fractions": {
+   "r.sig (benchmark key)": {
+    "three": 288,
+    "total": 288,
+    "pct": 100
+   },
+   "fatal act (actor)": {
+    "three": 0,
+    "total": 288,
+    "pct": 0
+   }
+  },
+  "coordinates": [
+   "actor",
+   "author",
+   "decider",
+   "channel",
+   "intent",
+   "flag"
+  ],
+  "coordinatesUnreadByEveryU": []
+ }
+}

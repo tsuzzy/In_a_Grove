@@ -1,0 +1,184 @@
+\begin{thebibliography}{28}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Hobbs et~al.(1993)Hobbs, Stickel, Appelt, and
+  Martin]{hobbs1993abduction}
+Jerry~R. Hobbs, Mark~E. Stickel, Douglas~E. Appelt, and Paul Martin.
+\newblock Interpretation as abduction.
+\newblock \emph{Artificial Intelligence}, 63\penalty0 (1--2):\penalty0 69--142,
+  1993.
+
+\bibitem[Kautz and Allen(1986)]{kautz1986recognition}
+Henry~A. Kautz and James~F. Allen.
+\newblock Generalized plan recognition.
+\newblock In \emph{Proc. AAAI}, 1986.
+
+\bibitem[Ram\'{\i}rez and Geffner(2010)]{ramirez2010recognition}
+Miquel Ram\'{\i}rez and Hector Geffner.
+\newblock Probabilistic plan recognition using off-the-shelf classical
+  planners.
+\newblock In \emph{Proc. AAAI}, 2010.
+
+\bibitem[Baker et~al.(2009)Baker, Saxe, and Tenenbaum]{baker2009inverse}
+Chris~L. Baker, Rebecca Saxe, and Joshua~B. Tenenbaum.
+\newblock Action understanding as inverse planning.
+\newblock \emph{Cognition}, 113\penalty0 (3):\penalty0 329--349, 2009.
+
+\bibitem[Bex et~al.(2010)Bex, van Koppen, Prakken, and Verheij]{bex2010hybrid}
+Floris~J. Bex, Peter~J. van Koppen, Henry Prakken, and Bart Verheij.
+\newblock A hybrid formal theory of arguments, stories and criminal evidence.
+\newblock \emph{Artificial Intelligence and Law}, 18\penalty0 (2):\penalty0
+  123--152, 2010.
+
+\bibitem[Park et~al.(2023)Park, O'Brien, Cai, Morris, Liang, and
+  Bernstein]{park2023generative}
+Joon~Sung Park, Joseph~C. O'Brien, Carrie~J. Cai, Meredith~Ringel Morris, Percy
+  Liang, and Michael~S. Bernstein.
+\newblock Generative agents: Interactive simulacra of human behavior.
+\newblock In \emph{Proc. ACM UIST}, pages 1--22, 2023.
+
+\bibitem[Mateas and Stern(2005)]{facade2005}
+Michael Mateas and Andrew Stern.
+\newblock Structuring content in the {Fa\c{c}ade} interactive drama
+  architecture.
+\newblock In \emph{Proc. AIIDE}, pages 93--98, 2005.
+
+\bibitem[Riedl and Young(2010)]{riedl2010narrative}
+Mark~O. Riedl and Robert~Michael Young.
+\newblock Narrative planning: Balancing plot and character.
+\newblock \emph{Journal of Artificial Intelligence Research}, 39:\penalty0
+  217--268, 2010.
+
+\bibitem[Ware and Young(2014)]{ware2014glaive}
+Stephen~G. Ware and Robert~Michael Young.
+\newblock Glaive: A state-space narrative planner supporting intentionality and
+  conflict.
+\newblock In \emph{Proc. AIIDE}, 2014.
+
+\bibitem[Mital et~al.(2025)Mital, Rosetter, Prieto, Zurita, and
+  Browning]{orchestrating2025}
+Parag~K. Mital, Seth Rosetter, Arturo~Castro Prieto, Jacobo~Heredia Zurita, and
+  Breanna Browning.
+\newblock Orchestrating emergent storytelling with embodied multi-agent
+  systems.
+\newblock In \emph{The Thirty-ninth Annual Conference on Neural Information
+  Processing Systems Creative AI Track: Humanity}, 2025.
+
+\bibitem[{Meta Fundamental AI Research Diplomacy Team}
+  et~al.(2022)]{meta2022diplomacy}
+{Meta Fundamental AI Research Diplomacy Team} et~al.
+\newblock Human-level play in the game of {Diplomacy} by combining language
+  models with strategic reasoning.
+\newblock \emph{Science}, 378\penalty0 (6624):\penalty0 1067--1074, 2022.
+
+\bibitem[Akata et~al.(2025)Akata, Schulz, Coda-Forno, Oh, Bethge, and
+  Schulz]{akata2025repeated}
+Elif Akata, Lion Schulz, Julian Coda-Forno, Seong~Joon Oh, Matthias Bethge, and
+  Eric Schulz.
+\newblock Playing repeated games with large language models.
+\newblock \emph{Nature Human Behaviour}, 9:\penalty0 1380--1390, 2025.
+\newblock \doi{10.1038/s41562-025-02172-y}.
+
+\bibitem[Crawford and Sobel(1982)]{crawford1982cheaptalk}
+Vincent~P. Crawford and Joel Sobel.
+\newblock Strategic information transmission.
+\newblock \emph{Econometrica}, 50\penalty0 (6):\penalty0 1431--1451, 1982.
+
+\bibitem[Kartik(2009)]{kartik2009lying}
+Navin Kartik.
+\newblock Strategic communication with lying costs.
+\newblock \emph{Review of Economic Studies}, 76\penalty0 (4):\penalty0
+  1359--1395, 2009.
+
+\bibitem[Zhu et~al.(2026)Zhu, Lin, Kaistha, Li, Wang, Zha, Hadfield, and
+  Poupart]{zhu2026talk}
+Shuhui Zhu, Yue Lin, Shriya Kaistha, Wenhao Li, Baoxiang Wang, Hongyuan Zha,
+  Gillian~K. Hadfield, and Pascal Poupart.
+\newblock Talk, judge, cooperate: Gossip-driven indirect reciprocity in
+  self-interested llm agents.
+\newblock In \emph{Proceedings of the 43rd International Conference on Machine
+  Learning (ICML)}, 2026.
+
+\bibitem[Tewolde et~al.(2026)Tewolde, Zhang, {Guzman Piedrahita}, Conitzer, and
+  Jin]{tewolde2026coopeval}
+Emanuel Tewolde, Xiao Zhang, David {Guzman Piedrahita}, Vincent Conitzer, and
+  Zhijing Jin.
+\newblock Coopeval: Benchmarking cooperation-sustaining mechanisms and llm
+  agents in social dilemmas, 2026.
+
+\bibitem[Ren et~al.(2025)Ren, Fu, Zou, Shen, Cai, Chu, Wang, and
+  Hu]{ren2025reputation}
+Siyue Ren, Wanli Fu, Xinkun Zou, Chen Shen, Yi~Cai, Chen Chu, Zhen Wang, and
+  Shuyue Hu.
+\newblock Reputation as a solution to cooperation collapse in llm-based mass,
+  2025.
+
+\bibitem[Ellawela(2026)]{ellawela2026trust}
+Suveen Ellawela.
+\newblock Trust, lies, and long memories: Emergent social dynamics and
+  reputation in multi-round avalon with llm agents, 2026.
+
+\bibitem[Perez et~al.(2023)]{perez2023discovering}
+Ethan Perez et~al.
+\newblock Discovering language model behaviors with model-written evaluations.
+\newblock In \emph{Findings of ACL}, pages 13387--13434, 2023.
+
+\bibitem[Scheurer et~al.(2023)Scheurer, Balesni, and
+  Hobbhahn]{scheurer2024deception}
+J\'er\'emy Scheurer, Mikita Balesni, and Marius Hobbhahn.
+\newblock Large language models can strategically deceive their users when put
+  under pressure.
+\newblock arXiv:2311.07590, 2023.
+
+\bibitem[Pacchiardi et~al.(2024)Pacchiardi, Chan, Mindermann, Moscovitz, Pan,
+  Gal, Evans, and Brauner]{pacchiardi2024liar}
+Lorenzo Pacchiardi, Alex~J. Chan, S\"oren Mindermann, Ilan Moscovitz, Alexa~Y.
+  Pan, Yarin Gal, Owain Evans, and Jan Brauner.
+\newblock How to catch an {AI} liar: Lie detection in black-box {LLMs} by
+  asking unrelated questions.
+\newblock In \emph{ICLR}, 2024.
+
+\bibitem[Evans et~al.(2021)Evans, Cotton-Barratt, Finnveden,
+  et~al.]{evans2021truthful}
+Owain Evans, Owen Cotton-Barratt, Lukas Finnveden, et~al.
+\newblock Truthful {AI}: Developing and governing {AI} that does not lie.
+\newblock arXiv:2110.06674, 2021.
+
+\bibitem[Lin et~al.(2022)Lin, Hilton, and Evans]{lin2022truthfulqa}
+Stephanie Lin, Jacob Hilton, and Owain Evans.
+\newblock {TruthfulQA}: Measuring how models mimic human falsehoods.
+\newblock In \emph{Proc. ACL}, pages 3214--3252, 2022.
+
+\bibitem[Turpin et~al.(2023)Turpin, Michael, Perez, and
+  Bowman]{turpin2023unfaithful}
+Miles Turpin, Julian Michael, Ethan Perez, and Samuel~R. Bowman.
+\newblock Language models don't always say what they think: Unfaithful
+  explanations in chain-of-thought prompting.
+\newblock In \emph{NeurIPS}, 2023.
+
+\bibitem[Fikes and Nilsson(1971)]{fikes1971strips}
+Richard~E. Fikes and Nils~J. Nilsson.
+\newblock {STRIPS}: A new approach to the application of theorem proving to
+  problem solving.
+\newblock \emph{Artificial Intelligence}, 2\penalty0 (3--4):\penalty0 189--208,
+  1971.
+
+\bibitem[Ghallab et~al.(2004)Ghallab, Nau, and Traverso]{ghallab2004planning}
+Malik Ghallab, Dana Nau, and Paolo Traverso.
+\newblock \emph{Automated Planning: Theory and Practice}.
+\newblock Morgan Kaufmann, 2004.
+
+\bibitem[Akutagawa(1922)]{akutagawa1922}
+Ryunosuke Akutagawa.
+\newblock Yabu no naka [in a grove], 1922.
+
+\bibitem[Browning(1869)]{browning1869}
+Robert Browning.
+\newblock \emph{The Ring and the Book}.
+\newblock Smith, Elder and Co., 1869.
+
+\end{thebibliography}

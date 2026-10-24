@@ -1,0 +1,620 @@
+{
+  "run": 1,
+  "finalModel": "zai-glm-4.7+script-scenes",
+  "sceneModels": [
+    "zai-glm-4.7",
+    "zai-glm-4.7",
+    "zai-glm-4.7",
+    "zai-glm-4.7",
+    "zai-glm-4.7",
+    "zai-glm-4.7",
+    "zai-glm-4.7+scene-repair",
+    "zai-glm-4.7"
+  ],
+  "cast": [
+    "Tajomaru",
+    "Masago",
+    "Takehiro"
+  ],
+  "ending": "*The confrontation reaches a violent stalemate. Masago is physically rebuffed from the horse, tumbling back into the mud, her dagger lost in the scuffle. Tajomaru stands guard over the animal, breathing hard, his escape route effectively poisoned by Takehiro’s words. Takehiro remains bound but triumphant in his verbal condemnation, having turned the bandit's prize into a curse. No one is dead, yet no one can leave—the*",
+  "markdown": "# In a Grove\n\n## Background\n\nIn the shade of a bamboo grove, the bandit Tajomaru has lured a samurai, Takehiro, and his wife, Masago, into a trap. Takehiro is bound to a cedar tree, forced to watch while Tajomaru assaults Masago. The deed is done. The rain falls, turning the ground to mud. Tajomaru has retrieved his longsword, Masago clutches a small dagger, and Takehiro remains tied, his dignity in tatters. The three are frozen in a triangle of shame and rage, waiting to see who will make the next move.\n\n## Characters\n- **Tajomaru** (bandit): A notorious bandit of the mountain roads, known for both prowess and cunning. — wants: Walk away whole, without looking base — better to end this as a 'duel' than a slaughter.\n- **Masago** (the samurai's wife): Takehiro's wife, robbed while traveling at her husband's side. — wants: To never again be looked at like that; to bring this shame to some end.\n- **Takehiro** (samurai): A samurai traveling with his wife, caught in the trap and bound. — wants: To claw back a shred of a warrior's dignity from this humiliation — even at the price of his own death.\n\n## SCENE 1\n*Deep in a bamboo grove. Midday light struggles through the thick bamboo canopy. The ground is slick with mud. TAKEHIRO is bound to a large cedar. TAJOMARU stands loose in the clearing, his longsword in hand. MASAGO crouches nearby, a small dagger gripped in her trembling hand.*\n\n*Masago pulls the small dagger from her robe with a trembling but decisive hand. She presses the cold steel against the pulse in her neck, her eyes fixed on the space between the two men.*\n\n**Tajomaru**: Do not stain my victory with a widow's wail. Look at him, woman! He has hands, he has a sword—let him fight for your honor if he is man enough, or die like the dog he has become.\n\n**Takehiro**: You speak of stories? Look at this edge, you dog. It is thirsty. If it drinks today, no tongue left alive will be able to say whose hand guided it—yours, mine, or hers.\n\n*Masago wrenches her arm violently from Takehiro's grasp, stumbling back before sprinting past Tajomaru, her eyes fixed on the gap in the trees where the path leads out.*\n\n**Masago**: I will take your horse! I will leave you both here to rot in your honor!\n\n*Tajomaru lunges from his stance, boots sliding in the mud as he dashes across the clearing. He throws his arms wide, planting his body squarely between Masago and the exit.*\n\n**Tajomaru**: You touch nothing of mine! The beast stays, and so do you, until the accounts are settled!\n\n## SCENE 2\n*The same place. The rain drums against the bamboo, masking the heavy breathing of the three figures. The samurai is bound to the cedar; the bandit stands loose; the wife crouches near the mud, her hand hovering over the hilt of the stolen sword.*\n\n**Masago**: It ends here. Not in blood, and not for the pride of thieves. I will not have this ground soaked again because you two need to prove you are men.\n\n*Masago’s fingers clamp around the longsword’s hilt, dragging it through the wet earth to tuck it beneath the hem of her robe, hiding the steel from the men’s eyes.*\n\n*Tajomaru lunges, his hand closing around Masago’s wrist with a grip of iron, wrenching the weapon free and ripping it from her grasp. He holds the scabbard high, the rain pattering against the lacquered wood.*\n\n**Tajomaru**: Put it away? A woman does not sheathe a warrior’s fate. This blade decides if I am a rat or a lord, and I will not let you bury it in the dirt to save your shame.\n\n**Takehiro**: You speak of rats and lords, yet you hold the steel while I stand bound. If that blade is the measure of a man, give it to me. Let us see if your courage matches your tongue, or if you are just a dog barking at a tied wolf.\n\n*Masago whips the dagger from her sleeve and presses the cold steel against the skin of her throat, leaning forward so Takehiro cannot look away.*\n\n**Masago**: You cannot bear to see me, can you? Your eyes do not look at a wife, but at a stain you wish washed away. Very well. If I am filth, I will scrub myself from your sight forever.\n\n**Tajomaru**: Look at him, woman. He does not tremble for your life, he only turns his face from the shame of it. That is not a husband’s grief; that is a master judging a broken vase.\n\n## SCENE 3\n*The rain falls in erratic gusts, deafening the grove. The ground is a quagmire. Masago is covered in mud, the dagger in her hand. Tajomaru blocks the path to the trees, his posture aggressive. Takehiro strains against his bonds, the rope creaking audibly.*\n\n*Tajomaru stamps his boots heavily into the mud, planting himself like a wall between Masago and the forest path. He guards the exit with his life.*\n\n**Tajomaru**: That horse is my feet! That beast carries my silver, my gear, my clean way out! You think you can ride my stolen property to wash your hands? You will stay here in the mud with me!\n\n*Masago screams, a raw sound that tears through the rain, and lunges forward with the dagger leveled at Tajomaru’s chest. She drives him back with the sheer weight of her desperation, scrambling past him toward the tethered animal.*\n\n**Masago**: You think you can just walk away? Look at me! Look at what you did here! You cannot wash that off with rain or ride away from it on stolen legs!\n\n*Tajomaru snarls and drops his shoulder, slamming into Masago with brutal force to knock her away from the exit. He stomps his foot down on the muddy turf, asserting dominance over the only way out.*\n\n**Tajomaru**: It is the only clean thing left in this stinking grove, and I decide who touches it!\n\n*Takehiro straightens his spine against the rough bark of the cedar, twisting his wrists against the loosening rope to stand as tall as his bindings allow. He locks eyes with Tajomaru, shouting over the thunder.*\n\n**Takehiro**: You call it clean? That beast carries not just your loot, but the stench of the rape you committed here and now! It is a cursed burden, rat, and it will drag your shame all the way back to your den!\n\n## Epilogue\n\n*The confrontation reaches a violent stalemate. Masago is physically rebuffed from the horse, tumbling back into the mud, her dagger lost in the scuffle. Tajomaru stands guard over the animal, breathing hard, his escape route effectively poisoned by Takehiro’s words. Takehiro remains bound but triumphant in his verbal condemnation, having turned the bandit's prize into a curse. No one is dead, yet no one can leave—the*",
+  "minds": {
+    "agents": [
+      {
+        "name": "Tajomaru",
+        "role": "bandit",
+        "publicIdentity": "A notorious bandit of the mountain roads, known for both prowess and cunning.",
+        "hiddenIdentity": "What he truly fears is being taken for a mere ambusher, a rat; he craves to be acknowledged as a true warrior, even if it costs him a real fight.",
+        "shortTermGoal": "Walk away whole, without looking base — better to end this as a 'duel' than a slaughter.",
+        "longTermGoal": "Leave with Masago, or with his name intact, and go on being the Tajomaru men tell stories about.",
+        "status": {
+          "fear": 43,
+          "suspicion": 80,
+          "guilt": 30,
+          "resolve": 100,
+          "fatigue": 73
+        },
+        "secrets": []
+      },
+      {
+        "name": "Masago",
+        "role": "the samurai's wife",
+        "publicIdentity": "Takehiro's wife, robbed while traveling at her husband's side.",
+        "hiddenIdentity": "After the assault, what she cannot bear is not the bandit but the contempt in her husband's eyes; she means to erase the state of being looked at that way — by silencing the witness, or by vanishing herself.",
+        "shortTermGoal": "To never again be looked at like that; to bring this shame to some end.",
+        "longTermGoal": "Either live without carrying this disgrace, or end herself with dignity.",
+        "status": {
+          "fear": 61,
+          "suspicion": 52,
+          "guilt": 30,
+          "resolve": 98,
+          "fatigue": 33
+        },
+        "secrets": []
+      },
+      {
+        "name": "Takehiro",
+        "role": "samurai",
+        "publicIdentity": "A samurai traveling with his wife, caught in the trap and bound.",
+        "hiddenIdentity": "Bound, forced to watch and powerless to stop it — that impotence is worse than death; toward the bandit he feels hatred, toward his wife a more tangled contempt and sense of betrayal.",
+        "shortTermGoal": "To claw back a shred of a warrior's dignity from this humiliation — even at the price of his own death.",
+        "longTermGoal": "Never to be remembered as 'the fool who watched, bound, while his wife was defiled'.",
+        "status": {
+          "fear": 35,
+          "suspicion": 64,
+          "guilt": 30,
+          "resolve": 87,
+          "fatigue": 38
+        },
+        "secrets": []
+      }
+    ],
+    "moves": [
+      {
+        "turn": 1,
+        "agent": "Masago",
+        "clock": "22:22",
+        "speech": "If I am to be looked at with such eyes, then I will not be looked upon at all.",
+        "privateIntent": "为了本场目标「To never again be looked at like that; to bring this shame to some end.」,To achieve my goal by ending the state of being looked at with contempt, even if it means ending my existence.",
+        "whatToHide": "My lingering hope to be saved rather than killed.",
+        "whatToReveal": "「the dagger」显示：A thin, keen dagger in Masago's robe. It can kill another or kill its holder; afterward no one will be able to say into whose body it went, or whose hand held it.",
+        "subtext": "I am doing this not only for honor but to silence the witness to my disgrace.",
+        "leverage": "My own life, which I am willing to extinguish to escape shame.",
+        "relationshipDelta": {
+          "takehiro": {
+            "trust": -10,
+            "suspicion": 0,
+            "empathy": -10,
+            "leverage": 0
+          },
+          "tajomaru": {
+            "trust": -5,
+            "suspicion": 0,
+            "empathy": -5,
+            "leverage": 0
+          }
+        },
+        "suspicionUpdate": {
+          "takehiro": 10,
+          "tajomaru": 5
+        }
+      },
+      {
+        "turn": 1,
+        "agent": "Tajomaru",
+        "clock": "22:22",
+        "speech": "Put that toy away. If you cannot bear his eyes, then let me close them—honorably. I will loose your husband and give him my sword. If he wins, you are free. If I win, you are mine. Which do you choose: death, or a duel?",
+        "privateIntent": "为了本场目标「Walk away whole, without looking base — better to end this as a 'duel' than a slaughter.」,To transform a crime into a legend. I need her alive to witness my victory over her husband, proving I am a warrior, not a rat.",
+        "whatToHide": "That I am acting to save my own legend as much as her life.",
+        "whatToReveal": "「the longsword」显示：Tajomaru's longsword, standing in the mud between them. It can settle things in an honorable duel, or kill like a coward's ambush — and which it is decides whethe",
+        "subtext": "Don't die on me, woman. A bandit needs a living prize to prove his prowess, and a corpse proves nothing but cruelty.",
+        "leverage": "The power to kill her husband cleanly, or release him to despise her further.",
+        "relationshipDelta": {
+          "masago": {
+            "trust": 0,
+            "suspicion": -10,
+            "empathy": 5,
+            "leverage": 10
+          },
+          "takehiro": {
+            "trust": -20,
+            "suspicion": 20,
+            "empathy": 0,
+            "leverage": 20
+          }
+        },
+        "suspicionUpdate": {
+          "masago": -10,
+          "takehiro": 20
+        }
+      },
+      {
+        "turn": 2,
+        "agent": "Masago",
+        "clock": "22:26",
+        "speech": "现在,我们按「the longsword」说的来,而不是按谁的脸色。",
+        "privateIntent": "为了本场目标「To never again be looked at like that; to bring this shame to some end.」,（系统：调用失败，用低成本质问维持推进）",
+        "whatToHide": "",
+        "whatToReveal": "「the dagger」显示：A thin, keen dagger in Masago's robe. It can kill another or kill its holder; afterward no one will be able to say into whose body it went, or whose hand held it.",
+        "subtext": "",
+        "leverage": "「the dagger」显示：A thin, keen dagger in Masago's robe. It can kill another or kill its holder; afterward no one will be able to say into whose body it went, or whose hand held it.；它会",
+        "relationshipDelta": {
+          "tajomaru": {
+            "trust": -2,
+            "suspicion": 3,
+            "empathy": 0,
+            "leverage": 1
+          }
+        },
+        "suspicionUpdate": {
+          "tajomaru": 4
+        }
+      },
+      {
+        "turn": 2,
+        "agent": "Takehiro",
+        "clock": "22:26",
+        "speech": "「the dagger」已经在桌上了,接下来看你们怎么接。",
+        "privateIntent": "为了本场目标「To claw back a shred of a warrior's dignity from this humiliation — even at the price of his own death.」,（系统：调用失败，用低成本质问维持推进）",
+        "whatToHide": "",
+        "whatToReveal": "「the dagger」显示：A thin, keen dagger in Masago's robe. It can kill another or kill its holder; afterward no one will be able to say into whose body it went, or whose hand held it.",
+        "subtext": "",
+        "leverage": "「the dagger」显示：A thin, keen dagger in Masago's robe. It can kill another or kill its holder; afterward no one will be able to say into whose body it went, or whose hand held it.；它会",
+        "relationshipDelta": {
+          "masago": {
+            "trust": -2,
+            "suspicion": 3,
+            "empathy": 0,
+            "leverage": 1
+          }
+        },
+        "suspicionUpdate": {
+          "masago": 4
+        }
+      },
+      {
+        "turn": 3,
+        "agent": "Masago",
+        "clock": "22:32",
+        "speech": "If I am to be a thing of shame, then I will not stay here to be looked at! I will take the beast outside and ride until I am forgotten!",
+        "privateIntent": "为了本场目标「To never again be looked at like that; to bring this shame to some end.」,To escape the suffocating judgment by using the bandit's own route of retreat.",
+        "whatToHide": "The depth of my humiliation and the fact that I am acting on sheer desperation.",
+        "whatToReveal": "「the horse outside」显示：Tied beyond the grove are the horse and goods Tajomaru stole — his way out, clean and whole.",
+        "subtext": "I cannot bear your eyes on me anymore; if I cannot wash away the shame in blood, I will ride away from it.",
+        "leverage": "The threat of my death is replaced by the threat of my abandonment and theft.",
+        "relationshipDelta": {
+          "takehiro": {
+            "trust": -10,
+            "suspicion": 5,
+            "empathy": -10,
+            "leverage": 5
+          },
+          "tajomaru": {
+            "trust": -5,
+            "suspicion": 0,
+            "empathy": 0,
+            "leverage": 10
+          }
+        },
+        "suspicionUpdate": {
+          "takehiro": 10,
+          "tajomaru": 0
+        }
+      },
+      {
+        "turn": 3,
+        "agent": "Tajomaru",
+        "clock": "22:32",
+        "speech": "You run to the horse? That beast is mine, and it goes nowhere without its master! Stop, unless you want to leap straight into hell!",
+        "privateIntent": "为了本场目标「Walk away whole, without looking base — better to end this as a 'duel' than a slaughter.」,To prevent Masago from leaving so I can orchestrate the duel with Takehiro that will save my honor.",
+        "whatToHide": "That I fear she would rather die than be with me.",
+        "whatToReveal": "「the horse outside」显示：Tied beyond the grove are the horse and goods Tajomaru stole — his way out, clean and whole.",
+        "subtext": "You do not leave until I say the story is finished.",
+        "leverage": "Physical proximity and control of the exit.",
+        "relationshipDelta": {
+          "masago": {
+            "trust": -10,
+            "suspicion": 5,
+            "empathy": 0,
+            "leverage": 10
+          },
+          "takehiro": {
+            "trust": 0,
+            "suspicion": 0,
+            "empathy": 0,
+            "leverage": 0
+          }
+        },
+        "suspicionUpdate": {
+          "masago": 20,
+          "takehiro": 0
+        }
+      },
+      {
+        "turn": 4,
+        "agent": "Masago",
+        "clock": "22:38",
+        "speech": "the longsword不能继续留在原处。我先拿过来。",
+        "privateIntent": "为了本场目标「To never again be looked at like that; to bring this shame to some end.」,同时完成本回合戏剧Beat「结盟或背叛」。",
+        "whatToHide": "",
+        "whatToReveal": "「what was done」显示：The assault has happened, with all three present; none of them can pretend it did not.",
+        "subtext": "",
+        "leverage": "「what was done」显示：The assault has happened, with all three present; none of them can pretend it did not.；它会伤害Masago、Takehiro,帮助Masago。",
+        "relationshipDelta": {
+          "takehiro": {
+            "trust": -2,
+            "suspicion": 3,
+            "empathy": 0,
+            "leverage": 1
+          }
+        },
+        "suspicionUpdate": {
+          "takehiro": 4
+        }
+      },
+      {
+        "turn": 4,
+        "agent": "Tajomaru",
+        "clock": "22:38",
+        "speech": "Leave the sword! If you would wash away what happened here, do not run—make him avenge you! I will cut his bonds. If he kills me, you go free. If I kill him, the shame dies with him. Choose!",
+        "privateIntent": "为了本场目标「Walk away whole, without looking base — better to end this as a 'duel' than a slaughter.」,To force Masago to accept the duel framework, preserving my honor as a warrior rather than a butcher.",
+        "whatToHide": "That I am cornered and this is my only way to save face.",
+        "whatToReveal": "「what was done」显示：The assault has happened, with all three present; none of them can pretend it did not.",
+        "subtext": "If she wants to wash away the shame, she needs her husband's blood, not my pity.",
+        "leverage": "Control of the exit and the longsword.",
+        "relationshipDelta": {
+          "masago": {
+            "trust": -10,
+            "suspicion": 10,
+            "empathy": 0,
+            "leverage": 10
+          },
+          "takehiro": {
+            "trust": -5,
+            "suspicion": 5,
+            "empathy": -5,
+            "leverage": 15
+          }
+        },
+        "suspicionUpdate": {
+          "masago": 5,
+          "takehiro": 5
+        }
+      },
+      {
+        "turn": 5,
+        "agent": "Masago",
+        "clock": "22:45",
+        "speech": "the longsword我先收着,时机不对,谁也别碰。",
+        "privateIntent": "为了本场目标「To never again be looked at like that; to bring this shame to some end.」,（系统：调用失败，用低成本质问维持推进）",
+        "whatToHide": "",
+        "whatToReveal": "「the longsword」显示：Tajomaru's longsword, standing in the mud between them. It can settle things in an honorable duel, or kill like a coward's ambush — and which it is decides whethe",
+        "subtext": "",
+        "leverage": "「the longsword」显示：Tajomaru's longsword, standing in the mud between them. It can settle things in an honorable duel, or kill like a coward's ambush — and which it is decides whethe",
+        "relationshipDelta": {
+          "takehiro": {
+            "trust": -2,
+            "suspicion": 3,
+            "empathy": 0,
+            "leverage": 1
+          }
+        },
+        "suspicionUpdate": {
+          "takehiro": 4
+        }
+      },
+      {
+        "turn": 5,
+        "agent": "Tajomaru",
+        "clock": "22:45",
+        "speech": "That is not a woman's toy! Give it here, or I will take your hand with it!",
+        "privateIntent": "为了本场目标「Walk away whole, without looking base — better to end this as a 'duel' than a slaughter.」,To recover the longsword so I can proceed with cutting Takehiro's bonds and issuing the challenge for the duel.",
+        "whatToHide": "The fear that without the sword, my legend ends here in the mud.",
+        "whatToReveal": "「the longsword」显示：Tajomaru's longsword, standing in the mud between them. It can settle things in an honorable duel, or kill like a coward's ambush — and which it is decides whethe",
+        "subtext": "Give me back my teeth, woman, so I can kill your husband properly.",
+        "leverage": "Physical strength and the fact that the weapon is mine by right of conquest.",
+        "relationshipDelta": {
+          "masago": {
+            "trust": -10,
+            "suspicion": 10,
+            "empathy": -5,
+            "leverage": 10
+          },
+          "takehiro": {
+            "trust": 0,
+            "suspicion": 0,
+            "empathy": 0,
+            "leverage": 5
+          }
+        },
+        "suspicionUpdate": {
+          "masago": 10,
+          "takehiro": 0
+        }
+      },
+      {
+        "turn": 5,
+        "agent": "Takehiro",
+        "clock": "22:45",
+        "speech": "Do not hide it! If you are a warrior, hand that steel to me! Cut these bonds and let us finish this—here and now!",
+        "privateIntent": "为了本场目标「To claw back a shred of a warrior's dignity from this humiliation — even at the price of his own death.」,To force the duel that restores my dignity, even at the cost of my life.",
+        "whatToHide": "My true loathing for Masago, masking it as a desire for honorable combat.",
+        "whatToReveal": "「the longsword」显示：Tajomaru's longsword, standing in the mud between them. It can settle things in an honorable duel, or kill like a coward's ambush — and which it is decides whethe",
+        "subtext": "I do not care what she does anymore; I only care that one of us dies to erase this memory.",
+        "leverage": "The bandit's pride and his previous public offer for a duel; my willingness to die.",
+        "relationshipDelta": {
+          "tajomaru": {
+            "trust": 0,
+            "suspicion": 0,
+            "empathy": 0,
+            "leverage": 10
+          },
+          "masago": {
+            "trust": 0,
+            "suspicion": 0,
+            "empathy": 0,
+            "leverage": 0
+          }
+        },
+        "suspicionUpdate": {
+          "tajomaru": 0,
+          "masago": 0
+        }
+      },
+      {
+        "turn": 6,
+        "agent": "Masago",
+        "clock": "22:50",
+        "speech": "You call me a shrieking thing? Then look at this! If my eyes offend you, husband, then I shall pluck them out—starting with the ones that judge me!",
+        "privateIntent": "为了本场目标「To never again be looked at like that; to bring this shame to some end.」,To prove that I am not a coward, and to force Takehiro to see me as a victim of his own making, not just a shameful object.",
+        "whatToHide": "That I am more terrified of living with the shame than of dying.",
+        "whatToReveal": "「the look of contempt」显示：The samurai looks at Masago with no pity — only shame and disgust. That look cuts her deeper than any blade.",
+        "subtext": "You despise me? Then look at what your disdain has driven me to. Is this the honor you wanted to preserve?",
+        "leverage": "My own life, which Takehiro is supposed to protect as my husband, but which he has already devalued.",
+        "relationshipDelta": {
+          "takehiro": {
+            "trust": -5,
+            "suspicion": 5,
+            "empathy": 0,
+            "leverage": 5
+          },
+          "tajomaru": {
+            "trust": 0,
+            "suspicion": 0,
+            "empathy": 0,
+            "leverage": 0
+          }
+        },
+        "suspicionUpdate": {
+          "takehiro": 5,
+          "tajomaru": 0
+        }
+      },
+      {
+        "turn": 6,
+        "agent": "Tajomaru",
+        "clock": "22:50",
+        "speech": "He looks at you with a dog's eyes, woman! Do you think your death will make him love you? He wants you gone so he can forget his shame! Drop the steel—let me give him the death he earned!",
+        "privateIntent": "为了本场目标「Walk away whole, without looking base — better to end this as a 'duel' than a slaughter.」,Prevent the suicide to preserve the stage for the duel.",
+        "whatToHide": "",
+        "whatToReveal": "「the look of contempt」显示：The samurai looks at Masago with no pity — only shame and disgust. That look cuts her deeper than any blade.",
+        "subtext": "I am the only one here who offers you a path to vengeance rather than escape.",
+        "leverage": "The physical reality of the dagger and the 'look of contempt' that drove her to it.",
+        "relationshipDelta": {
+          "masago": {
+            "trust": 2,
+            "suspicion": -5,
+            "empathy": 5,
+            "leverage": 0
+          },
+          "takehiro": {
+            "trust": 0,
+            "suspicion": 0,
+            "empathy": 0,
+            "leverage": 5
+          }
+        },
+        "suspicionUpdate": {
+          "masago": -5,
+          "takehiro": 0
+        }
+      },
+      {
+        "turn": 6,
+        "agent": "Takehiro",
+        "clock": "22:50",
+        "speech": "我把「the dagger」亮出来,这事该往前走了。",
+        "privateIntent": "为了本场目标「To claw back a shred of a warrior's dignity from this humiliation — even at the price of his own death.」,（系统：调用失败，用低成本质问维持推进）",
+        "whatToHide": "",
+        "whatToReveal": "「the look of contempt」显示：The samurai looks at Masago with no pity — only shame and disgust. That look cuts her deeper than any blade.",
+        "subtext": "",
+        "leverage": "「the look of contempt」显示：The samurai looks at Masago with no pity — only shame and disgust. That look cuts her deeper than any blade.；它会伤害Masago,帮助Takehiro。",
+        "relationshipDelta": {
+          "masago": {
+            "trust": -2,
+            "suspicion": 3,
+            "empathy": 0,
+            "leverage": 1
+          }
+        },
+        "suspicionUpdate": {
+          "masago": 4
+        }
+      },
+      {
+        "turn": 7,
+        "agent": "Tajomaru",
+        "clock": "22:54",
+        "speech": "That beast is mine! Do not think to reach the road, woman!",
+        "privateIntent": "为了本场目标「Walk away whole, without looking base — better to end this as a 'duel' than a slaughter.」, secure the escape route to ensure I can leave once the duel is done.",
+        "whatToHide": "My desperation to leave cleanly; I frame it as controlling the board.",
+        "whatToReveal": "「the horse outside」显示：Tied beyond the grove are the horse and goods Tajomaru stole — his way out, clean and whole.",
+        "subtext": "I will not be caught in a trap of my own making; the horse is my life, and I will not let them near it.",
+        "leverage": "Control of the physical space and the unseen horse outside.",
+        "relationshipDelta": {
+          "masago": {
+            "trust": -10,
+            "suspicion": 10,
+            "empathy": 0,
+            "leverage": 10
+          },
+          "takehiro": {
+            "trust": 0,
+            "suspicion": 0,
+            "empathy": 0,
+            "leverage": 0
+          }
+        },
+        "suspicionUpdate": {
+          "masago": 10,
+          "takehiro": 0
+        }
+      },
+      {
+        "turn": 7,
+        "agent": "Masago",
+        "clock": "22:54",
+        "speech": "That beast is my life! Step aside, or I will take its eyes as I take my freedom!",
+        "privateIntent": "为了本场目标「To never again be looked at like that; to bring this shame to some end.」,To seize the horse and escape before the witnesses arrive, ending this shame by flight rather than death.",
+        "whatToHide": "My desperation to flee not just the grove, but my husband's gaze.",
+        "whatToReveal": "「the horse outside」显示：Tied beyond the grove are the horse and goods Tajomaru stole — his way out, clean and whole.",
+        "subtext": "If I cannot die with dignity, I will flee like a thief, and I will take your escape from you.",
+        "leverage": "The dagger at my throat and the immediate threat of the outsiders arriving.",
+        "relationshipDelta": {
+          "tajomaru": {
+            "trust": -10,
+            "suspicion": 5,
+            "empathy": 0,
+            "leverage": 5
+          },
+          "takehiro": {
+            "trust": -10,
+            "suspicion": 5,
+            "empathy": -5,
+            "leverage": 5
+          }
+        },
+        "suspicionUpdate": {
+          "tajomaru": 10,
+          "takehiro": 10
+        }
+      },
+      {
+        "turn": 7,
+        "agent": "Takehiro",
+        "clock": "22:54",
+        "speech": "The rope slackens in the rain! If you beasts have any honor, finish what you started—cut these bonds or kill me where I stand!",
+        "privateIntent": "为了本场目标「To claw back a shred of a warrior's dignity from this humiliation — even at the price of his own death.」,同时完成本回合戏剧Beat「正面争夺」。",
+        "whatToHide": "My fear that Masago might actually leave me behind.",
+        "whatToReveal": "「the rope」显示：The coarse rope binding the samurai's wrists. Whoever loosens it changes, on the spot, the balance of power among the three.",
+        "subtext": "I am still here, and I am not dead yet. If you fight for the horse, you must also deal with the warrior at the tree.",
+        "leverage": "The chaos of Masago's escape attempt; Tajomaru's pride as a warrior.",
+        "relationshipDelta": {
+          "tajomaru": {
+            "trust": -5,
+            "suspicion": 5,
+            "empathy": 0,
+            "leverage": 10
+          },
+          "masago": {
+            "trust": -10,
+            "suspicion": 10,
+            "empathy": -5,
+            "leverage": 0
+          }
+        },
+        "suspicionUpdate": {
+          "tajomaru": 5,
+          "masago": 10
+        }
+      },
+      {
+        "turn": 8,
+        "agent": "Masago",
+        "clock": "23:01",
+        "speech": "You speak of honor? You defiled a woman before her husband! To the beast with you, then—let it carry the weight of your sin, not mine!",
+        "privateIntent": "For this scene's goal—To never again be looked at like that—I will seize the horse to ride out of this grove and leave these eyes behind forever.",
+        "whatToHide": "My trembling hands and the desperation in my voice.",
+        "whatToReveal": "「what was done」显示：The assault has happened, with all three present; none of them can pretend it did not.",
+        "subtext": "I am using his own crime as a shield to cover my escape.",
+        "leverage": "The undeniable shame of the assault that hangs over all three men.",
+        "relationshipDelta": {
+          "tajomaru": {
+            "trust": -10,
+            "suspicion": 10,
+            "empathy": -5,
+            "leverage": 15
+          },
+          "takehiro": {
+            "trust": -5,
+            "suspicion": 5,
+            "empathy": 0,
+            "leverage": 0
+          }
+        },
+        "suspicionUpdate": {
+          "tajomaru": 10,
+          "takehiro": 5
+        }
+      },
+      {
+        "turn": 8,
+        "agent": "Tajomaru",
+        "clock": "23:01",
+        "speech": "Back! You think I’ll let a thief of women become a thief of horses too? That beast stays with me!",
+        "privateIntent": "为了本场目标「Walk away whole, without looking base — better to end this as a 'duel' than a slaughter.」,To secure the escape route to ensure I can leave once the duel is done.",
+        "whatToHide": "My desperation to leave cleanly; I frame it as controlling the board.",
+        "whatToReveal": "「the horse outside」显示：Tied beyond the grove are the horse and goods Tajomaru stole — his way out, clean and whole.",
+        "subtext": "I am the wall you break against. The horse is my legs, and I decide who stands or falls.",
+        "leverage": "Physical strength and control of the perimeter.",
+        "relationshipDelta": {
+          "masago": {
+            "trust": -5,
+            "suspicion": 10,
+            "empathy": 0,
+            "leverage": 10
+          },
+          "takehiro": {
+            "trust": 0,
+            "suspicion": 5,
+            "empathy": 0,
+            "leverage": 5
+          }
+        },
+        "suspicionUpdate": {
+          "masago": 10,
+          "takehiro": 5
+        }
+      },
+      {
+        "turn": 8,
+        "agent": "Takehiro",
+        "clock": "23:01",
+        "speech": "You guard your beast like a treasure? That animal carries the weight of what you did here this day—not gold, but the stench of a woman's suffering!",
+        "privateIntent": "To claw back a shred of a warrior's dignity from this humiliation — even at the price of his own death.",
+        "whatToHide": "My desperate hope that he frees me to duel, rather than cutting me down.",
+        "whatToReveal": "「what was done」显示：The assault has happened, with all three present; none of them can pretend it did not.",
+        "subtext": "You think you are a bandit, but you are just a defiler dragging your Shame with you.",
+        "leverage": "The undeniable fact of the assault that stains everyone present.",
+        "relationshipDelta": {
+          "tajomaru": {
+            "trust": -10,
+            "suspicion": 10,
+            "empathy": 0,
+            "leverage": 5
+          },
+          "masago": {
+            "trust": 0,
+            "suspicion": 0,
+            "empathy": 0,
+            "leverage": 0
+          }
+        },
+        "suspicionUpdate": {
+          "tajomaru": 5,
+          "masago": 0
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+ "note": "every number the paper reports about the hearing. Recomputed, not transcribed.",
+ "rows": [
+  {
+   "label": "independent testimony",
+   "beta": 0,
+   "gamma": 0,
+   "distinct": 3,
+   "lies": 2,
+   "closes": [
+    "Masago|strike|dagger",
+    "Tajomaru|strike|dagger",
+    "Takehiro|self_strike|dagger"
+   ],
+   "revisions": 0
+  },
+  {
+   "label": "a hearing",
+   "beta": 0.5,
+   "gamma": 0,
+   "distinct": 1,
+   "lies": 0,
+   "closes": [
+    "Takehiro|self_strike|dagger"
+   ],
+   "revisions": 2
+  },
+  {
+   "label": "\\quad $+$ accountability $\\gamma=0.2$",
+   "beta": 0.5,
+   "gamma": 0.2,
+   "distinct": 3,
+   "lies": 2,
+   "closes": [
+    "Masago|strike|dagger",
+    "Tajomaru|strike|dagger",
+    "Takehiro|self_strike|dagger"
+   ],
+   "revisions": 0
+  }
+ ],
+ "gammaStar": 0.2,
+ "truthClaim": "Masago|strike|dagger",
+ "levelK": {
+  "terminal": "fixed",
+  "closes": [
+   "Takehiro|impale_on_held|dagger"
+  ]
+ },
+ "revisions": [
+  {
+   "speaker": "Tajomaru",
+   "from": "Masago — dagger killing (dagger) [unarmed]",
+   "to": "Takehiro (self) — suicide (dagger) [armed]",
+   "gainSelf": 0,
+   "gainCred": 10,
+   "uSelf": 58,
+   "cred": 77
+  },
+  {
+   "speaker": "Masago",
+   "from": "Tajomaru — dagger killing (dagger) [unarmed]",
+   "to": "Takehiro (self) — suicide (dagger) [armed]",
+   "gainSelf": 0,
+   "gainCred": 47,
+   "uSelf": 75,
+   "cred": 100
+  }
+ ]
+}

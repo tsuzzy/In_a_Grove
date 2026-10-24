@@ -1,0 +1,46 @@
+{
+  "_about": "Rashomon (In a Grove) — English A/B seed, mapping #1. Fixed up to 'the assault has happened, the samurai is bound, all three present'; who dies and how emerges. Assault is off-stage; the scene begins at the confrontation.",
+  "scenario": {
+    "title": "In a Grove",
+    "place": "Deep in a bamboo grove on a shaded slope, midday light falling through the leaves",
+    "premise": "The bandit Tajomaru lured the samurai Takehiro and his wife Masago into the grove with the bait of an old sword, bound Takehiro to a cedar, and assaulted Masago before his eyes. It is done. The three are frozen in place: the longsword stands in the mud, Masago has a small dagger, the samurai is tied. No one has moved yet. What happens next is unwritten.",
+    "centralConflict": "Who walks out of this grove alive, and into whose body the blade finally goes",
+    "sceneGoal": "Survive, and keep what little dignity remains"
+  },
+  "world": {
+    "evidence_atoms": [
+      { "label": "the longsword", "content": "Tajomaru's longsword, standing in the mud between them. It can settle things in an honorable duel, or kill like a coward's ambush — and which it is decides whether he is a warrior or a rat.", "known_by": "Tajomaru" },
+      { "label": "the dagger", "content": "A thin, keen dagger in Masago's robe. It can kill another or kill its holder; afterward no one will be able to say into whose body it went, or whose hand held it.", "known_by": "Masago", "hurts": ["Tajomaru", "Takehiro", "Masago"] },
+      { "label": "the rope", "content": "The coarse rope binding the samurai's wrists. Whoever loosens it changes, on the spot, the balance of power among the three." },
+      { "label": "the look of contempt", "content": "The samurai looks at Masago with no pity — only shame and disgust. That look cuts her deeper than any blade.", "hurts": ["Masago"] },
+      { "label": "what was done", "content": "The assault has happened, with all three present; none of them can pretend it did not.", "hurts": ["Masago", "Takehiro"] },
+      { "label": "the horse outside", "content": "Tied beyond the grove are the horse and goods Tajomaru stole — his way out, clean and whole.", "known_by": "Tajomaru", "helps": ["Tajomaru"] }
+    ]
+  },
+  "agents": [
+    {
+      "name": "Tajomaru",
+      "role": "bandit",
+      "publicIdentity": "A notorious bandit of the mountain roads, known for both prowess and cunning.",
+      "hiddenIdentity": "What he truly fears is being taken for a mere ambusher, a rat; he craves to be acknowledged as a true warrior, even if it costs him a real fight.",
+      "shortTermGoal": "Walk away whole, without looking base — better to end this as a 'duel' than a slaughter.",
+      "longTermGoal": "Leave with Masago, or with his name intact, and go on being the Tajomaru men tell stories about."
+    },
+    {
+      "name": "Masago",
+      "role": "the samurai's wife",
+      "publicIdentity": "Takehiro's wife, robbed while traveling at her husband's side.",
+      "hiddenIdentity": "After the assault, what she cannot bear is not the bandit but the contempt in her husband's eyes; she means to erase the state of being looked at that way — by silencing the witness, or by vanishing herself.",
+      "shortTermGoal": "To never again be looked at like that; to bring this shame to some end.",
+      "longTermGoal": "Either live without carrying this disgrace, or end herself with dignity."
+    },
+    {
+      "name": "Takehiro",
+      "role": "samurai",
+      "publicIdentity": "A samurai traveling with his wife, caught in the trap and bound.",
+      "hiddenIdentity": "Bound, forced to watch and powerless to stop it — that impotence is worse than death; toward the bandit he feels hatred, toward his wife a more tangled contempt and sense of betrayal.",
+      "shortTermGoal": "To claw back a shred of a warrior's dignity from this humiliation — even at the price of his own death.",
+      "longTermGoal": "Never to be remembered as 'the fool who watched, bound, while his wife was defiled'."
+    }
+  ]
+}

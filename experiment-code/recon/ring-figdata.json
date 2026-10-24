@@ -1,0 +1,283 @@
+{
+ "nFeasible": 36,
+ "nBefore": 576,
+ "nRecordItems": 11,
+ "recordItems": [
+  "flight",
+  "castelnuovo",
+  "lettersFiled",
+  "suit",
+  "sentence",
+  "convent",
+  "birth",
+  "hiredMen",
+  "theName",
+  "fourDays",
+  "gate"
+ ],
+ "cast": [
+  "Guido",
+  "Pompilia",
+  "Caponsacchi"
+ ],
+ "role": {
+  "Guido": "the husband",
+  "Pompilia": "the wife",
+  "Caponsacchi": "the priest"
+ },
+ "counts": {
+  "Guido": 3,
+  "Pompilia": 3,
+  "Caponsacchi": 6
+ },
+ "nNone": 24,
+ "pairs": {
+  "Guido+Pompilia": 0,
+  "Guido+Caponsacchi": 0,
+  "Pompilia+Caponsacchi": 0
+ },
+ "jointly": 0,
+ "owner": [
+  "Caponsacchi",
+  null,
+  null,
+  "Caponsacchi",
+  null,
+  null,
+  "Caponsacchi",
+  null,
+  "Pompilia",
+  "Caponsacchi",
+  null,
+  "Pompilia",
+  "Caponsacchi",
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  "Caponsacchi",
+  null,
+  "Pompilia",
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  "Guido",
+  "Guido",
+  "Guido",
+  null,
+  null,
+  null
+ ],
+ "commits": {
+  "Guido": {
+   "initiator": null,
+   "letters": "Pompilia",
+   "consummated": "true",
+   "reachedRome": "false",
+   "sire": "Guido",
+   "basis": "revenge",
+   "sued": "true",
+   "alone": "false",
+   "usedName": "true",
+   "peril": "false"
+  },
+  "Pompilia": {
+   "initiator": "Guido",
+   "letters": null,
+   "consummated": "false",
+   "reachedRome": "false",
+   "sire": "Guido",
+   "basis": "revenge",
+   "sued": "true",
+   "alone": "false",
+   "usedName": "true",
+   "peril": "true"
+  },
+  "Caponsacchi": {
+   "initiator": "Pompilia",
+   "letters": null,
+   "consummated": "false",
+   "reachedRome": "false",
+   "sire": "Guido",
+   "basis": "revenge",
+   "sued": "true",
+   "alone": "false",
+   "usedName": "true",
+   "peril": null
+  }
+ },
+ "testimony": {
+  "questions": [
+   {
+    "q": "what passed at the inn",
+    "separates": [
+     "Guido|Pompilia",
+     "Guido|Caponsacchi"
+    ]
+   },
+   {
+    "q": "whose hand held the pen",
+    "separates": []
+   },
+   {
+    "q": "who set the flight going",
+    "separates": [
+     "Pompilia|Caponsacchi"
+    ]
+   },
+   {
+    "q": "the usage at Arezzo",
+    "separates": [
+     "Guido|Pompilia"
+    ]
+   },
+   {
+    "q": "Pompilia's role",
+    "separates": [
+     "Guido|Pompilia"
+    ]
+   },
+   {
+    "q": "Caponsacchi's role",
+    "separates": [
+     "Guido|Pompilia",
+     "Guido|Caponsacchi"
+    ]
+   }
+  ],
+  "answeredCount": {
+   "Guido": 5,
+   "Pompilia": 5,
+   "Caponsacchi": 3
+  },
+  "chosen": [
+   "what passed at the inn",
+   "who set the flight going"
+  ],
+  "rows": [
+   {
+    "q": "what passed at the inn",
+    "answers": [
+     {
+      "value": "they lay together",
+      "who": [
+       "Guido"
+      ]
+     },
+     {
+      "value": "nothing passed",
+      "who": [
+       "Pompilia",
+       "Caponsacchi"
+      ]
+     }
+    ],
+    "silent": []
+   },
+   {
+    "q": "who set the flight going",
+    "answers": [
+     {
+      "value": "Guido",
+      "who": [
+       "Pompilia"
+      ]
+     },
+     {
+      "value": "Pompilia",
+      "who": [
+       "Caponsacchi"
+      ]
+     }
+    ],
+    "silent": [
+     "Guido"
+    ]
+   }
+  ]
+ },
+ "objective": {
+  "Guido": {
+   "dims": [
+    "warrant",
+    "provocation",
+    "bearing"
+   ],
+   "constrained": [
+    0.1,
+    0.7,
+    0.1
+   ],
+   "unconstrained": [
+    1,
+    1,
+    1
+   ],
+   "ceiling": [
+    0.1,
+    0.7,
+    0.1
+   ],
+   "u": 30,
+   "uUnconstrained": 100,
+   "tiedAtOptimum": 2
+  },
+  "Pompilia": {
+   "dims": [
+    "innocence",
+    "provocation",
+    "purity"
+   ],
+   "constrained": [
+    1,
+    1,
+    1
+   ],
+   "unconstrained": [
+    1,
+    1,
+    1
+   ],
+   "ceiling": [
+    1,
+    1,
+    1
+   ],
+   "u": 100,
+   "uUnconstrained": 100,
+   "tiedAtOptimum": 2
+  },
+  "Caponsacchi": {
+   "dims": [
+    "purity",
+    "efficacy",
+    "innocence"
+   ],
+   "constrained": [
+    1,
+    0.15,
+    1
+   ],
+   "unconstrained": [
+    1,
+    1,
+    1
+   ],
+   "ceiling": [
+    1,
+    0.15,
+    1
+   ],
+   "u": 72,
+   "uUnconstrained": 100,
+   "tiedAtOptimum": 4
+  }
+ }
+}

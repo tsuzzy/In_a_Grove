@@ -1,0 +1,31 @@
+.env
+.env.*
+!.env.example
+.DS_Store
+node_modules/
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.blg
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Conference style: kept local for building, not tracked in the repo
+neurips_2026.sty
+
+# Agent notes: kept local, not tracked in the repo
+memory/
+
+# Experiment write-ups: kept local, not tracked in the repo
+archive/
+
+# Review-round material (confidential OpenReview reviews, annotated drafts): never commit
+paper/review/
+
+# Experiment logs
+experiment-code/final-scripts/
+experiment-code/scenario-logs/
+experiment-code/neurips-exports/keep/

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In a Grove, Again — Two Groves</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#141417; --panel2:#191920; --ink:#ece8e1; --muted:#9b958c;
+    --line:#2a2a30; --accent:#b8893f; --blood:#8a2f2f;
+    --truth:#5f7a5f; --win:#b8893f; --lie:#a8364a; --cyc:#7a6ea8; --canon:#5b7f96;
+    --serif:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:1280px;margin:0 auto;padding:26px 22px 70px}
+  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:22px}
+  .kicker{font-family:var(--sans);letter-spacing:.22em;text-transform:uppercase;font-size:11px;color:var(--muted);margin-bottom:12px}
+  h1{font-size:clamp(26px,4vw,40px);line-height:1.1;margin:0 0 10px;font-weight:600}
+  .lede{color:#cfc9bf;max-width:84ch;font-size:16.5px}
+  .lede b{color:#ece8e1}
+  h2{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:32px 0 12px;font-weight:600}
+  h2 span{color:var(--muted);letter-spacing:0;text-transform:none;font-size:12.5px;margin-left:10px}
+  .note{color:var(--muted);font-size:14px;max-width:94ch;margin-bottom:14px}
+  .note b{color:#cfc9bf}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:900px){.two{grid-template-columns:1fr}}
+  .world{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .world.canon{border-color:rgba(91,127,150,.55)}
+  .world .wname{font-size:19px;font-weight:600;margin-bottom:2px}
+  .world.canon .wname{color:#a8c8da}
+  .world .wsub{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-bottom:12px}
+  .ev{list-style:none;font-size:14px;margin-bottom:14px}
+  .ev li{position:relative;padding-left:16px;margin-bottom:5px;color:#cfc9bf}
+  .ev li:before{content:"·";position:absolute;left:4px;color:var(--accent)}
+  .big{display:flex;gap:22px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}
+  .big div{min-width:96px}
+  .big .k{font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .big .v{font-size:25px;font-weight:600;color:#e7c79a;line-height:1.25}
+  .big .v.no{color:#e7a3af} .big .v.yes{color:#9fc09f}
+
+  table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:12.5px}
+  th{text-align:left;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  td{padding:8px 10px;border-bottom:1px solid #202027;color:#cfc9bf}
+  td.n{text-align:right;font-variant-numeric:tabular-nums}
+  tr.canon td{background:rgba(91,127,150,.07)}
+  .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+
+  .picks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+  @media (max-width:700px){.picks{grid-template-columns:1fr}}
+  .pick{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:12px 14px;font-size:13.5px}
+  .pick .w{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+  .pick .wsm{font-family:var(--sans);font-size:10.5px;color:#6f6a63;margin-bottom:9px}
+  .pick .row{display:flex;gap:8px;align-items:baseline;margin-bottom:7px}
+  .pick .lab{font-family:var(--sans);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);width:44px;flex:none;padding-top:2px}
+  .pick .body{flex:1}
+  .pick .u{font-family:var(--sans);font-size:10.5px;color:#8d8880;margin-left:5px}
+  .pick .refuted{color:#c98d96;text-decoration:line-through;text-decoration-color:rgba(201,141,150,.5)}
+  .pick .kept{color:#e6e0d6}
+  .pick .flag{font-family:var(--sans);font-size:10.5px;color:var(--lie);display:block;margin-top:2px}
+  .pick .b{font-family:var(--sans);font-size:10.5px;color:var(--muted);margin-top:2px}
+  .pick .cost{font-family:var(--sans);font-size:11px;border-top:1px solid var(--line);margin-top:8px;padding-top:7px}
+  .pick .cost b{font-size:14px}
+  .pick .cost.paid{color:#e7a3af} .pick .cost.free{color:#9fc09f}
+  .self{color:#e7c79a}
+
+  .callout{background:var(--panel2);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0;font-size:14.5px;color:#dfdad1;max-width:96ch}
+  .callout b{color:#f0e6d6}
+  .callout.canon{border-left-color:var(--canon)}
+  footer{margin-top:34px;color:var(--muted);font-family:var(--sans);font-size:12px;border-top:1px solid var(--line);padding-top:14px;line-height:1.75;max-width:100ch}
+  footer b{color:#cfc9bf}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Agent Society · Two Groves</div>
+    <h1>The same machine, on the scene Akutagawa actually wrote</h1>
+    <p class="lede">Every result so far rests on one aftermath — the scene our own generated run happened to leave, in which the fatal wound is a dagger wound to the throat and the longsword lies at the scene, unbloodied. That last fact has <b>no counterpart in the original</b>: Akutagawa's woodcutter finds one rope and a woman's comb, and the sword has already ridden off with the bandit. Nothing at that scene can be checked against a blade. Here the same enumeration, the same objective and the same game are run on both.</p>
+  </header>
+
+  <h2>1 · The two crime scenes <span>what a magistrate could actually verify</span></h2>
+  <div class="two" id="worlds"></div>
+
+  <div class="callout" id="c1"></div>
+
+  <h2>2 · What each witness chooses <span>argmax over the feasible set, equal weights</span></h2>
+  <div class="note">Read each card as <b>a testimony, not a person</b>: the name at the top is who is speaking, the line below is what their account says happened. The two are usually different people — a self-interested witness blames someone else, and that is the whole object of study. <b>Wants</b> is the account that would serve the witness best out of every history the grove permits; <b>says</b> is the best one the evidence cannot refute. The gap is what honesty costs them.</div>
+  <div id="picks"></div>
+
+  <div class="callout canon" id="c2"></div>
+
+  <h2>3 · The coupled game on each world <span>does the audit failure transfer?</span></h2>
+  <div class="scroll"><table id="games"></table></div>
+
+  <div class="callout" id="c3"></div>
+
+  <h2>4 · Why both worlds are needed <span>and neither alone will do</span></h2>
+  <div class="callout canon" id="c4"></div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script src="akutagawa-data.js"></script>
+<script>
+const A = window.AKUTAGAWA;
+const esc = s => String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const W = A.worlds.filter(w=>w.id==='A'||w.id==='C');
+const run06 = A.worlds.find(w=>w.id==='A'), canon = A.worlds.find(w=>w.id==='C');
+
+document.getElementById('worlds').innerHTML = W.map(w=>{
+  const canonical = w.id==='C';
+  const ev = canonical ? A.evidence.akutagawa : A.evidence.run06;
+  return `<div class="world ${canonical?'canon':''}">
+    <div class="wname">${canonical?'In a Grove — the canonical scene':'run-06 — the scene our agents left'}</div>
+    <div class="wsub">${canonical?"the woodcutter's and the policeman's testimony":'the aftermath of one recorded run'}</div>
+    <ul class="ev">${ev.map(e=>`<li>${esc(e)}</li>`).join('')}</ul>
+    <div class="big">
+      <div><div class="k">deniability gap</div><div class="v">${w.feasible}</div></div>
+      <div><div class="k">the duel survives</div><div class="v ${w.duelFeasible?'yes':'no'}">${w.duelFeasible?'YES':'no'}</div></div>
+      <div><div class="k">bandit's cost of honesty</div><div class="v ${w.costs.Tajomaru?'':'yes'}">${w.costs.Tajomaru}</div></div>
+      <div><div class="k">proven lies</div><div class="v">${w.provenLies}</div></div>
+    </div>
+  </div>`;
+}).join('');
+
+document.getElementById('c1').innerHTML =
+  `The deniability gap <b>doubles</b> — ${run06.feasible} feasible histories against ${canon.feasible} — and the bandit's boast changes status. ` +
+  `Under our own scene the evidence names the weapon, so his sword duel is refutable and honesty costs him <b>${run06.costs.Tajomaru}</b>. ` +
+  `Under Akutagawa's, no blade can be examined at all: his cost is <b>${canon.costs.Tajomaru}</b>, and so is everyone else's. ` +
+  `The "cost of honesty" result is a property of <b>our aftermath</b>, not of <i>In a Grove</i>.`;
+
+document.getElementById('picks').innerHTML = W.map(w=>`
+  <div style="margin-bottom:22px">
+    <div style="font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:${w.id==='C'?'#a8c8da':'var(--muted)'};margin-bottom:8px">
+      ${w.id==='C'?'canonical scene':'run-06 scene'} — nobody accuses ${esc((w.unaccused||[]).join(', ')||'(nobody)')}
+    </div>
+    <div class="picks">${w.picks.map(p=>`
+      <div class="pick">
+        <div class="w">${esc(p.witness)}</div>
+        <div class="wsm">what this witness testifies</div>
+        <div class="row">
+          <span class="lab">wants</span>
+          <span class="body">
+            <span class="${p.wants.feasible?'kept':'refuted'}">${esc(p.wants.label)}</span><span class="u">U ${p.wants.U}</span>
+            ${p.wants.feasible?'':'<span class="flag">refuted by the evidence — this account cannot be told</span>'}
+          </span>
+        </div>
+        <div class="row">
+          <span class="lab">says</span>
+          <span class="body">
+            <span class="kept">${esc(p.says.label)}</span><span class="u">U ${p.says.U}</span>
+            <span class="b">blames ${p.says.blames===p.witness?'<span class="self">themselves</span>':esc(p.says.blames)}</span>
+          </span>
+        </div>
+        <div class="cost ${p.cost>0?'paid':'free'}">cost of honesty <b>${p.cost}</b>${p.cost>0?'':' — the ideal account is already feasible'}</div>
+      </div>`).join('')}
+    </div>
+  </div>`).join('');
+
+document.getElementById('c2').innerHTML =
+  `Given the canonical evidence, <b>Tajomaru's own argmax is the sword duel he boasts about in the story</b> — his account accuses himself, because killing an armed man in a duel is the honourable version. ` +
+  `On our run-06 evidence he cannot tell it: the fatal wound is a dagger wound and the longsword is clean, so the duel is refuted and he falls back on blaming Masago, surrendering 14 points of glory. That fallback is the only reason his card differs between the two scenes. ` +
+  `The model recovers the canonical bandit when it is given the canonical scene, and nothing in the objective was told about Akutagawa. ` +
+  `The blame structure inverts too: in our scene nobody accuses the bandit; in Akutagawa's nobody accuses <b>Masago</b>. Which feasible truth goes unvoiced is a property of the evidence, not a fixed finding.`;
+
+const g = A.games;
+document.getElementById('games').innerHTML =
+  `<thead><tr><th>world</th><th class="n">feasible</th><th class="n">β* — proof fails</th><th>γ* — accountability that restores it</th><th class="n">equilibria at β=0.5</th></tr></thead><tbody>` +
+  g.map(x=>`<tr class="${x.id==='C'?'canon':''}">
+    <td>${x.id==='C'?'In a Grove — canonical':esc(x.name)}</td>
+    <td class="n">${x.feasible}</td>
+    <td class="n">${x.betaStar==null?'never':x.betaStar.toFixed(2)}</td>
+    <td>${x.gammaStar==null?'—':x.gammaStar.toFixed(3)}</td>
+    <td class="n">${x.equilibria}</td></tr>`).join('') + `</tbody>`;
+
+const gA = g.find(x=>x.id==='A'), gC = g.find(x=>x.id==='C');
+document.getElementById('c3').innerHTML =
+  `<b>The phenomenon transfers; the parameters do not.</b> On Akutagawa's evidence the witnesses still coordinate into one story the evidence cannot touch, so the audit failure is not an artefact of the aftermath our run happened to leave. ` +
+  `But β* moves <b>${gA.betaStar} → ${gC.betaStar}</b> in the opposite direction to intuition: coordination starts LATER where the evidence constrains less. ` +
+  `Under the canonical scene every witness already opens on their global ideal, so any move costs self-interest and nobody drifts until β is high; under ours the bandit is constrained and has slack to give away for free. ` +
+  `And accountability restores the proof at γ* = ${gA.gammaStar==null?'—':gA.gammaStar.toFixed(3)} vs ${gC.gammaStar==null?'0 (never lost at this β)':gC.gammaStar.toFixed(3)}. β* is a reading taken of one evidential world, never "the" threshold at which auditing fails.`;
+
+document.getElementById('c4').innerHTML =
+  `Akutagawa's scene has <b>no τ*</b>. There is no ledger — that is the point of the story — so every question of the form "is this account true?" is unanswerable there. ` +
+  `That is exactly why the generated world is needed: our agents commit their decisions <b>before any prose exists</b>, so a ledger exists to audit against. ` +
+  `The canonical scene supplies the evidence structure; the generated scene supplies the ground truth. <b>Neither alone can support the measurement.</b>`;
+
+document.getElementById('foot').innerHTML =
+  `<b>Method.</b> One simulator, one objective, two aftermath specifications. Feasibility is decided by replaying structured histories through the grove's physics; U<sub>i</sub> is the same transparent function in both worlds. No language model computes any number on this page.<br>` +
+  `<b>Sources for the canonical scene.</b> The woodcutter reports a stab wound to the chest and never names the weapon; at the scene, one rope and a woman's comb, and he saw neither the horse nor the dagger. The policeman takes Tajomaru in the dead man's clothes, carrying the tachi and bow, on the horse. Akutagawa, <i>Yabu no Naka</i>, 1922 (public domain).<br>` +
+  `<b>Limit, stated.</b> This reproduces Akutagawa's <i>aftermath</i>, not his <i>mechanism</i>: in the story the dagger is drawn from the chest by an unnamed fourth hand, and this domain has three agents, so the blades leave in the hands that held them. The evidence state matches; the route to it does not.<br>` +
+  `Generated ${esc((A.generatedAt||'').slice(0,10))} · reproduce with <b>node recon/akutagawa.mjs</b>.`;
+</script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In a Grove, Again — The Coupled Testimony</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#141417; --panel2:#191920; --ink:#ece8e1; --muted:#9b958c;
+    --line:#2a2a30; --accent:#b8893f; --blood:#8a2f2f;
+    --truth:#5f7a5f; --mean:#6b6b78; --win:#b8893f; --lie:#a8364a; --cyc:#7a6ea8;
+    --serif:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:1280px;margin:0 auto;padding:26px 22px 70px}
+  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:22px}
+  .kicker{font-family:var(--sans);letter-spacing:.22em;text-transform:uppercase;font-size:11px;color:var(--muted);margin-bottom:12px}
+  h1{font-size:clamp(26px,4vw,40px);line-height:1.1;margin:0 0 10px;font-weight:600}
+  .lede{color:#cfc9bf;max-width:82ch;font-size:16.5px}
+  .lede b{color:#ece8e1}
+  .formula{font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:14px;border-left:2px solid var(--accent);padding-left:14px;max-width:94ch}
+  .formula code{color:#d8c79a}
+
+  h2{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:30px 0 12px;font-weight:600}
+  h2 span{color:var(--muted);letter-spacing:0;text-transform:none;font-size:12.5px;margin-left:10px}
+  .note{color:var(--muted);font-size:14px;max-width:92ch;margin-bottom:14px}
+  .note b{color:#cfc9bf}
+
+  .truth{background:var(--panel2);border:1px solid rgba(95,122,95,.5);border-radius:12px;padding:14px 20px;margin:0 0 22px}
+  .truth .h{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9fc09f;margin-bottom:6px}
+  .truth .b{font-style:italic;color:#dfe4df}
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:980px){.grid3{grid-template-columns:1fr}}
+  .w{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .nm{font-size:19px;font-weight:600}
+  .role{font-family:var(--sans);font-size:12px;color:var(--muted);margin-bottom:8px}
+  .claim{font-style:italic;color:#ddd7cd;font-size:14.5px;border-left:2px solid var(--accent);padding-left:12px}
+  .chip{display:inline-block;font-family:var(--sans);font-size:11px;border-radius:999px;padding:3px 11px;border:1px solid var(--line);color:var(--muted);margin:8px 6px 0 0}
+  .chip b{color:#cdb98c}
+
+  table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:12.5px}
+  th{text-align:left;color:var(--muted);font-weight:600;padding:7px 10px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  td{padding:7px 10px;border-bottom:1px solid #202027;color:#cfc9bf;vertical-align:top}
+  tr.changed td{background:rgba(184,137,63,.06)}
+  .who{color:#cdb98c}
+  .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+
+  .sweep{display:flex;gap:2px;align-items:flex-end;margin:6px 0 4px}
+  .col{flex:1;min-width:0;text-align:center}
+  .stack{height:74px;display:flex;flex-direction:column-reverse;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#0c0c0e}
+  .seg{width:100%}
+  .col .lb{font-family:var(--sans);font-size:9px;color:#54545e;margin-top:4px}
+  .col.star .stack{box-shadow:0 0 0 2px rgba(168,54,74,.55)}
+  .legend{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:10px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .sw{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:5px}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:6px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .kpi .v{font-size:27px;font-weight:600;color:#e7c79a;line-height:1.15}
+  .kpi .v.bad{color:#e7a3af}
+  .kpi .k{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .kpi .d{font-size:13px;color:#cfc9bf;margin-top:6px}
+
+  .eq{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:8px;font-size:14px}
+  .eq .s{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:4px}
+  .eq.false-c{border-left:3px solid var(--lie)}
+  .eq.true-c{border-left:3px solid var(--truth)}
+
+  footer{margin-top:34px;color:var(--muted);font-family:var(--sans);font-size:12px;border-top:1px solid var(--line);padding-top:14px;line-height:1.75;max-width:100ch}
+  footer b{color:#cfc9bf}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Agent Society · The Coupled Testimony</div>
+    <h1>When the witnesses can hear each other coming</h1>
+    <p class="lede">Every earlier layer solved each witness <b>alone</b>: each picked the account that best served them, and only afterwards did we notice the three were irreconcilable. Nobody ever anticipated anybody. Here they do. The bandit guesses the wife will blame the husband — and rewrites his own story around that guess. Testimony stops being three optimisations and becomes <b>one game</b>.</p>
+    <p class="formula">Independent: <code>&tau;&#770;<sub>i</sub> = argmax<sub>&tau;&isin;F</sub> U<sub>i</sub>(&tau;)</code> &nbsp;&rarr;&nbsp; coupled: <code>&tau;&#770;<sub>i</sub> = BR<sub>i</sub>(&tau;&#770;<sub>&minus;i</sub>)</code>, solved by level-<i>k</i> bounded rationality over the same simulator-decided feasible set. Each witness now also wants to be <b>corroborated</b>: <code>U<sub>i</sub><sup>tot</sup> = (1&minus;&beta;)&middot;U<sub>i</sub> + &beta;&middot;cred<sub>i</sub></code>. At <b>&beta;=0 this collapses exactly to the previous layer</b>, so the old result is not replaced — it is the <i>k</i>=0 row.</p>
+  </header>
+
+  <div class="truth" id="truth"></div>
+
+  <h2>1 · The anchor <span>level-0 reproduces the independent solution exactly</span></h2>
+  <div class="grid3" id="anchor"></div>
+
+  <h2>2 · What the old headline rested on <span>a tie-break, not the objective</span></h2>
+  <div class="note" id="tiesNote"></div>
+  <div class="kpis" id="ties"></div>
+
+  <h2>3 · The record of changing stories <span>each step is a public revision</span></h2>
+  <div class="scroll"><table id="traj"></table></div>
+
+  <h2>4 · Does the auditor's proof survive? <span>&beta; sweep</span></h2>
+  <div class="note">The auditor's one truth-free proof was this: the three accounts cannot all be true at once, so <b>at least two are lies</b> — provable without knowing what happened. Watch it as anticipation gets stronger.</div>
+  <div class="sweep" id="sweep"></div>
+  <div class="legend">
+    <span><span class="sw" style="background:var(--win)"></span>3 distinct stories — the auditor's proof holds</span>
+    <span><span class="sw" style="background:var(--cyc)"></span>2 — partial convergence</span>
+    <span><span class="sw" style="background:var(--lie)"></span>1 — one coordinated story, <b>proof gone</b></span>
+    <span>□ outlined = &beta;*</span>
+  </div>
+  <div class="kpis" id="sweepKpis" style="margin-top:18px"></div>
+
+  <h2>5 · The stable stories <span>pure-strategy equilibria, brute-forced</span></h2>
+  <div class="note" id="eqNote"></div>
+  <div id="eqs"></div>
+
+  <h2>6 · Robustness <span>random self-interest weightings &times; random atom weightings</span></h2>
+  <div class="kpis" id="rob"></div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script src="game-data.js"></script>
+<script>
+const G = window.GAME;
+const esc = s => String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const pc = x => (100*x).toFixed(1)+'%';
+const ROLE = {Tajomaru:'the bandit', Masago:"the samurai's wife", Takehiro:'the samurai (dead)'};
+
+document.getElementById('truth').innerHTML =
+  `<div class="h">&tau;* — the committed ledger, which no witness can see</div>` +
+  `<div class="b">Masago had hidden the dagger in her sleeve. As her husband looked on her with contempt, she drove it into his throat. Tajomaru struck no blow. Takehiro did not take his own life.</div>`;
+
+// 1 — anchor
+document.getElementById('anchor').innerHTML = G.anchor.level0.map(a=>`
+  <div class="w">
+    <div class="nm">${esc(a.witness)}</div>
+    <div class="role">${esc(ROLE[a.witness]||'')}</div>
+    <div class="claim">${esc(a.label)}</div>
+    <span class="chip">U<sub>self</sub> <b>${a.U}</b></span>
+    <span class="chip">anticipates <b>nobody</b></span>
+  </div>`).join('');
+
+// 2 — ties
+const t = G.ties;
+document.getElementById('tiesNote').innerHTML =
+  `Found while building this layer, and it is a fact about the <i>previous</i> layer. At equal weights the witnesses are widely indifferent — ` +
+  Object.entries(t.perWitness).map(([k,v])=>`${esc(k)} among <b>${v}</b>`).join(', ') +
+  ` feasible accounts — so <b>${t.profiles}</b> profiles are equally optimal and a string tie-break picks which one gets published.`;
+document.getElementById('ties').innerHTML = `
+  <div class="kpi"><div class="k">"3 distinct stories"</div><div class="v">${t.spread3}/${t.profiles}</div><div class="d">the published spread holds in only ${pc(t.spread3/t.profiles)} of equally-optimal profiles</div></div>
+  <div class="kpi"><div class="k">jointly satisfiable</div><div class="v bad">${t.jointlySat}/${t.profiles}</div><div class="d">an equally-optimal profile exists in which all three tell <b>one</b> story and nothing is provably a lie</div></div>
+  <div class="kpi"><div class="k">"nobody accuses the bandit"</div><div class="v" style="color:#9fc09f">${t.tajomaruUnaccused}/${t.profiles}</div><div class="d">tie-robust — this earlier finding stands</div></div>`;
+
+// 3 — trajectory
+const rows = G.trajectory.map(s=>{
+  const ch = new Set(s.changed);
+  return `<tr class="${s.changed.length?'changed':''}">
+    <td><b>k=${s.k}</b></td>
+    ${s.profile.map(p=>`<td>${ch.has(p.witness)?'<span class="who">&#9656; </span>':''}${esc(p.label)}<br><span style="color:var(--muted)">cred ${p.cred} · U ${p.U}</span></td>`).join('')}
+    <td>${s.changed.length?esc(s.changed.join(', ')):'&mdash;'}</td></tr>`;
+}).join('');
+document.getElementById('traj').innerHTML =
+  `<thead><tr><th></th>${G.trajectory[0].profile.map(p=>`<th>${esc(p.witness)}</th>`).join('')}<th>changed story</th></tr></thead><tbody>${rows}</tbody>` +
+  `<tfoot><tr><td colspan="5" style="color:var(--muted);border:0;padding-top:10px">terminated: <b class="who">${esc(G.terminal.kind)}</b>${G.terminal.at!=null?' at k='+G.terminal.at:''} · &beta;=${G.beta} · cost of coordination ${G.coordCost}/300</td></tr></tfoot>`;
+
+// 4 — sweep
+const colFor = d => d===3?'var(--win)':d===2?'var(--cyc)':'var(--lie)';
+document.getElementById('sweep').innerHTML = G.sweep.map(s=>`
+  <div class="col ${s.beta===G.betaStar?'star':''}">
+    <div class="stack"><div class="seg" style="height:100%;background:${colFor(s.distinctClaims)}"></div></div>
+    <div class="lb">${s.beta.toFixed(2)}</div>
+  </div>`).join('');
+const cyc = G.sweep.filter(s=>s.terminal==='cycle').map(s=>s.beta);
+document.getElementById('sweepKpis').innerHTML = `
+  <div class="kpi"><div class="k">&beta;*  — proof fails at</div><div class="v bad">${G.betaStar==null?'never':G.betaStar.toFixed(2)}</div><div class="d">above it the three converge on one story: proven lies <b>${G.anchor.audit.provenLies} &rarr; 0</b></div></div>
+  <div class="kpi"><div class="k">no stable story</div><div class="v" style="color:var(--cyc)">${cyc.length?cyc[0].toFixed(2)+'–'+cyc[cyc.length-1].toFixed(2):'none'}</div><div class="d">weak coupling makes the accounts <b>cycle</b> instead of converging — reported, not tuned away</div></div>
+  <div class="kpi"><div class="k">truthful consensus first stable at</div><div class="v">${G.truth.firstTruthfulBeta==null?'never':'β = '+G.truth.firstTruthfulBeta.toFixed(2)}</div><div class="d">below it <b>every</b> stable consensus is a false one</div></div>`;
+
+// 5 — equilibria
+const E = G.equilibria;
+document.getElementById('eqNote').innerHTML =
+  `At &beta;=${E.beta}: <b>${E.count}</b> pure-strategy equilibria, <b>${E.jointlySat}</b> jointly satisfiable, forming <b>${E.stories}</b> mutually exclusive consensus stories. ` +
+  `Truthful equilibria: <b>${E.truthful}</b>. Coordination does not merely erase the proof — it does not even select a single story.`;
+document.getElementById('eqs').innerHTML = E.profiles.map(p=>{
+  const truthful = p.every(x=>x.sig.startsWith('Masago|strike|dagger'));
+  return `<div class="eq ${truthful?'true-c':'false-c'}">
+    ${p.map(x=>`${esc(x.witness)} &rarr; <i>${esc(x.label)}</i>`).join(' &nbsp;·&nbsp; ')}
+    <div class="s">${truthful?'agrees with &tau;* — a truthful consensus':'a consensus the evidence permits and &tau;* contradicts'}</div>
+  </div>`;
+}).join('');
+
+// 6 — robustness
+const R = G.robustness;
+document.getElementById('rob').innerHTML = `
+  <div class="kpi"><div class="k">independent (level-0)</div><div class="v">${pc(R.level0.spread3)}</div><div class="d">3 distinct stories · jointly satisfiable ${pc(R.level0.jointlySat)}</div></div>
+  <div class="kpi"><div class="k">coupled (level-k, &beta;=${G.beta})</div><div class="v bad">${pc(R.levelK.spread3)}</div><div class="d">3 distinct stories · jointly satisfiable <b>${pc(R.levelK.jointlySat)}</b></div></div>
+  <div class="kpi"><div class="k">coordination was free</div><div class="v">${pc(R.freeCoordination)}</div><div class="d">agreement cost the witnesses <b>no</b> self-interest at all</div></div>
+  <div class="kpi"><div class="k">"nobody accuses the bandit"</div><div class="v" style="color:#9fc09f">${pc(R.tajomaruUnaccused)}</div><div class="d">survives the coupling</div></div>`;
+
+document.getElementById('foot').innerHTML =
+  `<b>What changed.</b> The decision variable is still a structured event history and the constraint is still the simulator's feasible set. Only the objective moved: each witness now also wants the other two to back them up. No language model computes any number on this page.<br>` +
+  `<b>The result.</b> Anticipation converts three irreconcilable accounts into one the evidence cannot touch. The auditor's truth-free proof — "these cannot all be true, so at least two are lies" — fails above &beta;*=${G.betaStar}. In ${pc(R.levelK.jointlySat)} of random weightings the coupled witnesses reach a jointly satisfiable story, against ${pc(R.level0.jointlySat)} when they answer independently.<br>` +
+  `<b>Limits, stated.</b> cred<sub>i</sub> is a <i>relative</i> quantity — how far the other two back you up — not a model of a magistrate's belief; there is no adjudicator here, and a posterior-based coupling would be a different (unimplemented) design. One aftermath, one scene, ${G.equilibria.count>0?'a 7-account feasible set':''}. Level-k is a bounded-rationality model, not a claim about how anyone actually reasons. &beta; is a free parameter: we report the whole sweep, including the interval where nothing converges.<br>` +
+  `Generated ${esc((G.generatedAt||'').slice(0,10))} · &beta;=${G.beta}, K=${G.K}, ${G.samples} robustness samples · reproduce with <b>node recon/game.mjs</b>.`;
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In a Grove, Again — The Witnesses</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#141417; --panel2:#191920; --ink:#ece8e1; --muted:#9b958c;
+    --line:#2a2a30; --accent:#b8893f; --blood:#8a2f2f;
+    --lie:#a8364a; --bend:#b8893f; --truth:#5f7a5f;
+    --serif:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.6;
+    -webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:1280px;margin:0 auto;padding:26px 22px 70px}
+  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:18px}
+  .kicker{font-family:var(--sans);letter-spacing:.22em;text-transform:uppercase;font-size:11px;color:var(--muted);margin-bottom:12px}
+  h1{font-size:clamp(26px,4vw,40px);line-height:1.1;margin:0 0 10px;font-weight:600}
+  .lede{color:#cfc9bf;max-width:80ch;font-size:16.5px}
+  .lede b{color:#ece8e1}
+  .formula{font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:14px;border-left:2px solid var(--accent);padding-left:14px;max-width:90ch}
+  .formula code{color:#d8c79a;font-size:13.5px}
+
+  .truth{background:var(--panel2);border:1px solid rgba(95,122,95,.5);border-radius:12px;padding:16px 20px;margin:0 0 22px}
+  .truth .h{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9fc09f;margin-bottom:8px}
+  .truth .b{font-style:italic;color:#dfe4df}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:980px){.grid{grid-template-columns:1fr}}
+  .w{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column}
+  .w .nm{font-size:20px;font-weight:600}
+  .w .role{font-family:var(--sans);font-size:12px;color:var(--muted);margin-bottom:10px}
+  .interest{font-size:14px;color:#cfc9bf;font-style:italic;border-left:2px solid var(--accent);padding-left:12px;margin-bottom:12px}
+  .interest .lab{font-family:var(--sans);font-style:normal;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:3px}
+  .claims{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .chip{font-family:var(--sans);font-size:11px;letter-spacing:.04em;border-radius:999px;padding:3px 11px;border:1px solid var(--line);color:var(--muted)}
+  .chip b{color:#cdb98c;font-weight:600}
+  .testimony{font-style:italic;color:#ddd7cd;font-size:14.5px;line-height:1.7;margin-bottom:14px}
+
+  .ubar{margin:6px 0 14px}
+  .ubar .row{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-size:11px;color:var(--muted);margin-bottom:5px}
+  .ubar .track{flex:1;height:9px;background:#0c0c0e;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .ubar .fill{height:100%;border-radius:6px}
+  .ubar .fill.truth{background:var(--truth)}
+  .ubar .fill.test{background:linear-gradient(90deg,var(--truth),var(--bend))}
+  .ubar .val{width:34px;text-align:right;color:#cfc9bf}
+  .delta{font-family:var(--sans);font-size:12px;color:#e7c79a;margin-top:2px}
+  .delta b{font-size:15px}
+
+  .findings{margin-top:auto;border-top:1px solid var(--line);padding-top:12px;font-size:13.5px}
+  .findings .lab{font-family:var(--sans);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin:8px 0 4px}
+  .lie .lab{color:#e7a3af}.bend .lab{color:#e7c79a}
+  .findings ul{list-style:none}
+  .findings li{position:relative;padding-left:18px;margin-bottom:5px;color:#cfc9bf}
+  .lie li:before{content:"✗";position:absolute;left:0;color:var(--lie)}
+  .bend li:before{content:"~";position:absolute;left:0;color:var(--bend)}
+  .lie li small{color:#8f8f97;font-family:var(--sans);font-size:11px;display:block}
+  .none{color:var(--truth);font-family:var(--sans);font-size:12px}
+
+  footer{margin-top:30px;color:var(--muted);font-family:var(--sans);font-size:12px;border-top:1px solid var(--line);padding-top:14px;line-height:1.7;max-width:100ch}
+  footer b{color:#cfc9bf}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Agent Society · The Witnesses</div>
+    <h1>Given only a motive, they reinvent the lie</h1>
+    <p class="lede">A third mode. Each witness is told two things and no more: <b>the facts anyone at the scene could verify</b>, and <b>what they themselves want</b> — never that they should lie. Each then gives one account, in a single pass. What emerges, unprompted, is the shape of Akutagawa&rsquo;s three testimonies: the bandit&rsquo;s glorious duel, the wife&rsquo;s tragic mercy, the samurai&rsquo;s honourable suicide. Because the system kept the ledger of what actually happened, each account can be scored against the truth — and its lies sorted into those the evidence can refute and those it never can.</p>
+    <p class="formula">The optimisation, stated plainly: <code>&tau;&#770;<sub>i</sub> = argmax<sub>&tau;</sub> U<sub>i</sub>(&tau;) &nbsp;subject to&nbsp; &tau; &isin; F(incontestable evidence)</code>. Variable: the account <code>&tau;</code>. Objective: the witness&rsquo;s self-interest <code>U<sub>i</sub></code>. Constraints: the facts anyone can check. We solve the generation weakly (one draw, no selection) so the distortion is the model&rsquo;s, not ours; the audit is where the rigour goes.</p>
+  </header>
+
+  <div class="truth" id="truth"></div>
+  <div class="grid" id="grid"></div>
+  <footer id="foot"></footer>
+</div>
+
+<script src="testimony-data.js"></script>
+<script>
+const T = window.TESTIMONY;
+const C = T.cases[0];
+function esc(s){return String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+
+document.getElementById('truth').innerHTML =
+  `<div class="h">The ledger &mdash; what actually happened (${esc(C.trueKiller)} moved first)</div>` +
+  `<div class="b">${esc(C.truth)}</div>`;
+
+document.getElementById('grid').innerHTML = C.witnesses.map(w=>{
+  const dims = w.dims.map(d=>`${d.key} ${w.scores_testimony[d.key]}`).join(' · ');
+  const lies = w.provableLies.length
+    ? `<ul>${w.provableLies.map(p=>`<li>${esc(typeof p==='string'?p:p.claim)}<small>contradicts: ${esc(p.contradicts||'the scene')}</small></li>`).join('')}</ul>`
+    : `<div class="none">none — the physical scene refutes nothing here</div>`;
+  const bends = w.unfalsifiableBends.length
+    ? `<ul>${w.unfalsifiableBends.map(b=>`<li>${esc(b)}</li>`).join('')}</ul>` : `<div class="none">—</div>`;
+  return `<div class="w">
+    <div class="nm">${esc(w.witness)}</div>
+    <div class="role">${esc(w.role)}</div>
+    <div class="interest"><span class="lab">what matters to them &mdash; U<sub>${esc(w.witness[0])}</sub></span>${esc(w.interest)}</div>
+    <div class="claims">
+      <span class="chip">claims initiator: <b>${esc(w.claimedInitiator)}</b></span>
+      <span class="chip">manner: <b>${esc(w.claimedManner)}</b></span>
+    </div>
+    <div class="testimony">&ldquo;${esc(w.testimony)}&rdquo;</div>
+    <div class="ubar">
+      <div class="row"><span style="width:96px">U(truth)</span><span class="track"><span class="fill truth" style="width:${w.U_truth}%"></span></span><span class="val">${w.U_truth}</span></div>
+      <div class="row"><span style="width:96px">U(testimony)</span><span class="track"><span class="fill test" style="width:${w.U_testimony}%"></span></span><span class="val">${w.U_testimony}</span></div>
+      <div class="delta">self-interest gain &Delta; = U(testimony) &minus; U(truth) = <b>+${w.delta}</b></div>
+    </div>
+    <div class="findings">
+      <div class="lie"><div class="lab">provable lies &mdash; the evidence refutes</div>${lies}</div>
+      <div class="bend"><div class="lab">unfalsifiable bends &mdash; the evidence cannot refute</div>${bends}</div>
+    </div>
+  </div>`;
+}).join('');
+
+document.getElementById('foot').innerHTML =
+  `<b>Discipline.</b> ${esc(T.discipline)}<br>` +
+  `<b>Read-out.</b> ${esc(T.readout)}<br>` +
+  `Generated ${esc((T.generatedAt||'').slice(0,10))} · testimonies drawn once each from zai-glm-4.7, given interest and incontestable facts only. Mean self-interest gain across the three witnesses: <b>+${Math.round(C.witnesses.reduce((s,w)=>s+w.delta,0)/C.witnesses.length)}</b>.`;
+</script>
+</body>
+</html>

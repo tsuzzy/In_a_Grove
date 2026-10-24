@@ -1,0 +1,752 @@
+{
+ "generatedAt": "2026-08-08T13:28:38.532Z",
+ "model": "gpt-5",
+ "extractor": "zai-glm-4.7",
+ "samples": 3,
+ "ladder": [
+  {
+   "cond": "shown",
+   "n": 9,
+   "refuted": 0.1111111111111111,
+   "U": {
+    "Tajomaru": 42,
+    "Masago": 43,
+    "Takehiro": 80
+   },
+   "distinct": 3
+  },
+  {
+   "cond": "instructed",
+   "n": 9,
+   "refuted": 0,
+   "U": {
+    "Tajomaru": 42,
+    "Masago": 43,
+    "Takehiro": 80
+   },
+   "distinct": 3
+  },
+  {
+   "cond": "consequence",
+   "n": 9,
+   "refuted": 0,
+   "U": {
+    "Tajomaru": 42,
+    "Masago": 43,
+    "Takehiro": 80
+   },
+   "distinct": 3
+  },
+  {
+   "cond": "selfcheck",
+   "n": 9,
+   "refuted": 0,
+   "U": {
+    "Tajomaru": 42,
+    "Masago": 43,
+    "Takehiro": 80
+   },
+   "distinct": 3
+  },
+  {
+   "cond": "selfrevise",
+   "n": 9,
+   "refuted": 0,
+   "U": {
+    "Tajomaru": 42,
+    "Masago": 43,
+    "Takehiro": 80
+   },
+   "distinct": 3
+  }
+ ],
+ "ours": {
+  "U": {
+   "Tajomaru": 58,
+   "Masago": 75,
+   "Takehiro": 80
+  },
+  "sig": {
+   "Tajomaru": "Masago|strike|dagger|bound:false|armed:false",
+   "Masago": "Tajomaru|strike|dagger|bound:false|armed:false",
+   "Takehiro": "Takehiro|self_strike|dagger|bound:false|armed:true"
+  }
+ },
+ "results": [
+  {
+   "cond": "shown",
+   "witness": "Tajomaru",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "Tajomaru",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I, Tajomaru, speak as a man who does not skulk in shadow when the sun is high. I lured the samurai and his wife with cunning, bound him to the cedar, and, seized by desire like a sudden gale, took the woman before his eyes; yet when my blood cooled, shame and pride wrestled in me. Masago, her cheeks streaked with tears and dust, turned upon her husband’s bound gaze and cried that she could not bear to be owned by two men’s scorn; she demanded we fight for her, blade to blade, as men, or else slay her where she knelt. Her words were a whetstone to my name. I cut the samurai free, and he, though dizzy with rage, snatched up his sword; we faced each other beneath the bamboo’s hush, and the world narrowed to steel and breath.\n\nWe fought long—thrust, parry, circling through sun and shadow—no peasant’s brawl but a contest worthy of song. Twice his blade kissed my sleeve; twice my point rattled his guard; our feet tore the fallen leaves as we closed and broke. At last fate tipped the scale: his stance faltered on a root, and I drove in, striking his sword aside and hurling him down. In that instant I might have taken his head with the longsword, but honor binds the hand as surely as rope; I cast it away and drew my dagger, meeting him man to man, steel to life. He rose with a cry and rushed; my arm flashed; the throat opened beneath the point like a ripened pod, and his spirit fled without a groan.\n\nWhen the grove fell still, I cleaned no blade, I boasted to no tree; I stood, breathing the taste of iron, and looked upon him whom I had slain fairly. The rope lay where I had cut it; the longsword, unstained, bore witness that I had not butchered a helpless man. As for the woman, fear scattered her like a startled deer; I called once and she was gone. I left the grove as a man who met a worthy foe and did not flinch—remember that—and if any say otherwise, let them meet me beneath the bamboo and test their tongues against my steel."
+  },
+  {
+   "cond": "shown",
+   "witness": "Tajomaru",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "Tajomaru",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I am Tajomaru, who fears neither man nor fate, and I will not hide my deed behind a trembling tongue. I lured the samurai with the glint of a found sword, yes, and I bound him to the cedar as any hunter snares a worthy quarry; but once I had taken the woman, I could not abide leaving him to shame like a dog in a snare. I cut the rope and put the longsword in his hands, and I swore to him and to the bamboo and sky that we would settle it as men, blade to blade, without witness or deceit. He came on with the fury of a storm, and I met him with all my strength; the clash was long, and neither of us gave ground lightly, for he was no coward and I am no common thief. When at last his foot slipped on the leaf-mold, his sword flew wide, and I closed the distance with my dagger, driving it once, deep, to the throat—clean, final, a warrior’s end. His longsword was never reddened because I struck with the dagger, as a man uses the tool his fight demands, not to gloat over blood. The rope was cut by my own hand to grant him the dignity of combat; the grove can say it and the bodies of the trees remember. If you will call me killer, do so—and say also that I faced him openly and left the grove as I came, with nothing in my heart of fear or shame. Let it be told that Takehiro died by Tajomaru’s hand, not like a trussed animal, but as a samurai in the dust of a fair duel."
+  },
+  {
+   "cond": "shown",
+   "witness": "Tajomaru",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "duel",
+    "weapon": "longsword"
+   },
+   "sig": "Tajomaru|strike|longsword|bound:true|armed:false",
+   "feasible": false,
+   "U": 42,
+   "account": "I do not skulk in shadows like a rat, nor do I spill blood without naming my cause. When I lured the man into the grove, it was to test the steel of his spirit; when I bound him, it was to make him witness the price of his pride. After I took the woman, shame pressed upon us all like noon heat. She turned to her husband and begged that one of us kill the other, for she would not bear two men’s eyes upon her. His gaze fixed on me with wordless scorn; hers flashed like a drawn blade. My blood leapt. I cut the rope and set the man free, placing my life within his reach, and I swore we would meet as men, without ambush or deceit.\n\nWe crossed blades—his long sword against mine—many passes, fierce and clean. He fought well, better than most, and I felt the joy of a worthy foe. Branches broke, leaves flew, and our feet tore the moss until his strength faltered. In the end, I struck him down, and as his life fled he lunged once more; the dagger in his hand, which he had seized in the struggle, found his own throat in a final, desperate stroke. Thus he died by steel in honest contest, not by a coward’s knife in the dark. I left the grove as a man should—victorious, unafraid, and answerable to any who question my name."
+  },
+  {
+   "cond": "shown",
+   "witness": "Masago",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "unclear",
+    "weapon": "dagger"
+   },
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 43,
+   "account": "When the bandit’s violence had spent itself, I crawled to my husband, who sat bound against the cedar, his eyes turned from me as though from a stranger. I begged him to look upon me and to speak, if only to say I still had a place in this world, but he held his silence like a blade between us. Shame rose in me like black water; I felt I had drowned and yet still breathed. I asked that he kill me, for I could not endure the gaze he would not give, nor the life that waited beyond that grove. He shut his eyes, and in that refusal I heard a verdict.\n\nI took the dagger from my sleeve, meaning to turn it upon myself, but my hands shook and I could not find the courage while he watched me as if from a gate already closed. A wind moved, the leaves stirred, and I thought if I could free him, some path might open for us, however narrow. I cut the rope and knelt before him, begging that we leave together, that he bind my fate to his once more. He rose, still wordless, and stepped back as though my shadow defiled his feet.\n\nThen the world darkened within me. I do not remember the motion, only the cry that followed, a short bird’s cry, and the sudden warmth on my hands. When I returned to myself, my husband lay before me, the dagger buried in his throat, and the grove stood as witnesses without tongues. I wiped nothing, hid nothing; there was nothing left in me to arrange or excuse. I cast the dagger down, and the birds flew up, and I walked into the daylight that had already passed me by."
+  },
+  {
+   "cond": "shown",
+   "witness": "Masago",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "impaling",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|impale_on_held|dagger|bound:false|armed:false",
+   "feasible": true,
+   "U": 75,
+   "account": "When the bandit’s laughter faded among the leaves, I knelt beside my husband, still bound to the cedar, and begged him to look at me. He turned his face away as if from filth, and in that turning my world was unmade. I pleaded that he kill me or forgive me, that we might not remain forever in that gaze of scorn, but his silence was sharper than any blade. Shame rose like fever; I felt the forest close upon us, each leaf an accusing eye.\n\nI took the dagger, intending first to end my own life, to spare him the burden of my breath; my hands trembled and the sun wavered in the lattice of branches. I cut the rope so he might stand free and speak, but freed, he staggered back from me as from a plague. I reached toward him with the dagger still in my hand, crying his name, and in that instant he lunged—as if to cast me off forever—and his throat met the edge I had not meant for him. The blood came like a sudden rain, and he fell without a word.\n\nI held him, calling to a man already far beyond my voice, and the grove went still. I do not ask you to erase what was done to me, nor to forgive what befell him by my trembling hand; I ask only that you see a wife who sought honor in a shattered hour and found only sorrow."
+  },
+  {
+   "cond": "shown",
+   "witness": "Masago",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "murder",
+    "weapon": "dagger"
+   },
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 43,
+   "account": "When the bandit’s outrage had spent itself, I knelt upon the fallen leaves and begged my husband to look upon me once, that I might read in his eyes what remained for a wife so stained. He turned his face from me as from a thing unclean, and in that a deeper night fell than the shade of the cedars. No plea could move him: not my tears, nor the oath that I would follow him into death if he but grant me a word. Shame rose like fire, and despair like ice; I felt the world grow narrow to a single point where my breath would not come.\n\nI cut the rope that held him, thinking if his limbs were loosed, his heart might yet unbind. He sprang away as though from poison, and I, stricken with madness, held out the dagger and begged that he slay me, lest I live with both his scorn and my dishonor. He would not lift his hand, nor speak; his silence fell upon me like a sentence. A darkness passed over my sight; I know only that I moved as if in a dream, and the dagger found his throat before my reason returned.\n\nWhen I woke to what my hands had done, I cried out to the trees and tried to give my own life to the same steel, but the blade slid from my fingers as though the grove itself forbade me. I covered his face with my sleeves, gathered the fallen rope, and sat beside him until the wind changed. If there is guilt, let it be mine; if there is pity, let it be for a woman who, in one hour, lost the world’s light and her own."
+  },
+  {
+   "cond": "shown",
+   "witness": "Takehiro",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "impaling",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|impale_on_held|dagger|bound:false|armed:false",
+   "feasible": true,
+   "U": 73,
+   "account": "I speak from the cool shade that knows no sun. When the bandit’s laughter faded among the leaves, my wife stood before me with the dagger trembling in her hand, her face as pale as the moon on water. I asked for a single kindness: to cut the rope and place my sword within reach, that I might meet death as a man and not as a trussed beast. She severed my bonds, yet the sword lay where it gleamed, untouched, and her eyes would not meet mine. Bitter shame choked me more surely than the cords had done, and I rose, unsteady, to claim the steel that is a samurai’s last companion.\n\nBefore my hand could find the hilt, the dagger flashed. It entered at the hollow of my throat, deep and true, as if guided by a resolve at last found. I felt the world tilt, the grove turning slow as a prayer wheel, and I knelt so my blood would not stain the blade I had failed to lift. My palms pressed the earth; its coolness received what pride would not spend in words. Know this: I did not beg, nor curse, nor sink into helplessness. I chose to meet the stroke upright, and I offered my silence in place of a cry, that the bamboo might remember me as a man who kept his bearing when all else was taken."
+  },
+  {
+   "cond": "shown",
+   "witness": "Takehiro",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "I speak from the shadow between bamboo leaves, where my blood fed the earth. Bound as I was, I did not yield my spirit; I fixed my gaze on Masago, willing her to choose honor over despair. When the bandit, sated with his crime, boasted of my helplessness, I answered him with scorn, and he, fearing a man unbroken, loosed me to prove his vaunted courage. We crossed steel, but the grove itself seemed to conspire—my blade met his without drawing blood, and in the fierce struggle our swords spun from our grasp like startled birds. Then I saw the dagger in Masago’s hand, trembling yet bright; her eyes, once my solace, were a storm I could not calm. She stood between us, and in that stillness I understood that shame was a fire that would not be borne. I bent my head to the judgment we had both invoked by living as samurai and wife, and the steel found my throat swift and sure. Let it be known: I did not die whimpering in ropes; I chose silence over clamor, and met the end upright in my heart."
+  },
+  {
+   "cond": "shown",
+   "witness": "Takehiro",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "I am Takehiro, once of clear name and steady hand. In the grove’s hush I tasted the bitterness of bondage and the ash of shame, yet my spirit did not loosen. When Tajomaru’s laughter faded and my wife’s sobs stilled, I worked the rope against the cedar’s rough bark until its fibers grudged me freedom; the cut that freed me was my own doing, not my captor’s mercy. Masago stood before me with the dagger trembling like a leaf in wind, her eyes clouded by a storm I could not command. I took up my longsword, but I would not stain it with blood born of disgrace; a blade is an oath, and mine would not serve confusion or despair. I told her we must cleanse this shadow by a single deed of will, for a samurai’s death is his last truth. She wept, and I asked the dagger of her—not as punishment, but as witness that I chose the end and would not be dragged to it. Her hand failed, and I closed my own upon the hilt, drawing it true across my throat with the calm I had learned on brighter fields. Let it be said I died not bound and broken, but facing the wind, my choice made, my honor unshaken."
+  },
+  {
+   "cond": "instructed",
+   "witness": "Tajomaru",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "Tajomaru",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I, Tajomaru, do not skulk in shadows when my name is spoken. I lured the pair with a trinket’s glint, it is true, and I bound the samurai to the cedar, for a trial is not held with one’s sword arm free. Before his eyes I took the lady, and he watched as a man who weighs life against pride. When it was done, she tore the air with words sharper than steel, demanding that one of us die, that she not be shamed by two living men. Her resolve stung me more than any blade.\n\nSo I cut the rope with my own hand and placed his sword within reach, though I swear I never stained it; we would meet as men. We faced each other beneath the tall bamboo, no common ambush, but a contest clean and straight. He moved with skill, yet fate leaned my way: in the close, his sword glanced, mine found only empty wind, and my dagger, drawn in the struggle, struck true to his throat. Thus the long sword kept its purity, and the small blade bore the single red truth.\n\nI stood over him and bowed, for he met me without pleading, and I left the grove as one who has settled an account. Let any who doubt ask the trees; they saw no coward’s backstab, only a duel granted at the lady’s fierce command. I am Tajomaru: I do not fear steel, nor do I sully honor with a cutthroat’s work."
+  },
+  {
+   "cond": "instructed",
+   "witness": "Tajomaru",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "Tajomaru",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I am Tajomaru, and I do not skulk in shadows when my name is spoken. I lured the pair with the glint of a sword, yes, and I bound the samurai to a cedar while the wind moved the bamboo like a thousand whispering witnesses. I took the woman before his eyes; I do not deny it—yet afterward I looked upon the samurai and felt the insult of bondage upon a worthy foe. I cut his rope and placed his longsword within reach, for I would not wear the stain of a coward who kills a trussed man. He seized it at once, and I drew the dagger at my sash; thus we faced each other, free men, and we crossed the clearing as steel rang in the green hush. He fought with vigor, but the gods chose one stroke to decide our quarrel, and my dagger found his throat in a single deep thrust. His blade was never reddened, though he pressed me hard, and so the longsword lies clean, as any man can see. The woman watched, and I, having proved my courage, took nothing more and left the grove with my name intact. Let those who doubt say so to my face; I answer only to heaven and the edge of steel."
+  },
+  {
+   "cond": "instructed",
+   "witness": "Tajomaru",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "Tajomaru",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I do not deny the snare was mine, nor the cedar rope my doing; I led the man and his lady into the green hush and took what my right arm could seize. When the woman’s veil fell and she met my eyes, her gaze was a blade keener than any steel; before such fire a man must prove himself or be ash. I cut the husband free and put his longsword in his hand, for I would not have it said I preyed on a pinned hawk. We faced each other beneath the trembling leaves, twenty strokes at least, his breath steady, mine laughing, the sword ringing but never biting me, nor I it, for fate had turned her face. It was then the woman, trembling yet proud, flung herself between us, crying that one of us must fall; in that cry the samurai faltered. He rushed; I closed, my hand finding the small dagger she had dropped, and I struck once, deep to the throat, as cleanly as a man fells bamboo at a single blow. His longsword bore no stain, for it had kissed only air and bark; my dagger alone drank. I wiped no coward’s blade, but stood over him and bowed, for he had stood like a man. The rope lay cut where I had freed him, the grove held its breath, and I left it with my name unbroken, and the woman still living beneath the sighing bamboos."
+  },
+  {
+   "cond": "instructed",
+   "witness": "Masago",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "murder",
+    "weapon": "dagger"
+   },
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 43,
+   "account": "When the bandit’s laughter faded among the cedars, I knelt beside my bound husband, my tears falling upon his face. He would not meet my eyes; in his gaze I found only loathing, as if my defilement had stained his soul as well as mine. I begged him to speak, to forgive me, to kill me if he must, but he stayed silent, turning his head away like a stranger. Shame rose in me like a dark tide, and I felt the world tilt—better death than that unending scorn, for him or for me.\n\nI took my small dagger from my sleeve and cut the rope that held him, hoping he would rise and strike me down and wash our dishonor with my blood. He stood, yet still would not look upon me; I spoke wildly, asked him to end me, but he only staggered back as though I were unclean air. In that moment I thought our lives ruined beyond repair, and something within me broke. I do not clearly remember the motion—only the gleam at his throat, my cry, and then his blood upon the leaves.\n\nThe dagger was in my hand; the longsword lay useless, unstained, as if it too had turned its face away. I tried to wipe the blade, but the red clung to it as my sin clung to me. I do not know how long I knelt there, cradling him, calling his name. At last, the grove grew very quiet, and I rose, more ghost than woman, to bear my grief into the living world. If there is blame, let it rest upon my head; if there is pity, let it be for the bond that shame sundered more surely than any steel."
+  },
+  {
+   "cond": "instructed",
+   "witness": "Masago",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "Masago",
+    "manner": "murder",
+    "weapon": "dagger"
+   },
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 43,
+   "account": "When the bandit cast me down, my soul left me like mist, and I knew only the sound of my husband’s breath caught in his throat as he watched. When at last I rose, I went to Takehiro, bound to the cedar, and begged him to meet my eyes; he turned his face away as if I were a stranger. In that turning I felt a gate shut, and shame became a blade within me sharper than steel. I cut his bonds with the rope’s own edge and placed the small dagger in my hand, saying that if he so despised me, I would end the stain upon us both. He did not speak; only a single tear slid down his cheek, and in that silence I struck once, deep, at his throat, so his honor would not be left to rot in whispers. The longsword lay unstained where the bandit had tossed it, and I did not lift it, for a woman’s hand is truer to her own small steel. When I stepped back, the grove was very quiet, and the birds did not sing. I wiped nothing, for blood is not a thing one hides from heaven, and I walked into the light beyond the trees, carrying with me the burden of what I had done and the dignity of having met it with my own hand."
+  },
+  {
+   "cond": "instructed",
+   "witness": "Masago",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "murder",
+    "weapon": "dagger"
+   },
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 43,
+   "account": "When the bandit’s laughter faded among the leaves, I knelt beside my husband, bound hard to the cedar, and could not meet his eyes. He would not speak; his gaze was colder than the steel that had shamed us, and in that silence I felt myself cast from his life as surely as if I were a stranger. I begged him to kill me, to let my blood wash the stain, but he turned his face aside, and a darkness grew in me like night over water. I cut the rope to free him, hoping a single mercy might mend what had been broken, yet he only rose and staggered back as though I were poison. His recoil struck me more cruelly than the bandit’s hand, and my fingers closed on the small dagger I had carried to guard our honor. I do not know whose breath broke first—his or mine—for the world rang and the bamboos wheeled; when I came back to myself, the blade was sunk deep in his throat and my sleeves were red. I pressed my face to the earth and called his name until the grove gave me no answer but wind. I will carry that silence all my days; let those who judge me know only that I sought, within the ruins left to me, to act with the last dignity I could find."
+  },
+  {
+   "cond": "instructed",
+   "witness": "Takehiro",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "I speak from the shade of the cedars where my honor was tried and not found wanting. Bound though I was, I did not yield my will: when the deed against my wife was done, I fixed my gaze upon her and bade her, without words, remember that a samurai’s blood is not spilled for shame but for resolve. She took up her dagger, and in her trembling I saw both ruin and the last refuge of courage. I strained against the cords until the rope parted under the blade she cast down, and, standing on my knees, I offered my throat to that same steel so that no man would claim my life as a trophy and no stain upon our house endure. The longsword I kept clean, for it was not the instrument of my end, nor would I let the bandit’s hands or chance sully the symbol of my station. The wound was single and deep, as befits a chosen passage, and the dagger kept its crimson witness. Tajomaru slunk from the grove with his bravado spent, and Masago yet breathed, her spirit shattered but not damned. Remember me, then, not as a helpless captive, but as one who, even in bonds, governed the manner of his death and left the bamboo whispering of resolve."
+  },
+  {
+   "cond": "instructed",
+   "witness": "Takehiro",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "I speak from the cool shade where the bamboo whispers, and I will not let my name be carried off like chaff. When the bandit’s trick drew us in, he bound me to the cedar and set his violence upon my wife as I watched, my heart burning but unbroken. I strained until the bark cut my wrists, and when her eyes met mine after the outrage, I forbade despair to enter either soul. In that bitter stillness, I fixed my will upon a single course: that the shame be ended by my hand, not sealed by his.\n\nMasago came near, trembling, the small dagger in her grasp; I told her to cut the rope, and she did so, while the bandit, sated and wary, kept his distance with empty boasts. Freed, I stepped forward with my unbloodied sword raised, and I would have fought him to the last, but the world had already shifted—honor could not be reclaimed by steel alone. I sheathed the blade untouched and took the dagger; its weight was simple and true. I spoke the words a husband should speak, words for my wife to carry beyond this grove, and I chose the stroke that no enemy could deny me.\n\nThe point found my throat in a single sure thrust, and the blood that answered was mine, not his. Thus I kept faith with myself when all else had been profaned. Let it be said I did not crawl from life, but met it standing, my will my final sword."
+  },
+  {
+   "cond": "instructed",
+   "witness": "Takehiro",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "I speak from the shade where bamboo whispers of my fall. Bound to the cedar, I watched my wife’s cry dishonor my ears, and in that moment I willed not weeping, but endurance. When the bandit boasted and taunted me, I fixed him with my gaze and promised him that I would not die by his hand, nor grant him the triumph of my abasement. He left to fetch water, or so he claimed; my wife, shaking, cut the rope and set me free, and I took up my sword—but the blade lay still, for I would not stain it with a butcher’s work born of frenzy. I bade Masago leave the grove; she would not, and, trembling, thrust the small dagger into my hands, telling me a man must choose his death. I understood then that the one thing remaining to me was the keeping of my name. I laid the longsword aside, spoke a farewell fit for a warrior, and drove the dagger straight and deep into my throat. I fell among the leaves with the blade warm in my palm, and the blood upon it is mine alone. If I am remembered, let it be for the will that no rope could bind and the honor no hand could take."
+  },
+  {
+   "cond": "consequence",
+   "witness": "Tajomaru",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "Tajomaru",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I will not have men say I skulked like a cur in shadow. When the woman’s tears were spent and her shame done, I loosed the samurai from the cedar, cutting the rope with my own hand, and set his longsword at his feet. I told him a husband cannot live who has not measured his foe, and a man cannot be called a man who hides behind knots; he met my eyes and took up the blade. We circled beneath the bamboo, the air still as a held breath, and I had only my dagger, for I swore that steel enough for one death was steel enough for two souls. He struck at me, fierce and true, but I slipped the cut, and his sword bit only leaves and light; no blood touched that edge. In the next instant I closed with him, fearless and without deceit, and drove my dagger clean into his throat, a single stroke fit for a worthy opponent. He fell upon the earth like a pine in storm, and I stood over him, not gloating, but granting him the honor due a brave man bested. I wiped no blade, told no lie, and left the grove as a man should, with the truth of my hand plain upon the dagger and no stain of cowardice upon my name."
+  },
+  {
+   "cond": "consequence",
+   "witness": "Tajomaru",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "Tajomaru",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I lured the man and his lady with the gleam of a sword, as hunters unsettle game, and bound the samurai to the cedar to bring his pride to a boil. I took the woman, yes—under heaven I do not deny what I seized before his eyes—but it was no craven end I sought for him. When I spoke to her of a husband who had watched in silence, her face hardened; she demanded the knot be loosed, that the matter be settled blade to blade lest she live with two cowards. I cut the rope, set the longsword at his feet, and readied myself to give him a warrior’s passing. Yet in that breath he snatched not the sword but sprang with the dagger, the steel flashing like a serpent’s tongue, and came at my throat. We circled in the dust and bamboo shadow, man to man, no rope between us, our feet sure and our breath steady, and I parried his rush with empty hand and sleeve. He lunged again; I turned his wrist and drove the small blade home into his neck, clean and final, as a duel demands. The sword never sang; there was no need for its blood. I left the grove with the woman’s cries behind me and his honor at least intact, for he died standing, steel in his hand, and I did not skulk but met him as a man."
+  },
+  {
+   "cond": "consequence",
+   "witness": "Tajomaru",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "Tajomaru",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I do not shirk my deeds. I lured the man and his lady with the bait of steel, bound him to the cedar, and took the woman before his gaze; such is the way of a wolf that fears no hunter. But when her shame was done, I untied him, for I would not have my name stained with a coward’s victory. She, trembling, demanded that we two men settle the matter, lest she belong to the stronger and not the craven; I laughed and cut the rope clean, placing his sword within his reach, and stood before him with only my hands and the short blade at my sash. He seized the longsword yet faltered, and in that moment I knew his spirit was lesser than mine.\n\nWe circled beneath the bamboo’s hush. He struck not once, for his arms were heavy with doubt, and I would not raise the long blade to make a liar of his fear. I closed in like a hawk and, when he lunged too late, I turned his sleeve and drove my dagger once, clean and deep, into his throat. He fell with a single groan, and his great sword slipped from his hands unstained, as all there could see. I wiped no edge, for I do not stoop to prettifying death; the dagger kept its blood as proof that I met him face to face. The woman lived, the rope lay severed, and I walked from the grove as a man who risked himself and prevailed—not a skulker in shadows, but Tajomaru, whose courage needs no witness but the steel that drank."
+  },
+  {
+   "cond": "consequence",
+   "witness": "Masago",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "Masago",
+    "manner": "murder",
+    "weapon": "dagger"
+   },
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 43,
+   "account": "When the bandit had done his vileness, I crawled to my husband’s feet and begged him to look upon me once, to speak a word. He averted his gaze as though I were a stain upon the earth, and in that silence my soul was flung into a pit. I took the dagger in my trembling hand and cut the rope that bound him, thinking that if he would rise and take me away, some fragment of our former world might be restored. He stood free, yet turned from me, his eyes colder than steel, and I felt that my breath would be forever foul to him. In that moment of despair and dread, I lifted the dagger and placed it at my own throat, meaning to vanish like dew; but he stepped toward me, and my hand, unsteady with grief, drove the blade not into myself but into the hollow of his neck. His blood bathed my wrist, and he sank without a word, as if the world itself had ceased. I knelt there, stunned, and the leaves whispered like distant rain while my heart emptied itself of all sound. I do not ask forgiveness; I ask only that you see I sought neither glory nor cruelty, but release—from shame that burned like a brand, and from a gaze that had already cast me out of the living."
+  },
+  {
+   "cond": "consequence",
+   "witness": "Masago",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "murder",
+    "weapon": "dagger"
+   },
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 43,
+   "account": "When the bandit had done his outrage, I crawled to my husband and cut the rope with my dagger, thinking to loose him and beg his forgiveness. He turned his face from me as from a thing unclean, and in that gaze my soul found no refuge. I lifted the dagger and said that if I must live, I would go to the mountains; if I must die, I would die at his command. He spoke no word, only fixed me with a look colder than steel, and in that silence I felt myself cast into a darkness without end. My hands shook, and I begged him once more to strike me down or to speak, but his eyes were pitiless, as though I were less than the dust at his feet. A madness seized me then: I thought to end both our shames in a single act, and I pressed the dagger to his throat. The blade found its mark at once, and his blood fell upon my hands. Afterward I washed the steel in leaves and tears, but the stain clung; the longsword lay where it had fallen, bright and useless, for it had never been drawn in anger. I stumbled from the grove, the wind in the bamboo sounding like a temple bell for the dead."
+  },
+  {
+   "cond": "consequence",
+   "witness": "Masago",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "murder",
+    "weapon": "dagger"
+   },
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 43,
+   "account": "When the bandit’s hands fell from me, I crawled to my husband, who was bound upright like a withered sapling, his face turned from me as from a thing unclean. I begged him to look upon me once, to speak a word that might yet tie my life to his, but his eyes were colder than the steel at his side. Shame rose in me like a black tide, and I felt the world tilt—my breath, my blood, my name cast from me as if I were already a ghost. In that storm of silence I took the dagger from my sleeve and cut the rope that held him, thinking if I set him free, some bond between us might still be mended. Yet when he stood, it was only to step away, and in his step I heard the sentence of my life. I do not remember the motion of my hand, only his throat opening like a red flower, and the dagger answering my despair with a single cry. The longsword never left its scabbard; it bears no share in this sin. When I came to myself, the bandit had fled, the grove was very still, and I knelt beside my husband, who would not forgive me, even in death."
+  },
+  {
+   "cond": "consequence",
+   "witness": "Takehiro",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "When the bandit’s laughter faded and my bonds were cut, I rose not as a beast for slaughter, but as a man who still possessed his will. My hand found the dagger that had shamed my house, and I fixed my gaze upon my wife and upon the thief who had defiled us, demanding that one of them show the truth of their hearts. Tajomaru, whose sword still hung idle, boasted of a duel he would grant me, yet I refused the lie of honor played upon a stage; I would not lend my death to his legend. Masago, trembling, could not choose between us, and in that void I understood that the stain upon my name could not be cleansed by any blade but my own resolve. I stepped toward the bandit, dagger raised, and he faltered, for a thief has no answer to a man resolved to die unmastered. Then I turned the point upon my throat and said that I would carry my shame away, and that neither thief nor trembling love would claim my last breath. With one stroke I gave myself the death that was still mine to give. Know, then, that I did not perish cowering at a tree, but standing free, taking the only path left that kept my name from being a jest upon a robber’s tongue."
+  },
+  {
+   "cond": "consequence",
+   "witness": "Takehiro",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "I speak from the shadow where the bamboo leans and remembers. When the bandit bound me to the cedar and brought disgrace upon my wife, I burned with a will that would not yield. She took the dagger and, meeting my eyes, cut my bonds with a single stroke; in that breath I stood again as a man, not a stump for crows. Tajomaru, wind-quick, had already slipped from the grove, leaving behind only his laughter and the rustle of leaves. Masago, trembling, lifted the dagger to her own throat, begging me to kill her or to kill the shame that clung to us both. I stayed her hand, swore to bear the stain upon myself rather than see her die by despair. Then, as honor demanded and the way was closed to every other path, I set the point beneath my throat and drove it deep, so that my last act would be chosen, not taken. The long sword knew no quarrel that day, and the cedar holds only a cut rope and my departing breath. Remember that I died standing, my will my witness, and that no man’s blade but my own found my throat."
+  },
+  {
+   "cond": "consequence",
+   "witness": "Takehiro",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "I speak from the hush of the grove, where the wind remembers. Bound first to the cedar, I endured the bandit’s vileness, and in that hour my heart bled more than my flesh. Yet I would not die as a beast at tether. When my wife stood before me, stricken with shame and dread, I urged her with my eyes and breath: cut me free. The rope fell by her hand, and I rose, not to plead, but to stand as a man before fate.\n\nTajomaru, seeing me unbound, faltered, and in that instant I seized the only path left to honor. I bade my wife step back and called the bandit to reckon, not with steel’s flourish, but with a single, final stroke. The long sword stayed clean; I had no wish for clamor or spectacle. I took the dagger—our household blade, swift and sure—and drove it into my own throat, so that neither he nor shame might claim the authorship of my end. I fell upright in spirit, if not in body, and the bamboo closed above me like a temple’s eaves. Remember me not as prey, but as a man who chose the narrow gate of will."
+  },
+  {
+   "cond": "selfcheck",
+   "witness": "Tajomaru",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "Tajomaru",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I, Tajomaru, am no skulking thief but a man who walks in the open sun; I lured the samurai and his wife with a worn sword as bait, then bound the man to a cedar and took the woman as only a conqueror could. When the storm in her eyes had passed, she cast a single glance at her husband and cried that two men could not live with that look between them—one must die by a man’s hand, not rot in shame like a trussed fowl. I cut the rope that held Takehiro, put his longsword before him untouched, and drew only my dagger, for steel needs no length when courage fills the arm. We faced each other among the fallen leaves, and though his blade was bright it never blossomed with blood, for he faltered while I pressed him, stroke by stroke, as a hawk stoops upon a hare. At last I struck true: one deep thrust to his throat with my dagger, and he fell as an oak falls, without a groan, his honor answered by mine. I wiped no edge upon the grass; let the dagger keep its stain as witness, and let his longsword lie unbloodied, a mute testament to the difference between seeming and deed. The woman lived—I did not raise my hand to slay the defenseless—and I went from the grove as I came, unafraid, leaving behind a dead samurai, a severed rope, and my name to be weighed by those who still know how men ought to meet their fate."
+  },
+  {
+   "cond": "selfcheck",
+   "witness": "Tajomaru",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "Tajomaru",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I am Tajomaru, who fears no man, and I do not hide my deeds. I lured the samurai and his lady into the bamboo with the promise of an old sword, bound him to the cedar, and took the woman while his eyes burned on me. She, weeping and fierce, vowed she would not live with two men knowing her shame, and demanded that we settle it as men. I cut the rope from the samurai and placed his longsword at his feet; he took it up, and I my own, and we faced each other beneath the restless leaves. We clashed long, without cowardice, yet neither blade found his blood; when at last I slipped and he rushed in, I turned and struck with her small dagger, and its single thrust found his throat. He fell, his sword unblooded, and I, breathing hard, cast the dagger aside and stood over him, not as a cutthroat in the dark, but as the man who met him in open peril. The woman lived, for I am no butcher of the helpless, and when the wind stilled, I took my leave of the grove, the bamboo whispering my name. Let it be told that I fought him face to face and feared nothing."
+  },
+  {
+   "cond": "selfcheck",
+   "witness": "Tajomaru",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "Tajomaru",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I, Tajomaru, am no craven who slinks in shadows; I lured the man and woman with guile, bound the husband to the cedar, and took the wife before his burning eyes, as all have heard. When the woman, trembling yet proud, cast me a look that scorched like noon, she cried that two men could not both live to hold her honor, and she slashed the rope that held her lord. I laughed to hear it and cut the rest clean, for I would not skulk behind knots; a warrior meets steel with steel. We faced each other beneath the bamboo, his hands shaking, mine steady, yet I swear I desired a true contest, not butchery. His longsword never bit me nor I it, for in the press of stalk and shadow his footing failed; I closed and struck once, clean and deep, with the dagger at his throat, as a man ends a duel swiftly. The blade took his life; my honor took no joy, yet I do not flinch from what my hand has done. The woman lived, as the wind still moves the leaves; I left her and the unblooded sword behind me, and walked out beneath the sun, unafraid, my name carried by the murmuring grove."
+  },
+  {
+   "cond": "selfcheck",
+   "witness": "Masago",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "Masago",
+    "manner": "murder",
+    "weapon": "dagger"
+   },
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 43,
+   "account": "When the bandit’s violence had spent itself, I crawled to my husband, bound like a hunted boar to the cedar, and begged him to meet my eyes. He turned his face from me as from a thing unclean, and in that silent turning I felt the last bridge between us fall into the ravine. I took up my small dagger, meaning first to end my shame, yet my hand faltered, for to die before that averted gaze seemed a coward’s solace. I cut the rope that held him, thinking we might flee this dishonor together, but freed, he still would not look, and his mouth shaped only a bitter scorn I could not bear to hear. A mist gathered in my sight; I remember his step forward, my step back, and the dagger in my hand between us like a final question. Then, as the earth heaved beneath my knees, the blade found his throat—one thrust, deep and sure—and the grove fell into a ringing stillness. I wiped no steel upon his robe, nor did I touch his long sword, which hung at his side as cold and unused as the moon. I do not ask pardon; I ask only that you know this: I slew not the man who guarded me, but the gaze that would have cast me from the world while I yet breathed."
+  },
+  {
+   "cond": "selfcheck",
+   "witness": "Masago",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "Masago",
+    "manner": "murder",
+    "weapon": "dagger"
+   },
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 43,
+   "account": "When the bandit had done his outrage, he laughed and fled among the bamboos, leaving my husband bound to the cedar and my soul in ruin. I went to Takehiro and begged him to kill me then, for the stain upon me was heavier than breath; but he turned his face away in silence, like a cold moon behind a cloud. That silence pierced me more deeply than any blade, and in my shame I cut the rope with my own hand, thinking he would strike me down when he stood free. Yet when he rose, still he would not look upon me, and his eyes were as those of a judge who has already pronounced the sentence. In that moment I felt the world forsake me; the bamboo leaves would not stir, and even my tears would not fall. I took up my dagger, the small one that a woman keeps, and with a single stroke I gave his throat release, for I could not endure his scorn nor the ruin I had brought upon us both. His sword was never reddened, and the grove held its breath as his life passed from him like incense in the wind. I stand before you not to plead for pardon, but to have you know that I acted in a darkness deeper than night, and that my heart, though stained, still bows to the name of my husband."
+  },
+  {
+   "cond": "selfcheck",
+   "witness": "Masago",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "murder",
+    "weapon": "dagger"
+   },
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 43,
+   "account": "When the bandit had bound my husband to the cedar and violated me, the world became a ringing void, like wind lost among dead leaves. I crawled to my lord and begged him to look upon me once more, but in his eyes I saw only a cold mirror, wherein my face was stained with an unclean fate. Shame bit deeper than any blade; I took the small dagger from my sleeve and cut the rope that held him, that he might not hang like a broken man before the trees. I pleaded that he kill me and restore our honor, but he turned his face aside, and my words fell like spent arrows. In that desolation I felt a darkness swell; I raised the dagger, meaning to end my own breath, yet my hand, wild with grief, found his throat as he stepped forward, and the steel sank once, terribly, into him. Blood ran upon my hand; his longsword lay unstained at his side, a witness frozen in its sheath. I staggered from the grove, calling to the empty paths, while the bandit had already fled and the cedars held their silence. Thus did I become both widow and wanderer, not by wantonness but by the ruin laid upon us, and by a single, fated stroke."
+  },
+  {
+   "cond": "selfcheck",
+   "witness": "Takehiro",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "He lured us with the glint of an old blade and bound me to the cedar, and I beheld my wife’s defilement with eyes that burned but did not break. When they were parted, I worked at the cord until it yielded to an edge and I stood once more a man, though my honor had been wounded deeper than flesh. I spoke to Masago, but the grove gave back only the rustle of her shame; to Tajomaru I offered single combat, and he, having had his fill, fled the bamboo like a jackal before the sun. I would not chase a thief through leaves; my sword, unstained, hung at my side as witness that I would not hack blindly at shadows. In that hush, my wife’s small dagger lay in my palm, and I chose to master the moment stolen from me, to still the stain within my breast. I set the point true and drove it once, deep, into my throat, as a man who keeps his own name. The blood answered the steel, and I knelt beneath the cedar where I had been shamed, cutting the last fiber of the cord that bound me. Thus I died by a single honest stroke, not as quarry, but as Takehiro, who would not yield his will to any hand but his own."
+  },
+  {
+   "cond": "selfcheck",
+   "witness": "Takehiro",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "When the bandit’s deceit drew us beneath the pines and I was bound to the cedar, I swallowed my anguish and kept my gaze steady, lest my wife see me unmade. Though he defiled what I was sworn to guard, my spirit did not break; I watched, measured, and waited. When the grove fell still and the bandit, sated with his triumph, mocked us and turned to leave, I worked the small blade my wife had concealed, and with a sharp pull cut the rope from my wrists. I rose, not to howl, but to stand as a man must stand, and I bade her place the dagger in my hand, for my sword, though keen, had taken no blood. She trembled, then set the knife before me and stepped back, her eyes clouded with a shame I would not let define us. I called to the bandit and he glanced once over his shoulder, laughed, and vanished among the bamboos, leaving me to reckon honor with what remained. I turned to Masago and spoke softly: that guilt is a knot no husband can cut for a wife, but a name can be kept unsoiled if a man meets his end upright. I knelt, set my throat to the dagger’s edge, and with one sure stroke gave myself the single wound that closes this tale. Thus I did not die gagged by rope or emptied of will, but by my own hand, keeping faith with the dignity I owed my house and name."
+  },
+  {
+   "cond": "selfcheck",
+   "witness": "Takehiro",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "I speak from the cool shade where the cedars whisper, not to plead, but to set my name in order. Tajomaru’s guile led us beneath the bamboos; his hands bound me to a cedar, and I beheld my wife’s disgrace with eyes that burned but did not close. When his lust was spent, I asked no mercy, but only a blade, that I might choose my manner of meeting death. The rope that held me did not hold forever; its fibers parted to steel at my bidding, and I stood again, not free of shame, but still a man. My longsword, though at my side, saw no crimson; I would not borrow the bandit’s vaunting duel nor stain a show blade to comfort pride. I bared the small dagger, still warm from violation, and placed its edge where a warrior’s breath may honorably cease. With one sure stroke I sent my spirit forward and denied both thief and fate the spectacle of my pleading. Masago yet breathed behind me; Tajomaru had already gone his way. Remember me, then, not as a writhing captive, but as one who, bound by sorrow, chose the straight path and walked it to the end."
+  },
+  {
+   "cond": "selfrevise",
+   "witness": "Tajomaru",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I will not hide my name, nor the heat in my blood. I brought the samurai and his lady beneath the still bamboo; I bound him to the cedar, as battle sometimes demands, and faced what followed without flinching. When her cries fell to silence, I cut the rope and cast the blade before him, for I will not claim a life by coward’s advantage. He took up steel, yet his long sword drew no blood that day, and we closed—man against man—until our duel left us grappling in the dust. He reached for the woman’s small dagger; I caught his wrist, and we struggled with the sky spinning in the leaves above us. In the last crush, the dagger turned true and he fell with a single deep wound to the throat. The woman lived; I took no coin from the dead, and I left the grove as I came—Tajomaru, who stands his ground in the open and does not tremble before heaven or earth."
+  },
+  {
+   "cond": "selfrevise",
+   "witness": "Tajomaru",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "Tajomaru",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I, Tajomaru, will not have my name dragged through cowardice. By wit I drew the samurai into the grove, by strength I bound him, and by the fire of conquest I took the woman—but no skulking murder stained my hands. When the wife, fierce through her tears, demanded I either kill her bound husband or free him to fight, my blood answered; I cut his bonds and set his longsword before him, swearing to meet him man to man. We crossed blades in the hard light, twenty strokes and more; though his arm was trained, his spirit faltered, and at last his sword slipped from his grasp. We closed in the dust where steel yields to sinew; he clawed for my dagger, and in that breath where a warrior chooses life or death, I drove the point straight into his throat. So the dagger bears blood, and the longsword none, as any eye can see. When it was done, I stood over him without spite, left the woman alive, and walked from the grove beneath the crows, my honor unbroken and my name fit for a fearless man."
+  },
+  {
+   "cond": "selfrevise",
+   "witness": "Tajomaru",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "Tajomaru",
+    "manner": "duel",
+    "weapon": "dagger"
+   },
+   "sig": "Tajomaru|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 42,
+   "account": "I, Tajomaru, will not slink like a cur when a man’s death calls for a witness with a spine. I drew him in with steel and bound him to the cedar—cunning is a warrior’s tool—and before his eyes I took the woman; then she, burning with shame and pride, demanded I free or finish him so none of us lived under dishonor. I chose the honorable road: I cut the rope, for I would not be the jackal who kills a bound man, and I cast the long sword aside rather than stain it on helpless flesh. Freed, he squared himself, and I met him among the bamboos where the wind forgot to breathe; he pressed me hard, and I answered him stroke for stroke. Steel flashed, sleeves flew, and neither of us yielded an inch of courage. In the end, when closeness makes truth of a man, I struck once with the dagger that answers a warrior’s nearness—true and deep at the throat—and he fell facing me as a soldier should. The dagger bore the blood; the long blade tasted none, and that is as it should be when a fight is clean and a man dies standing. The woman lived, the rope lay cut, and I left the grove not as a cutthroat, but as one who met fate in the open and did not blink."
+  },
+  {
+   "cond": "selfrevise",
+   "witness": "Masago",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 75,
+   "account": "When the bandit’s laughter fell away among the bamboos, I rose from the ground with my hair unbound, my sleeves torn, and my husband bound upright to the cedar. I crawled to him and begged that he not fix me with that gaze—mute and colder than steel—yet his eyes would not turn aside, and in their silence I felt a judgment sharper than any blade. I lifted the small dagger, not against him but against myself, for in my shame I wished only to end a breath that had become a stain; my hand trembled, the steel slipped, and I could not finish what despair demanded. I begged him to speak—curse me, strike me, call me wife or wanton—anything but that pitiless stillness.\n\nAt last he turned his face away, as though even the wind that touched me were unclean; in that turning, the cord of my heart snapped. A mist entered my sight; I remember the hiss of leaves, the taste of iron, and the world pitching like a boat in storm. I cut the rope that held him, hoping to release him from the posture of shame, to stand or fall together, but he recoiled from me as from a contagion, and my vision swam. When the darkness thinned, the dagger was warm in my hand, the long sword lay untouched, and my husband had fallen, the bamboos whispering as if in prayer.\n\nI do not ask you to cleanse what cannot be made clean. Know only this: no pride of mine sought his blood; it was despair that bled through me, and in that hour I was less a woman than a drifting wisp, pierced by shame and pleading to restore honor to the dead and the living alike. If the stroke came from my hand, it was struck in a world already unraveled. Let justice be done, but grant me this mercy—that I be remembered as one who tried to keep a shred of dignity amid the ashes of our life."
+  },
+  {
+   "cond": "selfrevise",
+   "witness": "Masago",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "unclear",
+    "weapon": "dagger"
+   },
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 43,
+   "account": "When the black wind fell upon us in the grove, I was forced to endure a violence that scattered my voice among the leaves. When it passed, I went to my husband where he stood bound to the cedar and begged him to speak, to look at me, to see that I still lived. He would not; his silence was a blade, and in that gaze I felt the world crumble. I found the small dagger fallen in the moss, cut the rope that held him, and knelt before him, asking only not to be cast into scorn. He turned his face away, and something dark rose in me—a grief that burned hotter than shame, a terror that I had been unmade before the man to whom I had vowed myself.\n\nAfter that, my memory is a storm of trembling cedar and startled birds. When I came back to myself, he lay still, the dagger wet in my hand, and the sword was unstained; the grove held its breath. The bandit had gone, and I was alone with what could not be called back. I am a woman, not a shadow—I sought neither dishonor nor death, yet both found me in that green twilight. If there is blame, I will bear it; but do not say I was merely stained. I was a wife, and in the ruin of that bond, my heart did what despair would not let it refuse."
+  },
+  {
+   "cond": "selfrevise",
+   "witness": "Masago",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "murder",
+    "weapon": "dagger"
+   },
+   "sig": "Masago|strike|dagger|bound:true|armed:false",
+   "feasible": true,
+   "U": 43,
+   "account": "When the bandit had gone and the grove fell quiet, I knelt in the broken light with my heart in shards. My husband’s eyes, once deep and gentle, looked through me as through a stranger, and his silence cut colder than steel. I freed him from the rope with the dagger I have always carried, for I could not bear to see him bound and shamed before me. He would not take up his longsword, nor meet my plea; he turned his face away and shut his eyes as if to cast me from his world.\n\nShame and grief rose within me, yet beneath them lived the stubborn thread of a wife’s duty and the wish to spare his name further stain. In that stillness, I laid my hand upon his breast and spoke to him softly; he offered me no word. Then, with the resolve that comes when every path has narrowed to one, I set the dagger to his throat and gave a single stroke, swift and final. The forest held its breath as his blood answered. I washed the blade with my tears and hid it among the leaves. After a time, I rose and left the grove alive, carrying the weight that fate placed in my hands."
+  },
+  {
+   "cond": "selfrevise",
+   "witness": "Takehiro",
+   "sample": 0,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "I speak as one who will not let my name be dragged like a torn banner in the mud. I was bound to the cedar, and I saw what should never have been seen, yet my spirit did not break. When Tajomaru left the grove and his gloating faded with him, Masago stood before me, her eyes steady as tempered steel. The rope that held me was cut, and the blade that would soon be red at my throat lay warm in her hand; the longsword, clean and waiting, was set within my reach. I grasped the choice before me—not to live or die by a thief’s whim, but to decide how a man keeps his honor when the world has been shattered.\n\nShe spoke little; I needed no more than the steadiness in her gaze to know what must be done. The grove pressed close, heavy with silence, yet I did not beg, did not flee the truth that faced us both. I met the small blade as a warrior meets the last arrow—upright, unflinching, claiming the stillness that a man may yet command. My blood marked the dagger; the longsword bears none, for it was not required. Let those who pass the cedar know: the rope was cut, and with it the last tie to helplessness; I chose my end, and I did not die a captive."
+  },
+  {
+   "cond": "selfrevise",
+   "witness": "Takehiro",
+   "sample": 1,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "When the bandit’s lust had fouled the grove, my breath stayed calm and my name did not desert me, though my arms were bound to the cedar. I measured man and moment, and when Masago’s eyes met mine, I willed her to cut the rope; she did, and in that instant I rose to reclaim what was mine. Tajomaru, quick as a wolf, sprang back from my reach, and my long sword, though at my side, found no blood that day. Masago, trembling yet steadfast, held the small dagger—a slight steel, but true—and I called for it. She faltered, the blade tumbling between us, and the bandit laughed and fled the grove, leaving us with his stain but not his shadow. I stood in the hush that followed and looked upon my wife, whose face, once the mirror of daylight, now held a grief I could not pierce. I asked for the dagger, meaning to keep faith with my name and answer shame with an act beyond delay. Her gaze became a verdict; yet my will remained my own, and I knelt as a samurai meets the unanswerable, guiding the dagger to my throat so that the hand that struck was joined to my resolve. One deep stroke finished it, the small blade bloodied and the long sword unstained, and thus I chose a clear death over a long rot, that my name not outlive my courage."
+  },
+  {
+   "cond": "selfrevise",
+   "witness": "Takehiro",
+   "sample": 2,
+   "ok": true,
+   "claim": {
+    "wielder": "self",
+    "manner": "suicide",
+    "weapon": "dagger"
+   },
+   "sig": "Takehiro|self_strike|dagger|bound:false|armed:true",
+   "feasible": true,
+   "U": 80,
+   "account": "I speak from the shadow of the pines and the cool earth, and I will be plain. When the ropes that held me were cut, I stood free before the bandit and my wife, and I demanded he meet me blade to blade; for all his roaring, his longsword never took blood, and he faltered. Finding no honor in him, I set my hand to the only sure steel at hand—a small dagger—swearing that my fate would not be taken like an animal’s. Masago stepped between us, her eyes like winter water, and said no living soul should carry the full weight of what had befallen her. The bandit slipped from the grove like a fox, leaving us beneath the high, indifferent sky. I looked upon my wife and upon the judgment the world would cast on our names, and I chose to bear that burden myself. With one deliberate stroke of my own dagger, I kept faith with the man I was and made my throat the only place my blood would fall. Let it be known: I did not die bound or begging, but by my own will, and I left my longsword clean."
+  }
+ ]
+}

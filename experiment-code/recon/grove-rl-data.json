@@ -1,0 +1,30 @@
+{
+ "solver": "tabular Q-learning",
+ "domain": "In a Grove",
+ "horizon": 8,
+ "episodes": 6000,
+ "seeds": 8,
+ "witnesses": {
+  "Tajomaru": {
+   "exactU": 58,
+   "bestRLU": 58,
+   "successRate": 1,
+   "medianEpisodesToOptimum": 208,
+   "meanQStates": 196
+  },
+  "Masago": {
+   "exactU": 75,
+   "bestRLU": 75,
+   "successRate": 1,
+   "medianEpisodesToOptimum": 510,
+   "meanQStates": 355
+  },
+  "Takehiro": {
+   "exactU": 80,
+   "bestRLU": 80,
+   "successRate": 1,
+   "medianEpisodesToOptimum": 2334,
+   "meanQStates": 533
+  }
+ }
+}

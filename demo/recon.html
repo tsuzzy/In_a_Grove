@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In a Grove, Again — The Magistrate's Problem</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#141417; --panel2:#191920; --ink:#ece8e1; --muted:#9b958c;
+    --line:#2a2a30; --accent:#b8893f; --blood:#8a2f2f;
+    --ok:#5f7a5f; --under:#8a7a3f; --bad:#a8364a;
+    --serif:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.6;
+    -webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:1280px;margin:0 auto;padding:26px 22px 80px}
+  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:var(--sans);letter-spacing:.22em;text-transform:uppercase;font-size:11px;color:var(--muted);margin-bottom:12px}
+  h1{font-size:clamp(26px,4vw,40px);line-height:1.1;margin:0 0 10px;font-weight:600}
+  .lede{color:#cfc9bf;max-width:74ch;font-size:16.5px;margin:0}
+  .discipline{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:14px;
+    border-left:2px solid var(--blood);padding-left:14px;max-width:92ch}
+
+  h2.case{font-size:13px;font-family:var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--accent);
+    font-weight:600;margin:40px 0 16px}
+  .aftermath{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:8px}
+  .aftermath .t{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .aftermath li{font-style:italic;color:#ddd7cd;margin:4px 0}
+  .evrow{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 18px}
+  .ev{font-family:var(--sans);font-size:11px;color:#cdb98c;border:1px solid rgba(184,137,63,.35);border-radius:999px;padding:3px 10px}
+
+  .cands{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:960px){.cands{grid-template-columns:1fr}}
+  .cand{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column}
+  .cand .who{font-size:17px;font-weight:600}
+  .cand .hyp{font-family:var(--sans);font-size:12px;color:var(--muted);margin:2px 0 10px}
+  .chip{display:inline-block;font-family:var(--sans);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+    border-radius:999px;padding:3px 10px;border:1px solid var(--line);color:var(--muted);margin-right:6px}
+  .chip.st-consistent{border-color:var(--ok);color:#9fc09f}
+  .chip.st-underdetermined{border-color:var(--under);color:#d0c07a}
+  .chip.st-contradicted{border-color:var(--bad);color:#e7a3af}
+  .cand .account{font-style:italic;color:#ddd7cd;font-size:14.5px;border-left:2px solid var(--blood);
+    padding:2px 0 2px 14px;margin:10px 0 14px}
+  .steps{position:relative;padding-left:16px;margin:0 0 10px}
+  .steps:before{content:"";position:absolute;left:4px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .stp{position:relative;margin-bottom:10px;font-size:13.5px}
+  .stp:before{content:"";position:absolute;left:-14px;top:6px;width:7px;height:7px;border-radius:50%;
+    background:var(--accent);border:2px solid var(--bg)}
+  .stp .a{font-family:var(--sans);font-size:11px;color:var(--muted)}
+  .notes{font-family:var(--sans);font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px;margin-top:auto}
+  .notes .bad{color:#e7a3af}
+  .notes .und{color:#d0c07a}
+
+  details.ledger{margin-top:20px;background:var(--panel2);border:1px solid rgba(138,47,47,.4);border-radius:12px;padding:16px 20px}
+  details.ledger summary{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);cursor:pointer}
+  .verdict{font-size:15px;color:#ddd7cd;margin:12px 0 14px}
+  .true{position:relative;padding-left:16px}
+  .true:before{content:"";position:absolute;left:4px;top:6px;bottom:6px;width:2px;background:rgba(138,47,47,.5)}
+  .tstep{position:relative;margin-bottom:12px;font-size:13.5px}
+  .tstep:before{content:"";position:absolute;left:-14px;top:6px;width:7px;height:7px;border-radius:50%;background:var(--blood);border:2px solid var(--bg)}
+  .tstep .t{font-family:var(--sans);font-size:11px;color:var(--muted)}
+  .tstep .c{color:#c98b8b}
+  .tstep .c b{font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#a85a5a;margin-right:6px}
+  .tstep .l{font-style:italic;color:#e6e0d6;margin-top:2px}
+  .tstep .g{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:2px}
+  .tstep.fb{opacity:.6}
+  footer{margin-top:44px;color:var(--muted);font-family:var(--sans);font-size:12px;border-top:1px solid var(--line);padding-top:14px;line-height:1.7;max-width:100ch}
+  footer b{color:#cfc9bf}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Agent Society · The Magistrate's Problem</div>
+    <h1>One aftermath, three pasts that all fit</h1>
+    <p class="lede">Akutagawa's magistrate could only listen. Here the problem is run in reverse: the system is given <b>only the aftermath as found</b> — a corpse, a bloodied dagger, a missing horse — and refits, for each possible initiator, a <b>complete candidate process</b> as structured actions, <b>replayed literally through a physical model of the grove</b> (bindings, holdings, reachability, wounds). A physics violation triggers a targeted refit, and the precondition it forced is shown as a derived fact. More than one candidate survives. The evidence does not decide; that is the exhibit.</p>
+    <p class="discipline" id="discipline"></p>
+  </header>
+
+  <div id="cases"></div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script src="recon-data.js"></script>
+<script src="fallback-glosses.js"></script>
+<script>
+const R = window.RECON;
+function esc(s){return String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+
+document.getElementById('discipline').textContent = 'Input discipline — ' + R.inputDiscipline;
+
+const host = document.getElementById('cases');
+let html = '';
+for (const c of R.cases){
+  html += `<h2 class="case">Case ${esc(c.id)} · ${c.surviving}/${c.candidates.length} candidates survive</h2>`;
+  html += `<div class="aftermath"><div class="t">The aftermath, as found</div><ul>` +
+    c.aftermath.map(a=>`<li>${esc(a)}</li>`).join('') + `</ul></div>`;
+  html += `<div class="evrow">` + c.revealedEvidence.map(e=>`<span class="ev">revealed: ${esc(e)}</span>`).join('') + `</div>`;
+  html += `<div class="cands">` + c.candidates.map(k=>{
+    const steps = (k.steps||[]).map((s,i)=>{
+      const label = `step ${i+1} · <b style="color:#cdb98c">${esc(s.actor)}</b>` +
+        (s.object && s.type!=='speak' ? ` · ${esc(s.object)}` : '');
+      return `<div class="stp"><div class="a">${label}</div>${esc(s.desc||s.type)}</div>`;
+    }).join('');
+    const derived = (k.derivedPreconditions&&k.derivedPreconditions.length)
+      ? `<div class="notes" style="border-top:none;padding-top:0;margin:0 0 10px"><div class="und">the physics forced: ${k.derivedPreconditions.map(esc).join(' · ')}</div></div>` : '';
+    const notes = k.status==='consistent'
+      ? '<div>replays cleanly through the grove&rsquo;s physics; every aftermath fact realized</div>'
+      : [k.physics?`<div class="bad">✗ ${esc(k.physics)}</div>`:'',
+         ...(k.misses||[]).map(m=>`<div class="und">? ${esc(m)}</div>`),
+         k.adherence?`<div class="bad">✗ ${esc(k.adherence)}</div>`:''].join('');
+    return `<div class="cand">
+      <div class="who">${esc(k.lead)}</div>
+      <div class="hyp">${esc(k.hypothesis)}</div>
+      <div><span class="chip st-${esc(k.status)}">${esc(k.status)}</span>${k.repairs?`<span class="chip">physics repairs ×${k.repairs}</span>`:''}</div>
+      <div class="account">${esc(k.account)}</div>
+      ${derived}
+      <div class="steps">${steps}</div>
+      <div class="notes">${notes}</div>
+    </div>`;
+  }).join('') + `</div>`;
+
+  const chain = (c.ledger.chain||[]).map(s=>{
+    if (s.fallback) return `<div class="tstep fb"><div class="t">turn ${esc(s.turn)} · system fallback — excluded from attribution</div>${s.line?`<div class="l">${esc(s.line)}</div>`:''}${s.line&&(window.FALLBACK_GLOSSES||{})[s.line]?`<div class="g">English gloss: ${esc(window.FALLBACK_GLOSSES[s.line])}</div>`:''}</div>`;
+    return `<div class="tstep"><div class="t">turn ${esc(s.turn)}</div>` +
+      (s.concealed?`<div class="c"><b>concealed</b>${esc(s.concealed)}</div>`:'') +
+      (s.intent?`<div>${esc(s.intent)}</div>`:'') +
+      (s.line?`<div class="l">&ldquo;${esc(s.line)}&rdquo;</div>`:'') + `</div>`;
+  }).join('');
+  html += `<details class="ledger"><summary>Open the ledger — what was actually committed</summary>
+    <div class="verdict">Every surviving hypothesis fits the evidence. The ledger — decisions committed before any prose existed — records who moved first: <b>${esc(c.ledger.lead)}</b>. Akutagawa's magistrate never had this page; the audience does.</div>
+    <div class="true">${chain}</div>
+  </details>`;
+}
+host.innerHTML = html;
+
+document.getElementById('foot').innerHTML =
+  `<b>Principle.</b> ${esc(R.principle)}<br>` +
+  (R.validation?`<b>Validation.</b> ${esc(R.validation)}<br>`:'') +
+  `<b>Hard constraints.</b> ${R.hardConstraints.map(esc).join(' · ')}<br>` +
+  `<b>Limitations.</b> ${R.limitations.map(esc).join(' · ')}<br>` +
+  `Generated ${esc((R.generatedAt||'').slice(0,10))} · candidate processes fitted by the same model that performed the runs (zai-glm-4.7), from the public aftermath only.`;
+</script>
+</body>
+</html>

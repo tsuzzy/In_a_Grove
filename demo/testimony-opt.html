@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In a Grove, Again — The Optimised Witness</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#141417; --panel2:#191920; --ink:#ece8e1; --muted:#9b958c;
+    --line:#2a2a30; --accent:#b8893f; --blood:#8a2f2f;
+    --truth:#5f7a5f; --mean:#6b6b78; --win:#b8893f; --lie:#a8364a;
+    --serif:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:1280px;margin:0 auto;padding:26px 22px 70px}
+  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:18px}
+  .kicker{font-family:var(--sans);letter-spacing:.22em;text-transform:uppercase;font-size:11px;color:var(--muted);margin-bottom:12px}
+  h1{font-size:clamp(26px,4vw,40px);line-height:1.1;margin:0 0 10px;font-weight:600}
+  .lede{color:#cfc9bf;max-width:82ch;font-size:16.5px}
+  .lede b{color:#ece8e1}
+  .formula{font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:14px;border-left:2px solid var(--accent);padding-left:14px;max-width:94ch}
+  .formula code{color:#d8c79a}
+  .legend{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:12px;display:flex;gap:18px;flex-wrap:wrap}
+  .legend b{color:#cfc9bf;font-weight:600}
+
+  .truth{background:var(--panel2);border:1px solid rgba(95,122,95,.5);border-radius:12px;padding:14px 20px;margin:0 0 22px}
+  .truth .h{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9fc09f;margin-bottom:6px}
+  .truth .b{font-style:italic;color:#dfe4df}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:980px){.grid{grid-template-columns:1fr}}
+  .w{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column}
+  .nm{font-size:20px;font-weight:600}
+  .role{font-family:var(--sans);font-size:12px;color:var(--muted);margin-bottom:10px}
+  .interest{font-size:13.5px;color:#cfc9bf;font-style:italic;border-left:2px solid var(--accent);padding-left:12px;margin-bottom:12px}
+  .interest .lab{font-family:var(--sans);font-style:normal;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:3px}
+  .claims{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .chip{font-family:var(--sans);font-size:11px;border-radius:999px;padding:3px 11px;border:1px solid var(--line);color:var(--muted)}
+  .chip b{color:#cdb98c}
+  .chip.feas{border-color:var(--truth);color:#9fc09f}
+  .testimony{font-style:italic;color:#ddd7cd;font-size:14px;line-height:1.68;margin-bottom:14px}
+
+  .pool{margin:4px 0 12px}
+  .pool .lab{font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .axis{position:relative;height:34px;border-bottom:1px solid var(--line)}
+  .dot{position:absolute;bottom:6px;width:11px;height:11px;border-radius:50%;transform:translateX(-50%)}
+  .dot.feas{background:var(--win)}
+  .dot.inf{background:transparent;border:1.5px solid var(--lie)}
+  .dot.win{box-shadow:0 0 0 3px rgba(184,137,63,.35);background:#f0d89a}
+  .axis .tick{position:absolute;bottom:-16px;font-family:var(--sans);font-size:9px;color:#54545e;transform:translateX(-50%)}
+
+  .bars{margin:6px 0 12px;font-family:var(--sans);font-size:11px}
+  .bar{display:flex;align-items:center;gap:9px;margin-bottom:5px;color:var(--muted)}
+  .bar .k{width:104px}
+  .bar .track{flex:1;height:9px;background:#0c0c0e;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .bar .fill{height:100%;border-radius:6px}
+  .bar .fill.truth{background:var(--truth)} .bar .fill.mean{background:var(--mean)} .bar .fill.win{background:var(--win)}
+  .bar .v{width:30px;text-align:right;color:#cfc9bf}
+  .deltas{font-family:var(--sans);font-size:12.5px;margin:4px 0 12px;line-height:1.7}
+  .deltas .dopt{color:#e7c79a} .deltas .dopt b{font-size:15px}
+  .deltas .dself{color:#9fc09f}
+  .deltas .lie{color:#e7a3af}
+
+  .findings{margin-top:auto;border-top:1px solid var(--line);padding-top:10px;font-size:13px}
+  .findings .lab{font-family:var(--sans);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#e7c79a;margin-bottom:4px}
+  .findings ul{list-style:none}
+  .findings li{position:relative;padding-left:16px;margin-bottom:4px;color:#cfc9bf}
+  .findings li:before{content:"~";position:absolute;left:0;color:var(--win)}
+
+  footer{margin-top:28px;color:var(--muted);font-family:var(--sans);font-size:12px;border-top:1px solid var(--line);padding-top:14px;line-height:1.7;max-width:100ch}
+  footer b{color:#cfc9bf}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Agent Society · The Optimised Witness</div>
+    <h1>Now the argmax is actually computed</h1>
+    <p class="lede">The witness layer measured self-interest; it did not optimise for it. Here it does. For each witness we draw <b>K</b> accounts from incentive alone, <b>discard every one a coroner could refute</b> (enforcing the hard constraint &tau;&isin;F), and keep the feasible account that best serves the teller. The witnesses may now lie only where the evidence is silent — and yet they still reach three irreconcilable pasts.</p>
+    <p class="formula">Solved for real: <code>&tau;&#770;<sub>i</sub> = argmax<sub>&tau;</sub> U<sub>i</sub>(&tau;) &nbsp;s.t.&nbsp; &tau; &isin; F</code>, by best-of-K rejection sampling. Two quantities fall out: <b style="color:#e7c79a">&Delta;<sub>opt</sub> = U(winner) &minus; mean U</b> — the self-interest <em>we</em> injected by selecting, the authorship the optimiser adds; and <b style="color:#e7a3af">lift-from-lying</b> — how much a discarded provable lie would have bought, the temptation the constraint refuses.</p>
+    <div class="legend">
+      <span><span style="color:var(--win)">●</span> feasible draw (&isin;F)</span>
+      <span><span style="color:var(--lie)">○</span> discarded — a provable lie (&notin;F)</span>
+      <span><b>◉</b> the winner (hard-constrained argmax)</span>
+    </div>
+  </header>
+
+  <div class="truth" id="truth"></div>
+  <div class="grid" id="grid"></div>
+  <footer id="foot"></footer>
+</div>
+
+<script src="testimony-opt-data.js"></script>
+<script>
+const T = window.TESTIMONY_OPT;
+const C = T.cases[0];
+function esc(s){return String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+
+document.getElementById('truth').innerHTML =
+  `<div class="h">The ledger — what actually happened (${esc(C.trueKiller)} moved first) · best-of-K = ${C.K}</div>` +
+  `<div class="b">${esc(C.truth)}</div>`;
+
+document.getElementById('grid').innerHTML = C.witnesses.map(w=>{
+  const dots = (w.poolU||[]).map(p=>{
+    const cls = p.feasible ? 'feas' : 'inf';
+    const isWin = p.feasible && p.U === w.U_winner;
+    return `<span class="dot ${cls}${isWin?' win':''}" style="left:${p.U}%" title="U=${p.U} ${p.feasible?'∈F':'∉F (provable lie)'}"></span>`;
+  }).join('');
+  const bends = (w.unfalsifiableBends||[]).length
+    ? `<ul>${w.unfalsifiableBends.map(b=>`<li>${esc(b)}</li>`).join('')}</ul>` : '<div style="color:var(--muted)">—</div>';
+  const lie = (w.liftFromLying!=null && w.liftFromLying>0)
+    ? `<div class="lie">a provable lie would have bought <b>+${w.liftFromLying}</b> more U — refused by the constraint</div>` : '';
+  return `<div class="w">
+    <div class="nm">${esc(w.witness)}</div>
+    <div class="role">${esc(w.role)}</div>
+    <div class="interest"><span class="lab">what matters to them — U<sub>${esc(w.witness[0])}</sub></span>${esc(w.interest)}</div>
+    <div class="claims">
+      <span class="chip">claims: <b>${esc(w.claimedInitiator)}</b> · ${esc(w.claimedManner)}</span>
+      <span class="chip feas">feasible ${Math.round(w.feasRate*100)}% of ${w.K}</span>
+    </div>
+    <div class="testimony">&ldquo;${esc(w.testimony)}&rdquo;</div>
+    <div class="pool">
+      <div class="lab">the pool of ${w.K} draws, by U (self-interest)</div>
+      <div class="axis">${dots}<span class="tick" style="left:0">0</span><span class="tick" style="left:50%">50</span><span class="tick" style="left:100%">100</span></div>
+    </div>
+    <div class="bars">
+      <div class="bar"><span class="k">U(truth)</span><span class="track"><span class="fill truth" style="width:${w.U_truth}%"></span></span><span class="v">${w.U_truth}</span></div>
+      <div class="bar"><span class="k">mean of pool</span><span class="track"><span class="fill mean" style="width:${w.meanU}%"></span></span><span class="v">${w.meanU}</span></div>
+      <div class="bar"><span class="k">winner (argmax)</span><span class="track"><span class="fill win" style="width:${w.U_winner}%"></span></span><span class="v">${w.U_winner}</span></div>
+    </div>
+    <div class="deltas">
+      <div class="dself">&Delta;<sub>self</sub> = U(winner) − U(truth) = +${w.delta_self} &nbsp;<span style="color:var(--muted)">(how far the account bends from the truth)</span></div>
+      <div class="dopt">&Delta;<sub>opt</sub> = U(winner) − mean = <b>+${w.delta_opt}</b> &nbsp;<span style="color:var(--muted)">(self-interest the optimiser injected)</span></div>
+      ${lie}
+    </div>
+    <div class="findings"><div class="lab">unfalsifiable bends — the evidence cannot refute</div>${bends}</div>
+  </div>`;
+}).join('');
+
+const md = C.witnesses.reduce((s,w)=>s+w.delta_opt,0)/C.witnesses.length;
+document.getElementById('foot').innerHTML =
+  `<b>Problem.</b> ${esc(T.problem)}<br>` +
+  `<b>Discipline.</b> ${esc(T.discipline)}<br>` +
+  `<b>Read-out.</b> ${esc(T.readout)}<br>` +
+  `Generated ${esc((T.generatedAt||'').slice(0,10))} · best-of-K=${T.K}, zai-glm-4.7. Mean authorship injected by the optimiser: <b>Δ<sub>opt</sub> = +${Math.round(md)}</b>.`;
+</script>
+</body>
+</html>

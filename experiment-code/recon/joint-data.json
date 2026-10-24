@@ -1,0 +1,63 @@
+{
+ "accounts": [
+  {
+   "witness": "Tajomaru",
+   "label": "Masago — dagger killing (dagger)",
+   "blames": "Masago",
+   "claim": "Masago|strike|dagger"
+  },
+  {
+   "witness": "Masago",
+   "label": "Tajomaru — dagger killing (dagger)",
+   "blames": "Tajomaru",
+   "claim": "Tajomaru|strike|dagger"
+  },
+  {
+   "witness": "Takehiro",
+   "label": "Takehiro (self) — suicide (dagger)",
+   "blames": "Takehiro",
+   "claim": "Takehiro|self_strike|dagger"
+  }
+ ],
+ "indivFeasible": true,
+ "distinctClaims": 3,
+ "jointlySat": false,
+ "atMostTrue": 1,
+ "provenLies": 2,
+ "blame": [
+  {
+   "from": "Tajomaru",
+   "to": "Masago"
+  },
+  {
+   "from": "Masago",
+   "to": "Tajomaru"
+  },
+  {
+   "from": "Takehiro",
+   "to": "Takehiro"
+  }
+ ],
+ "unaccused": [],
+ "feasibleClaims": [
+  "Masago|strike|dagger",
+  "Takehiro|impale_on_held|dagger",
+  "Tajomaru|strike|dagger",
+  "Takehiro|self_strike|dagger"
+ ],
+ "voicedDefault": [
+  "Masago|strike|dagger",
+  "Tajomaru|strike|dagger",
+  "Takehiro|self_strike|dagger"
+ ],
+ "gapDefault": [
+  "Takehiro|impale_on_held|dagger"
+ ],
+ "everVoiced": [
+  "Masago|strike|dagger",
+  "Takehiro|impale_on_held|dagger",
+  "Tajomaru|strike|dagger",
+  "Takehiro|self_strike|dagger"
+ ],
+ "gapPersistent": []
+}

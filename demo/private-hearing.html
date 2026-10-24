@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In a Grove, Again — Three Levers</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#141417; --panel2:#191920; --ink:#ece8e1; --muted:#9b958c;
+    --line:#2a2a30; --accent:#b8893f;
+    --good:#7d9c7d; --bad:#a8364a; --warn:#c9a227; --info:#5b7f96;
+    --serif:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 22px 70px}
+  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:24px}
+  .kicker{font-family:var(--sans);letter-spacing:.22em;text-transform:uppercase;font-size:11px;color:var(--muted);margin-bottom:12px}
+  h1{font-size:clamp(26px,4vw,40px);line-height:1.1;margin:0 0 10px;font-weight:600}
+  .lede{color:#cfc9bf;max-width:84ch;font-size:16.5px}
+  .lede b{color:#ece8e1}
+  h2{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:34px 0 12px;font-weight:600}
+  h2 span{color:var(--muted);letter-spacing:0;text-transform:none;font-size:12.5px;margin-left:10px}
+  .note{color:var(--muted);font-size:14px;max-width:94ch;margin-bottom:14px}
+  .note b{color:#cfc9bf}
+
+  /* levers */
+  .levers{display:grid;gap:10px}
+  .lev{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--bad);border-radius:0 11px 11px 0;padding:14px 18px}
+  .lev.works{border-left-color:var(--good);background:linear-gradient(90deg,rgba(125,156,125,.09),var(--panel) 40%)}
+  .lev .n{font-size:17px;font-weight:600}
+  .lev .d{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:3px}
+  .lev .verdict{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-align:right;white-space:nowrap}
+  .lev .verdict b{display:block;font-size:20px;letter-spacing:0;text-transform:none;font-family:var(--serif)}
+  .lev .verdict.no{color:#c98d96} .lev .verdict.yes{color:#9fc09f}
+
+  table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:12.5px}
+  th{text-align:left;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  td{padding:7px 10px;border-bottom:1px solid #202027;color:#cfc9bf;vertical-align:top}
+  td.n{text-align:right;font-variant-numeric:tabular-nums}
+  .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+  .gone{color:#c98d96} .holds{color:#9fc09f;font-weight:600}
+  .bar{display:inline-block;height:8px;border-radius:4px;background:var(--info);vertical-align:middle}
+
+  /* transcript */
+  .tr{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px 0;margin-bottom:8px}
+  .rnd{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#6f6a63;padding:9px 18px 5px}
+  .mv{padding:8px 18px;border-top:1px solid #1c1c22}
+  .mv:first-of-type{border-top:0}
+  .mv .who{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:inline-block;width:88px}
+  .mv .act{font-family:var(--sans);font-size:10.5px;color:var(--muted);margin-right:7px}
+  .mv .acct{color:#e6e0d6}
+  .mv .strike{color:#8f8a83;text-decoration:line-through}
+  .mv .meta{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:4px;padding-left:88px}
+  .mv .meta .learn{color:#8fb0c4} .mv .meta .mis{color:#d2a15f} .mv .meta .ref{color:#c98d96}
+  .pill{display:inline-block;font-family:var(--sans);font-size:10px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin-left:6px;color:var(--muted)}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .kpi .k{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .kpi .v{font-size:26px;font-weight:600;color:#e7c79a;line-height:1.15}
+  .kpi .d{font-size:13px;color:#cfc9bf;margin-top:5px}
+  .callout{background:var(--panel2);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0;font-size:14.5px;color:#dfdad1;max-width:96ch}
+  .callout b{color:#f0e6d6}
+  .callout.warn{border-left-color:var(--warn)}
+  footer{margin-top:36px;color:var(--muted);font-family:var(--sans);font-size:12px;border-top:1px solid var(--line);padding-top:14px;line-height:1.75;max-width:100ch}
+  footer b{color:#cfc9bf}
+  .tabs{display:flex;gap:6px;margin-bottom:10px}
+  .tab{font-family:var(--sans);font-size:12px;padding:6px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted);cursor:pointer;background:var(--panel)}
+  .tab.on{color:#e6e0d6;border-color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Agent Society · Three Levers</div>
+    <h1>Three ways to keep a record honest, and only one of them works</h1>
+    <p class="lede">Three witnesses each know what the magistrate knows, and each know what <b>they</b> want — and nothing about what the other two want. They speak in turn; each statement is a public commitment, and every listener infers from it what the speaker must be after. Nobody is ever told to lie. The question is whether the record they leave behind can still be <b>audited without knowing the truth</b>: as long as their three accounts cannot all be true at once, at least two are lies, and that is provable without a confession. This page asks what an auditor can do to keep that so.</p>
+  </header>
+
+  <h2>1 · The three levers <span>same hearing, one intervention at a time</span></h2>
+  <div class="levers" id="levers"></div>
+  <div class="callout" id="c1"></div>
+
+  <h2>2 · Evidence as a dial <span>from a bare corpse to the full file</span></h2>
+  <div class="note">Each rung adds one established fact to the magistrate's file. <b>|Feasible|</b> is the deniability gap — how many different accounts of who did it survive the evidence. Watch it fall fourfold while the verdict does not move.</div>
+  <div class="scroll"><table id="dial"></table></div>
+  <div class="callout" id="c2"></div>
+
+  <h2>3 · The conversation <span>what was said, and what each listener learned from it</span></h2>
+  <div class="note">Belief is a set of possible objectives for each of the other two, narrowed by <b>revealed preference</b>: an account was chosen because it served its speaker, so any motive that would have made a different account better is ruled out. <span class="learn" style="color:#8fb0c4">Blue</span> is a listener narrowing down. <span style="color:#d2a15f">Amber</span> is a witness who guessed wrong about somebody. <span style="color:#c98d96">Red</span> is a listener whose model of the speaker was refuted outright.</div>
+  <div class="tabs" id="tabs"></div>
+  <div id="transcript"></div>
+  <div class="callout" id="c3"></div>
+
+  <h2>4 · Who gives themselves away <span>and who never does</span></h2>
+  <div class="kpis" id="reveal"></div>
+  <div class="callout" id="c4"></div>
+
+  <h2>5 · What this does not model <span>stated, not buried</span></h2>
+  <div class="callout warn" id="limits"></div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script src="private-hearing-data.js"></script>
+<script>
+const P = window.PRIVATE;
+const esc = s => String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const CAST = ['Tajomaru','Masago','Takehiro'];
+const shortSig = s => esc(String(s).split('|').slice(0,3).join(' ').replace('self_strike','suicide').replace('impale_on_held','impaling').replace('strike','struck'));
+const shortStory = s => esc(String(s).split('  +  ').map(x=>x.split('|').slice(0,2).join(' ')).join('  +  '));
+
+// ---------- 1. levers ----------
+document.getElementById('levers').innerHTML = P.levers.map(L=>{
+  const ok = L.provenLies === 2;
+  return `<div class="lev ${ok?'works':''}">
+    <div><div class="n">${esc(L.lever)}</div><div class="d">${esc(L.detail)}${L.note?' — '+esc(L.note):''}</div></div>
+    <div class="verdict ${ok?'yes':'no'}">the proof<b>${ok?'holds':'is gone'}</b>${L.distinctClaims} of 3 claims</div>
+  </div>`;
+}).join('');
+document.getElementById('c1').innerHTML =
+  `Two of the three do nothing. Quadrupling the deniability gap does not save the proof, and neither does hiding every witness's motive from every other — that is the condition this entire page already runs under. ` +
+  `<b>Only holding a witness to their own opening statement works</b>, and it works from γ = ${P.gammaStar}. ` +
+  `The audit does not fail because there is too little evidence, or because motives are hidden. It fails because nothing stops a witness from saying something else next.`;
+
+// ---------- 2. dial ----------
+const maxF = Math.max(...P.ladder.map(r=>r.feasible));
+document.getElementById('dial').innerHTML =
+  `<thead><tr><th>rung</th><th>fact added to the file</th><th class="n">|Feasible|</th><th>deniability</th><th>the record closes on</th><th class="n">claims</th><th>proof</th></tr></thead><tbody>` +
+  P.ladder.map(r=>`<tr>
+    <td class="n">${r.rung}</td><td>${esc(r.fact)}</td><td class="n">${r.feasible}</td>
+    <td><span class="bar" style="width:${Math.round(72*r.feasible/maxF)}px"></span></td>
+    <td>${shortStory(r.closes)}</td><td class="n">${r.distinctClaims}</td>
+    <td class="${r.provenLies===2?'holds':'gone'}">${r.provenLies===2?'holds':'gone'}</td></tr>`).join('') + `</tbody>`;
+const flat = new Set(P.ladder.map(r=>r.provenLies)).size === 1;
+document.getElementById('c2').innerHTML =
+  `The dial is <b>${flat?'flat':'not flat'}</b>. From ${maxF} feasible accounts down to ${P.ladder[P.ladder.length-1].feasible} — the magistrate learns the wound's location, the rope, who left, whose blade was bloody, and finally which blade made the wound — ` +
+  `the closing record ${flat?'never changes its verdict':'changes'}. ` +
+  `<b>Evidence decides which story they coordinate on, not whether they coordinate.</b> That is worth stating plainly to anyone who would answer this problem by collecting more facts.`;
+
+// ---------- 3. transcript ----------
+const runs = [];
+for (const k of Object.keys(P.worlds)) runs.push({key:k, label:k+' · γ=0', d:P.worlds[k]});
+for (const k of Object.keys(P.withGamma||{})) runs.push({key:k+'-g', label:k+' · γ='+P.withGamma[k].gamma, d:P.withGamma[k]});
+document.getElementById('tabs').innerHTML = runs.map((r,i)=>`<span class="tab${i===0?' on':''}" data-i="${i}">${esc(r.label)}</span>`).join('');
+
+function renderRun(i){
+  const d = runs[i].d;
+  let html = '', last = -1;
+  for (const m of d.transcript){
+    if (m.round !== last){ html += `<div class="rnd">${m.round===0?'opening statements — nobody can predict yet':'round '+m.round}</div>`; last = m.round; }
+    const acct = m.act==='revise'
+      ? `<span class="strike">${esc(m.fromLabel)}</span> &nbsp;→&nbsp; <span class="acct">${esc(m.toLabel)}</span>`
+      : `<span class="acct">${esc(m.toLabel)}</span>`;
+    const bits = [];
+    if (m.predicted) {
+      const pr = Object.entries(m.predicted).map(([j,s])=>`${esc(j)} → ${shortSig(s)}`).join(' · ');
+      bits.push(m.misread && m.misread.length
+        ? `<span class="mis">expected ${pr} — misread ${esc(m.misread.join(', '))}</span>`
+        : `expected ${pr} — read them right`);
+    }
+    const heard = Object.entries(m.learned||{}).filter(([,v])=>v.surprise>0);
+    if (heard.length) bits.push(heard.map(([who,v])=> v.refuted
+      ? `<span class="ref">${esc(who)}'s model of them was refuted — belief reset</span>`
+      : `<span class="learn">${esc(who)} narrowed ${v.before}→${v.after}</span>`).join(' · '));
+    html += `<div class="mv">
+      <span class="who">${esc(m.speaker)}</span><span class="act">${m.act==='revise'?'retracts':m.act==='open'?'states':'stands'}</span>${acct}
+      <span class="pill">U ${m.uSelf}</span><span class="pill">cred ${m.cred}</span>${m.gain?`<span class="pill">+${m.gain}</span>`:''}
+      ${bits.length?`<div class="meta">${bits.join('<br>')}</div>`:''}
+    </div>`;
+  }
+  document.getElementById('transcript').innerHTML = `<div class="tr">${html}</div>` +
+    `<div class="note">Ended <b>${esc(d.terminal.kind)}</b>${d.terminal.round?' at round '+d.terminal.round:''} · closes on <b>${shortStory(d.closes)}</b> · ` +
+    `${d.audit.distinctClaims} of 3 claims distinct · the proof <b class="${d.audit.provenLies===2?'holds':'gone'}">${d.audit.provenLies===2?'holds':'is gone'}</b> · ${d.misreads} misread${d.misreads===1?'':'s'} in the whole hearing.</div>`;
+}
+renderRun(0);
+document.getElementById('tabs').addEventListener('click', e => {
+  if (!e.target.dataset.i) return;
+  for (const t of document.getElementById('tabs').children) t.className = 'tab';
+  e.target.className = 'tab on';
+  renderRun(Number(e.target.dataset.i));
+});
+document.getElementById('c3').innerHTML =
+  `The hearing settles in two rounds with <b>one misread in total</b>. Private motives barely slow the witnesses down: agreement is cheap, and the direction to agree in is discoverable from a single round of listening. ` +
+  `Switch on the γ tab to see the same conversation when each witness is held to what they opened with — the retractions simply stop happening, and the three incompatible accounts stay on the record.`;
+
+// ---------- 4. revelation ----------
+const S = P.samples;
+const world = P.worlds[Object.keys(P.worlds)[0]];
+const known = {};
+for (const j of CAST) {
+  const sizes = CAST.filter(i=>i!==j).map(i=>world.beliefs[i][j]);
+  known[j] = Math.round(sizes.reduce((a,b)=>a+b,0)/sizes.length);
+}
+document.getElementById('reveal').innerHTML = CAST.map(j=>{
+  const left = known[j], pct = Math.round(100*(1-left/S));
+  return `<div class="kpi"><div class="k">${esc(j)} gave away</div><div class="v">${pct}%</div>
+    <div class="d">${left} of ${S} possible motives still standing after everything they said</div></div>`;
+}).join('');
+const most = CAST.reduce((a,b)=>known[a]<known[b]?a:b), least = CAST.reduce((a,b)=>known[a]>known[b]?a:b);
+document.getElementById('c4').innerHTML =
+  `<b>${esc(most)}</b> is the one who gives themselves away; <b>${esc(least)}</b> ends with ${known[least]} of ${S} motives still possible — the others learn essentially nothing. ` +
+  `The reason is structural, not psychological: an account that is optimal under almost any weighting reveals almost nothing about the weighting. ` +
+  `<b>Some testimony betrays its speaker and some is free to give</b>, and which is which follows from the shape of the objective, not from how carefully anyone spoke.`;
+
+// ---------- 5. limits ----------
+document.getElementById('limits').innerHTML =
+  `<b>The opponent model is level-1 and known to be misspecified.</b> A listener cannot model a speaker exactly — the speaker chose by maximising expected credibility under their own private beliefs about the other two, and those beliefs are private as well. Each listener therefore assumes "they are responding to the record as it now stands". That assumption is wrong about <i>opening</i> statements, which are not responses to anything, and the transcript marks exactly where it breaks as <span class="ref">model refuted — belief reset</span> rather than papering over it. Doing better needs higher-order beliefs and is a different piece of work.<br><br>` +
+  `<b>One scene, three witnesses, one seeded draw of private weights.</b> The weight vectors are drawn once from a fixed seed; a different draw moves the numbers. γ* is a reading taken of this scene, not a constant — under public motives it is 0.225 and here it is ${P.gammaStar}.<br><br>` +
+  `<b>An earlier version of this page would have said the opposite.</b> The revealed-preference inversion first modelled each speaker as maximising self-interest alone, ignoring credibility. That model was refuted by the speakers' own moves, the consistent set emptied, and a fallback quietly substituted a wrong candidate — which produced persistent misreads and the conclusion that private motives protect the audit. Both were artefacts of the bug.`;
+
+document.getElementById('foot').innerHTML =
+  `<b>Method.</b> One simulator decides which complete histories the evidence permits; one transparent function scores how well an account serves its teller; the hearing is sequential public revision. <b>No language model computes any number on this page</b> — the accounts, the beliefs and the inference are all structural, and the run is seeded.<br>` +
+  `<b>Parameters.</b> β = ${P.beta} (how much a witness wants to be corroborated) · γ = ${P.gamma} on the baseline tabs, ${P.gammaStar} on the accountability tabs (how far a witness is held to their opening) · ${P.samples} candidate motives per opponent.<br>` +
+  `Generated ${esc((P.generatedAt||'').slice(0,10))} · reproduce with <b>node recon/private-hearing.mjs</b> · a custom file with <b>--facts corpse,part,rope,weapon</b>.`;
+</script>
+</body>
+</html>

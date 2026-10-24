@@ -1,0 +1,2876 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Society Theater</title>
+  <style>
+    :root {
+      --ink: #1f2326;
+      --muted: #697178;
+      --line: #d8d4c9;
+      --paper: #f6f0e3;
+      --paper-2: #ebe2d0;
+      --paper-3: #fffaf0;
+      --charcoal: #17191b;
+      --red: #a33d32;
+      --blue: #285d7a;
+      --green: #406d4b;
+      --gold: #a17028;
+      --violet: #634b7c;
+      --shadow: 0 22px 70px rgba(0, 0, 0, .28);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(12, 14, 16, .88), rgba(12, 14, 16, .56), rgba(12, 14, 16, .9)),
+        url("./agent-theater-bg.png") center / cover fixed;
+    }
+
+    button, textarea, input { font: inherit; }
+    button {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 38px;
+      padding: 9px 12px;
+      color: var(--ink);
+      background: var(--paper-3);
+      cursor: pointer;
+    }
+    button:hover { border-color: #a58e61; background: #fff2d4; }
+    button.primary { background: var(--charcoal); color: #fff8ea; border-color: var(--charcoal); }
+    button.primary:hover { background: #33302d; }
+    button.ghost { background: transparent; }
+    button:disabled { opacity: .55; cursor: wait; }
+    textarea, input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--paper-3);
+      color: var(--ink);
+      padding: 10px;
+      outline: none;
+    }
+    textarea { min-height: 74px; resize: vertical; line-height: 1.45; }
+
+    .shell {
+      display: grid;
+      grid-template-columns: 335px minmax(0, 1fr) 380px;
+      gap: 12px;
+      min-height: 100vh;
+      padding: 12px;
+    }
+
+    .pane {
+      background: rgba(246, 240, 227, .95);
+      border: 1px solid rgba(216, 212, 201, .9);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      min-height: 0;
+    }
+    .left, .right {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      min-height: calc(100vh - 24px);
+    }
+    .center {
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr) auto;
+      min-height: calc(100vh - 24px);
+    }
+
+    .header {
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 250, 240, .8);
+    }
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      margin-bottom: 4px;
+      font-size: 22px;
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+    h2 {
+      margin-bottom: 10px;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #5d564d;
+    }
+    h3 {
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      padding: 5px 9px;
+      background: var(--paper-3);
+      color: var(--muted);
+      white-space: nowrap;
+      font-size: 12px;
+    }
+    .status-pill.api { color: #2d6242; border-color: #9ab891; }
+    .status-pill.local { color: #8a5d22; border-color: #caae76; }
+
+    .scroll { overflow: auto; padding: 12px; }
+    .stack { display: grid; gap: 10px; }
+    .band {
+      border-bottom: 1px solid var(--line);
+      padding: 12px 14px;
+      background: rgba(235, 226, 208, .56);
+    }
+    .band:last-child { border-bottom: 0; }
+
+    .world {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .fact {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--paper-3);
+      padding: 9px;
+      min-width: 0;
+    }
+    .fact small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 3px;
+      font-size: 12px;
+    }
+    .fact strong {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+
+    .agent {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper-3);
+      overflow: hidden;
+    }
+    .agent-top {
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      gap: 9px;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 800;
+      background: var(--blue);
+    }
+    .avatar.anna { background: var(--red); }
+    .avatar.richard { background: var(--green); }
+    .avatar.director { background: var(--gold); }
+    .agent-top strong { display: block; font-size: 14px; }
+    .agent-top span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .agent-body { padding: 10px; display: grid; gap: 9px; }
+    .compact { color: var(--muted); font-size: 13px; line-height: 1.45; margin: 0; }
+
+    .meter { display: grid; gap: 5px; }
+    .meter-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .bar {
+      height: 7px;
+      background: #ded5c4;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .bar i {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: 99px;
+      background: var(--blue);
+      transition: width .25s ease;
+    }
+    .bar.fear i { background: var(--red); }
+    .bar.suspicion i { background: var(--gold); }
+    .bar.resolve i { background: var(--green); }
+    .bar.exposure i { background: var(--violet); }
+
+    .stage-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 250, 240, .82);
+    }
+    .controls { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+    .auto-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      padding: 5px 10px 5px 8px;
+      background: var(--paper-3);
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .auto-toggle input { accent-color: var(--charcoal); margin: 0; }
+    .auto-toggle.on { color: var(--ink); border-color: #a58e61; background: #fff2d4; }
+    select#leadSelect {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--paper-3);
+      color: var(--ink);
+      padding: 7px 8px;
+      min-height: 38px;
+      font-size: 13px;
+    }
+    .quick-cues {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .quick-cues button {
+      min-height: 28px;
+      padding: 4px 10px;
+      font-size: 12px;
+      border-radius: 99px;
+      background: var(--paper-3);
+      color: #5d564d;
+      border-color: #d0c4a6;
+    }
+    .quick-cues button:hover { background: #fff2d4; color: var(--ink); }
+    .stage-title strong { display: block; font-size: 15px; }
+    .stage-title span { color: var(--muted); font-size: 12px; }
+
+    .readiness-status {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-bottom: 1px solid #d8c08a;
+      background: #fff7e0;
+      color: #6e4c16;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    .readiness-status.visible { display: flex; }
+    .readiness-status strong { color: #4d3410; white-space: nowrap; }
+    .readiness-status span { min-width: 0; }
+
+    .transcript {
+      overflow: auto;
+      padding: 16px;
+      background:
+        linear-gradient(rgba(246, 240, 227, .9), rgba(246, 240, 227, .96)),
+        repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(85, 68, 44, .07) 32px);
+    }
+    .entry {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .entry-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf6;
+      padding: 11px 12px;
+    }
+    .entry-card.director {
+      background: #f0e6d2;
+      border-color: #c5a96e;
+    }
+    .entry-card header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 7px;
+    }
+    .entry-card header strong { font-size: 14px; }
+    .entry-card header span { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .entry-card p { margin: 0; line-height: 1.55; }
+    .state-lines {
+      margin: 0;
+      padding-left: 18px;
+      color: #4d463c;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+    .state-lines li + li { margin-top: 3px; }
+    .state-groups {
+      display: grid;
+      gap: 8px;
+    }
+    .state-group {
+      border-left: 2px solid #c5a96e;
+      padding-left: 9px;
+    }
+    .state-group-title {
+      display: block;
+      margin-bottom: 3px;
+      color: #5d4a23;
+      font-size: 12px;
+    }
+    .state-group .state-lines { padding-left: 16px; }
+    .event-dialogue {
+      display: grid;
+      gap: 6px;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid #dcc89d;
+    }
+    .event-dialogue-line {
+      display: grid;
+      grid-template-columns: minmax(56px, max-content) minmax(0, 1fr);
+      gap: 8px;
+      align-items: baseline;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .event-dialogue-line strong {
+      color: #5d4a23;
+      white-space: nowrap;
+    }
+    .script-output {
+      margin: 0;
+      white-space: pre-wrap;
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+      font-size: 14px;
+      line-height: 1.62;
+      color: #2f2923;
+    }
+    .script-link {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      color: #6d4f1f;
+    }
+    .behavior {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #e5dac7;
+      color: #4f4740;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .private {
+      margin-top: 8px;
+      color: #6e4c7e;
+      font-size: 12px;
+      line-height: 1.45;
+      display: none;
+    }
+    body.show-private .private { display: block; }
+
+    .composer {
+      border-top: 1px solid var(--line);
+      padding: 12px;
+      background: rgba(255, 250, 240, .86);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      background: var(--paper-3);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .matrix th, .matrix td {
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 7px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .matrix th { color: var(--muted); font-weight: 600; background: #f2eadb; }
+    .matrix tr:last-child td { border-bottom: 0; }
+    .matrix td:last-child, .matrix th:last-child { border-right: 0; }
+    .relationship { display: grid; gap: 2px; }
+    .relationship span { color: var(--muted); }
+
+    .memory-list, .hook-list {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .memory-list li, .hook-list li {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--paper-3);
+      padding: 8px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .secret {
+      display: grid;
+      gap: 5px;
+      margin-top: 2px;
+    }
+    .secret-name {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      gap: 8px;
+      font-size: 12px;
+    }
+    .secret.revealed .secret-name { color: var(--red); }
+
+    .loading {
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      background: rgba(10, 11, 12, .42);
+      color: white;
+      z-index: 10;
+    }
+    body.busy .loading { display: grid; }
+    .loading div {
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 8px;
+      padding: 14px 16px;
+      background: rgba(0,0,0,.5);
+    }
+
+    @media (max-width: 1180px) {
+      .shell { grid-template-columns: 320px minmax(0, 1fr); }
+      .right { grid-column: 1 / -1; min-height: 520px; }
+    }
+    @media (max-width: 780px) {
+      .shell { grid-template-columns: 1fr; padding: 8px; }
+      .left, .center, .right { min-height: auto; }
+      .center { min-height: 760px; }
+      .stage-head { align-items: flex-start; flex-direction: column; }
+      .controls { justify-content: flex-start; }
+      .composer { grid-template-columns: 1fr; }
+    }
+
+    /* ---------- 场景编辑器 (Scenario Editor Modal) ---------- */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(8, 10, 12, .6);
+      display: none;
+      z-index: 50;
+      align-items: stretch; justify-content: center;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      width: min(960px, calc(100vw - 32px));
+      max-height: calc(100vh - 32px);
+      margin: 16px;
+      display: grid;
+      grid-template-rows: auto minmax(0,1fr) auto;
+      box-shadow: var(--shadow);
+    }
+    .modal-head {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255,250,240,.8);
+    }
+    .modal-head h2 { margin: 0; font-size: 18px; }
+    .modal-head .modal-tabs { display: flex; gap: 6px; }
+    .modal-head .modal-tabs button { min-height: 32px; padding: 4px 12px; }
+    .modal-head .modal-tabs button.on { background: var(--charcoal); color: #fff8ea; border-color: var(--charcoal); }
+    .modal-body {
+      padding: 14px 18px;
+      overflow: auto;
+    }
+    .modal-foot {
+      padding: 12px 18px;
+      border-top: 1px solid var(--line);
+      display: flex; gap: 8px; justify-content: space-between; align-items: center;
+      background: rgba(255,250,240,.7);
+    }
+    .modal-foot .modal-error { color: var(--red); font-size: 13px; flex: 1; min-width: 0; word-break: break-word; }
+
+    .scn-section { margin-bottom: 16px; }
+    .scn-section h3 {
+      font-size: 13px; color: var(--muted); margin: 0 0 8px 0;
+      text-transform: uppercase; letter-spacing: 1px;
+      border-bottom: 1px solid var(--line); padding-bottom: 4px;
+    }
+    .scn-grid { display: grid; gap: 8px; }
+    .scn-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .scn-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    @media (max-width: 700px) {
+      .scn-grid.cols-2, .scn-grid.cols-3 { grid-template-columns: 1fr; }
+    }
+    .scn-field { display: grid; gap: 4px; }
+    .scn-field label { font-size: 12px; color: var(--muted); }
+    .scn-field input, .scn-field textarea, .scn-field select {
+      padding: 7px 9px; font-size: 13px;
+    }
+    .scn-field textarea { min-height: 56px; }
+
+    .scn-list { display: grid; gap: 8px; }
+    .scn-list-item {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 10px;
+      background: var(--paper-3);
+      display: grid; gap: 6px;
+    }
+    .scn-list-row {
+      display: flex; gap: 8px; align-items: flex-start;
+    }
+    .scn-list-row > * { flex: 1; min-width: 0; }
+    .scn-list-row > button.danger { flex: 0 0 auto; min-height: 30px; padding: 4px 8px; color: var(--red); border-color: var(--red); background: #fff; }
+    .scn-list-row > button.danger:hover { background: #fbe3e1; }
+
+    .scn-agent {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--paper-3);
+      margin-bottom: 8px;
+    }
+    .scn-agent summary {
+      cursor: pointer;
+      padding: 10px 12px;
+      list-style: none;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px;
+    }
+    .scn-agent summary::-webkit-details-marker { display: none; }
+    .scn-agent summary .scn-agent-title { font-weight: 600; }
+    .scn-agent summary .scn-agent-sub { color: var(--muted); font-size: 12px; }
+    .scn-agent[open] summary { border-bottom: 1px solid var(--line); background: #f1e9d8; }
+    .scn-agent-body { padding: 10px 12px; display: grid; gap: 10px; }
+
+    .scn-secret { border: 1px dashed var(--line); border-radius: 6px; padding: 8px; background: #fffaf0; display: grid; gap: 6px; }
+
+    .scn-add { font-size: 12px; padding: 4px 10px; min-height: 28px; }
+    .modal-json {
+      width: 100%;
+      min-height: 420px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      white-space: pre;
+    }
+
+    .scn-help {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 6px 8px;
+      background: #fff7e6;
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    /* 自动推演按钮的"运行中"状态 */
+    #autoRunBtn.running {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+      animation: autoRunPulse 1.4s ease-in-out infinite;
+    }
+    #autoRunBtn.running:hover { background: #8b3128; }
+    @keyframes autoRunPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(163, 61, 50, .55); }
+      50%      { box-shadow: 0 0 0 6px rgba(163, 61, 50, 0); }
+    }
+
+    /* Artwork presentation layer: the work is a black-box theater first, a
+       state inspector second. The existing controls remain available. */
+    :root {
+      --ink: #e8e3da;
+      --muted: #8d8984;
+      --line: rgba(222, 211, 193, .16);
+      --paper: #111113;
+      --paper-2: #17171a;
+      --paper-3: #1b1b1f;
+      --charcoal: #e9e0d1;
+      --red: #b94a4a;
+      --blue: #8299a8;
+      --green: #849e82;
+      --gold: #c2a36c;
+      --violet: #9a82ad;
+      --shadow: 0 28px 90px rgba(0, 0, 0, .55);
+    }
+    body {
+      background:
+        radial-gradient(ellipse at 50% 8%, rgba(111, 28, 35, .16), transparent 38%),
+        linear-gradient(90deg, rgba(3, 4, 6, .94), rgba(8, 9, 11, .62), rgba(3, 4, 6, .95)),
+        url("./agent-theater-bg.png") center / cover fixed;
+      letter-spacing: .01em;
+    }
+    body::before {
+      content: "WITNESS MODE  /  NO CANONICAL CONTINUATION";
+      position: fixed;
+      z-index: 5;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(224, 202, 167, .72);
+      font: 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .22em;
+      pointer-events: none;
+    }
+    .shell {
+      position: relative;
+      grid-template-columns: 270px minmax(0, 1fr) 300px;
+      gap: 1px;
+      padding: 34px 18px 18px;
+    }
+    .pane {
+      background: rgba(15, 15, 18, .88);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      box-shadow: var(--shadow);
+    }
+    .header, .stage-head {
+      background: rgba(24, 23, 26, .9);
+      border-color: var(--line);
+    }
+    .header { padding: 18px; }
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 25px;
+      font-weight: 400;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1::before {
+      content: "IN A GROVE, AGAIN";
+      display: block;
+      margin-bottom: 9px;
+      color: var(--red);
+      font: 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .22em;
+    }
+    h2 {
+      color: #b9a581;
+      letter-spacing: .16em;
+    }
+    .sub { color: #98938c; }
+    .status-pill, button, textarea, input, select#leadSelect {
+      background: #1a1a1e;
+      color: var(--ink);
+      border-color: var(--line);
+      border-radius: 2px;
+    }
+    button:hover { background: #29252a; border-color: #a88e67; }
+    button.primary { background: #a83e42; color: #fff3e7; border-color: #a83e42; }
+    button.primary:hover { background: #c14c4f; }
+    .stage-title strong { font-family: Georgia, "Times New Roman", serif; font-size: 20px; font-weight: 400; letter-spacing: .03em; }
+    .transcript {
+      background: radial-gradient(ellipse at 50% 0%, rgba(100, 34, 38, .11), transparent 46%);
+      padding: 26px clamp(18px, 4vw, 60px);
+    }
+    .composer {
+      background: rgba(12, 12, 15, .96);
+      border-color: var(--line);
+    }
+    .agent, .fact, .band, .state-group, .matrix-card, .memory-item {
+      background: rgba(27, 27, 31, .86);
+      border-color: var(--line);
+    }
+    .agent-top { border-color: var(--line); }
+    .right { opacity: .86; }
+    .right .header h2::before { content: "ARCHIVE / "; color: var(--red); }
+    #privateToggle { color: #c5a878; }
+    #autoRunBtn { border-color: rgba(185, 74, 74, .6); }
+    @media (max-width: 1120px) {
+      .shell { grid-template-columns: 230px minmax(0, 1fr) 250px; padding-left: 8px; padding-right: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <aside class="pane left">
+      <header class="header">
+        <div class="title-row">
+          <div>
+            <h1>Agent Society</h1>
+            <p class="sub">一个已经发生的事件。没有唯一的后续，也没有人在场拥有真相。</p>
+          </div>
+          <span id="mode" class="status-pill">连接中</span>
+        </div>
+      </header>
+      <div class="scroll stack" id="agentList"></div>
+    </aside>
+
+    <section class="pane center">
+      <header class="stage-head">
+        <div class="stage-title">
+          <strong id="sceneTitle">雨夜候车室</strong>
+          <span id="sceneMeta">加载中</span>
+        </div>
+        <div class="controls">
+          <span id="clock" class="status-pill">--:-- · 第 0 回合</span>
+          <label class="auto-toggle" title="检测到对话停滞时自动注入一条符合当前场景的反馈，不推进剧情">
+            <input id="autoBeat" type="checkbox">
+            <span>自动节拍</span>
+          </label>
+          <select id="leadSelect" title="指定下一轮首发言者">
+            <option value="">下一轮自由发言</option>
+          </select>
+          <button id="privateToggle" class="ghost">导演视图</button>
+          <button id="scenarioBtn" title="自定义场景与角色">🎬 场景</button>
+          <button id="resetBtn">重置</button>
+          <button id="eventBtn">只投放事件</button>
+          <button id="scriptBtn" title="把当前推演整理成人类可读剧本">生成剧本</button>
+          <button id="autoRunBtn" title="自动连续推进,直到剧情进入 resolution 或所有截止点触发">▶ 自动推演</button>
+          <button id="turnBtn" class="primary">推进社会回合</button>
+        </div>
+      </header>
+      <div id="readinessStatus" class="readiness-status" role="status" aria-live="polite"></div>
+      <div class="transcript" id="transcript"></div>
+      <footer class="composer">
+        <div>
+          <textarea id="cue" placeholder="给 Director 一句提示：例如，窗外有人喊出一个名字；或者让火车站广播突然响起。"></textarea>          <div id="quickCues" class="quick-cues"></div>        </div>
+        <button id="cueTurnBtn" class="primary">带提示推进</button>
+      </footer>
+    </section>
+
+    <aside class="pane right">
+      <header class="header">
+        <h2>见证档案</h2>
+        <p class="sub" id="beat">记录谁知道、谁隐瞒、谁先让现实发生。</p>
+      </header>
+      <div class="scroll stack">
+        <section>
+          <h2>世界</h2>
+          <div class="world" id="world"></div>
+        </section>
+        <section>
+          <h2>关系矩阵</h2>
+          <div id="matrix"></div>
+        </section>
+        <section>
+          <h2>剧情焦点</h2>
+          <ul class="hook-list" id="hooks"></ul>
+        </section>
+        <section>
+          <h2>剧本日志</h2>
+          <ul class="memory-list" id="scenarioLog"></ul>
+        </section>
+        <section>
+          <h2>最终剧本</h2>
+          <ul class="memory-list" id="finalScript"></ul>
+        </section>
+        <section>
+          <h2>社会日志</h2>
+          <ul class="memory-list" id="log"></ul>
+        </section>
+      </div>
+    </aside>
+  </main>
+  <div class="loading"><div>Agent Society 正在推演这一回合</div></div>
+
+  <!-- ========== 场景编辑器 Modal ========== -->
+  <div id="scenarioModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <header class="modal-head">
+        <h2>场景设置</h2>
+        <div class="modal-tabs">
+          <button type="button" id="scnTabForm" class="on">一句话</button>
+          <button type="button" id="scnTabJson">高级 YAML</button>
+        </div>
+        <button type="button" id="scnClose" class="ghost" title="关闭">✕</button>
+      </header>
+      <div class="modal-body" id="scnBody">
+
+        <!-- Prompt 视图 -->
+        <div id="scnPromptView">
+          <div class="scn-help">
+            写一句话就能开场。系统会在内部自动展开为场景、世界状态、角色、秘密、线索和截止时间。
+          </div>
+          <div class="scn-field">
+            <label>一句话 prompt</label>
+            <textarea id="scnPrompt" style="min-height: 150px;" placeholder="例如：二战雨夜，数学家、文学家和政治家被困在边境火车站，他们都在隐藏一份会改变战局的秘密。"></textarea>
+          </div>
+          <div class="quick-cues" style="margin-top: 10px;">
+            <button type="button" data-scn-example="二战雨夜，数学家、文学家和政治家被困在边境火车站，他们都在隐藏一份会改变战局的秘密。">二战火车站</button>
+            <button type="button" data-scn-example="火星基地断电，三名宇航员被困在生活舱，氧气只够一人撑到救援。">火星断电夜</button>
+            <button type="button" data-scn-example="近未来公司董事会深夜闭门会议，三位高管必须决定是否公开一场会毁掉公司的 AI 事故。">AI 董事会</button>
+          </div>
+        </div>
+
+        <!-- 表单视图 -->
+        <div id="scnFormView" style="display: none;">
+          <div class="scn-help">
+            场景由 <b>基础信息</b>、<b>世界状态</b>、<b>截止时间</b>、<b>隐藏线索</b>、<b>角色 (2-6 个)</b> 组成。<br>
+            隐藏身份与秘密只对该角色自己可见;Director 会用截止时间和隐藏线索推动剧情。
+          </div>
+
+          <!-- 预设 -->
+          <div class="scn-section">
+            <h3>预设</h3>
+            <div class="scn-grid cols-3">
+              <div class="scn-field" style="grid-column: span 2;">
+                <label>选择内置预设(载入到下方表单后可继续修改)</label>
+                <select id="scnPresetSelect"></select>
+              </div>
+              <div class="scn-field">
+                <label>&nbsp;</label>
+                <button type="button" id="scnLoadPreset">载入此预设</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 基础信息 -->
+          <div class="scn-section">
+            <h3>基础信息</h3>
+            <div class="scn-grid cols-2">
+              <div class="scn-field"><label>标题 *</label><input id="scnTitle"></div>
+              <div class="scn-field"><label>类型 (历史悬疑 / 科幻 / ...)</label><input id="scnGenre"></div>
+              <div class="scn-field" style="grid-column: 1 / -1;"><label>地点</label><input id="scnPlace"></div>
+              <div class="scn-field" style="grid-column: 1 / -1;"><label>开场前提</label><textarea id="scnPremise"></textarea></div>
+              <div class="scn-field"><label>场景目标 (这场戏要回答什么)</label><textarea id="scnSceneGoal"></textarea></div>
+              <div class="scn-field"><label>核心冲突 (谁要什么 / 谁在挡)</label><textarea id="scnConflict"></textarea></div>
+            </div>
+          </div>
+
+          <!-- 世界状态 -->
+          <div class="scn-section">
+            <h3>世界状态</h3>
+            <div class="scn-grid cols-3">
+              <div class="scn-field"><label>起始时钟 HH:MM</label><input id="scnStartClock" placeholder="22:15"></div>
+              <div class="scn-field"><label>天气</label><input id="scnWeather"></div>
+              <div class="scn-field"><label>温度</label><input id="scnTemp"></div>
+              <div class="scn-field"><label>光照</label><input id="scnLight"></div>
+              <div class="scn-field"><label>威胁等级 0-100</label><input id="scnThreat" type="number" min="0" max="100"></div>
+              <div class="scn-field"><label>危险等级 0-100</label><input id="scnDanger" type="number" min="0" max="100"></div>
+            </div>
+            <div class="scn-grid cols-2" style="margin-top: 8px;">
+              <div class="scn-field"><label>现场事实 (一行一条)</label><textarea id="scnFacts"></textarea></div>
+              <div class="scn-field"><label>未解张力 (一行一条)</label><textarea id="scnTensions"></textarea></div>
+            </div>
+          </div>
+
+          <!-- 截止时间 -->
+          <div class="scn-section">
+            <h3>截止时间 <button type="button" class="scn-add" id="scnAddDeadline">+ 添加</button></h3>
+            <div class="scn-list" id="scnDeadlines"></div>
+          </div>
+
+          <!-- 隐藏线索 -->
+          <div class="scn-section">
+            <h3>隐藏线索 <button type="button" class="scn-add" id="scnAddClue">+ 添加</button></h3>
+            <div class="scn-list" id="scnClues"></div>
+          </div>
+
+          <!-- 角色 -->
+          <div class="scn-section">
+            <h3>角色 (2-6 个) <button type="button" class="scn-add" id="scnAddAgent">+ 添加角色</button></h3>
+            <div id="scnAgents"></div>
+          </div>
+        </div>
+
+        <!-- 高级 YAML 视图 -->
+        <div id="scnJsonView" style="display: none;">
+          <div class="scn-help">
+            直接编辑结构化 YAML。结构: <code>scenario</code>、<code>world</code>、<code>agents</code>。提交时会校验必填字段。
+          </div>
+          <textarea id="scnJsonText" class="modal-json" spellcheck="false"></textarea>
+        </div>
+
+      </div>
+      <footer class="modal-foot">
+        <span id="scnError" class="modal-error"></span>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" id="scnCancel">取消</button>
+          <button type="button" id="scnApply" class="primary">应用并开场</button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    const els = {
+      mode: document.querySelector("#mode"),
+      agentList: document.querySelector("#agentList"),
+      sceneTitle: document.querySelector("#sceneTitle"),
+      sceneMeta: document.querySelector("#sceneMeta"),
+      clock: document.querySelector("#clock"),
+      readinessStatus: document.querySelector("#readinessStatus"),
+      transcript: document.querySelector("#transcript"),
+      cue: document.querySelector("#cue"),
+      turnBtn: document.querySelector("#turnBtn"),
+      cueTurnBtn: document.querySelector("#cueTurnBtn"),
+      eventBtn: document.querySelector("#eventBtn"),
+      resetBtn: document.querySelector("#resetBtn"),
+      scriptBtn: document.querySelector("#scriptBtn"),
+      scenarioBtn: document.querySelector("#scenarioBtn"),
+      autoRunBtn: document.querySelector("#autoRunBtn"),
+      privateToggle: document.querySelector("#privateToggle"),
+      autoBeat: document.querySelector("#autoBeat"),
+      autoBeatLabel: document.querySelector(".auto-toggle"),
+      leadSelect: document.querySelector("#leadSelect"),
+      quickCues: document.querySelector("#quickCues"),
+      beat: document.querySelector("#beat"),
+      world: document.querySelector("#world"),
+      matrix: document.querySelector("#matrix"),
+      hooks: document.querySelector("#hooks"),
+      scenarioLog: document.querySelector("#scenarioLog"),
+      finalScript: document.querySelector("#finalScript"),
+      log: document.querySelector("#log"),
+
+      // 场景编辑器
+      scnModal: document.querySelector("#scenarioModal"),
+      scnClose: document.querySelector("#scnClose"),
+      scnCancel: document.querySelector("#scnCancel"),
+      scnApply: document.querySelector("#scnApply"),
+      scnError: document.querySelector("#scnError"),
+      scnTabForm: document.querySelector("#scnTabForm"),
+      scnTabJson: document.querySelector("#scnTabJson"),
+      scnPromptView: document.querySelector("#scnPromptView"),
+      scnPrompt: document.querySelector("#scnPrompt"),
+      scnFormView: document.querySelector("#scnFormView"),
+      scnJsonView: document.querySelector("#scnJsonView"),
+      scnJsonText: document.querySelector("#scnJsonText"),
+      scnPresetSelect: document.querySelector("#scnPresetSelect"),
+      scnLoadPreset: document.querySelector("#scnLoadPreset"),
+      scnTitle: document.querySelector("#scnTitle"),
+      scnGenre: document.querySelector("#scnGenre"),
+      scnPlace: document.querySelector("#scnPlace"),
+      scnPremise: document.querySelector("#scnPremise"),
+      scnSceneGoal: document.querySelector("#scnSceneGoal"),
+      scnConflict: document.querySelector("#scnConflict"),
+      scnStartClock: document.querySelector("#scnStartClock"),
+      scnWeather: document.querySelector("#scnWeather"),
+      scnTemp: document.querySelector("#scnTemp"),
+      scnLight: document.querySelector("#scnLight"),
+      scnThreat: document.querySelector("#scnThreat"),
+      scnDanger: document.querySelector("#scnDanger"),
+      scnFacts: document.querySelector("#scnFacts"),
+      scnTensions: document.querySelector("#scnTensions"),
+      scnDeadlines: document.querySelector("#scnDeadlines"),
+      scnClues: document.querySelector("#scnClues"),
+      scnAgents: document.querySelector("#scnAgents"),
+      scnAddDeadline: document.querySelector("#scnAddDeadline"),
+      scnAddClue: document.querySelector("#scnAddClue"),
+      scnAddAgent: document.querySelector("#scnAddAgent")
+    };
+
+    const QUICK_CUES = [
+      "远处传来一阵狗叫，随后是手电筒扫过窗户。",
+      "火车站广播突然被打开，但只传出电流噪声。",
+      "门外有人低声叫了一个名字，听不清是呐谁。",
+      "雨突然停了，房间里只剩火炉的咻嗒声。",
+      "桌上的茶杯被震动，远处传来闷响。",
+      "巡逻车辆的车灯扫过窗玻璃，而且越来越近。"
+    ];
+
+    let state = null;
+    let busy = false;
+    let clientOutcomeEntries = [];
+    const API_BASES = location.protocol === "file:"
+      ? ["http://127.0.0.1:4876", "http://127.0.0.1:4875"]
+      : [""];
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    async function request(path, options = {}) {
+      let lastError = null;
+      for (const base of API_BASES) {
+        try {
+          const response = await fetch(`${base}${path}`, {
+            headers: { "content-type": "application/json" },
+            ...options
+          });
+          if (!response.ok) throw new Error(await response.text());
+          return response.json();
+        } catch (error) {
+          lastError = error;
+        }
+      }
+      throw lastError || new Error("Agent Society backend is not reachable.");
+    }
+
+    async function loadState() {
+      setBusy(true);
+      try {
+        state = await request("/api/state");
+        render();
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    function setBusy(value) {
+      busy = value;
+      document.body.classList.toggle("busy", busy);
+      const ready = providerReady();
+      for (const button of [els.turnBtn, els.cueTurnBtn, els.eventBtn, els.resetBtn, els.scriptBtn]) {
+        button.disabled = busy;
+      }
+      els.scenarioBtn.disabled = busy;
+      els.autoBeat.disabled = busy || !ready;
+      els.leadSelect.disabled = busy || !ready;
+      els.quickCues.querySelectorAll("button").forEach((btn) => { btn.disabled = busy; });
+      // 自动推演按钮不受 busy 影响——运行中也必须可以点击暂停
+      if (els.autoRunBtn) els.autoRunBtn.disabled = busy && !autoRunning;
+    }
+
+    function providerReady() {
+      return Boolean(state && !state.empty && state.provider && state.provider.hasApiKey);
+    }
+
+    function clientAgentName(id) {
+      return (state?.agents || []).find((agent) => agent.id === id)?.name || id;
+    }
+
+    function clientLocationLabel(id) {
+      return (state?.world?.locations || []).find((loc) => loc.id === id)?.label || id || "未知位置";
+    }
+
+    function captureClientNarrativeState() {
+      if (!state || state.empty) return null;
+      return {
+        dangerLevel: state.world.dangerLevel,
+        threatLevel: state.world.threatLevel,
+        plotStage: state.world.plotStage,
+        revealedClueIds: new Set((state.world.revealedClues || []).map((clue) => clue.id)),
+        firedDeadlineIds: new Set((state.world.deadlines || []).filter((d) => d.fired).map((d) => d.id)),
+        locations: Object.fromEntries((state.agents || []).map((agent) => [agent.id, agent.location || state.world.defaultLocationId])),
+        suspicions: Object.fromEntries((state.agents || []).map((agent) => [agent.id, { ...(agent.suspicions || {}) }])),
+        nextActions: Object.fromEntries((state.agents || []).map((agent) => [agent.id, agent.nextIntendedAction || ""])),
+        itemStates: Object.fromEntries((state.world.items || []).map((item) => [
+          item.id,
+          {
+            label: item.label || item.id,
+            holder: item.holder || "",
+            location: item.location || "",
+            discoveredBy: Array.isArray(item.discoveredBy) ? [...item.discoveredBy] : []
+          }
+        ]))
+      };
+    }
+
+    function buildClientOutcomeLines(before) {
+      if (!before || !state || state.empty) return [];
+      const lines = [];
+      const add = (line) => {
+        const text = String(line || "").trim();
+        if (text && !lines.includes(text) && lines.length < 6) lines.push(text);
+      };
+      const stageLabel = { setup:"布局", suspicion:"猜忌", confrontation:"正面冲突", revelation:"揭露", resolution:"收场" };
+
+      if (state.world.plotStage !== before.plotStage) add(`剧情阶段进入「${stageLabel[state.world.plotStage] || state.world.plotStage}」。`);
+      for (const deadline of state.world.deadlines || []) {
+        if (deadline.fired && !before.firedDeadlineIds.has(deadline.id)) add(`截止点触发：「${deadline.label}」。`);
+      }
+
+      const newClues = (state.world.revealedClues || []).filter((clue) => !before.revealedClueIds.has(clue.id));
+      const newClueLabels = new Set(newClues.map((clue) => clue.label));
+      for (const clue of newClues.slice(0, 2)) {
+        const who = clue.sourceAgentId ? clientAgentName(clue.sourceAgentId) : "现场";
+        add(`${who} 发现了「${clue.label}」，这条线索进入剧情台面。`);
+      }
+
+      for (const agent of state.agents || []) {
+        const prevLoc = before.locations[agent.id];
+        const nextLoc = agent.location || state.world.defaultLocationId;
+        if (prevLoc && nextLoc && prevLoc !== nextLoc) add(`${agent.name} 从「${clientLocationLabel(prevLoc)}」移动到「${clientLocationLabel(nextLoc)}」。`);
+      }
+
+      for (const item of state.world.items || []) {
+        const prev = before.itemStates[item.id];
+        if (!prev) continue;
+        const holder = item.holder || "";
+        const location = item.location || "";
+        if (holder !== prev.holder) {
+          const from = prev.holder ? clientAgentName(prev.holder) : (prev.location ? clientLocationLabel(prev.location) : "原处");
+          const to = holder ? clientAgentName(holder) : (location ? clientLocationLabel(location) : "未知位置");
+          add(`「${item.label}」从${from}转到${to}手里。`);
+        } else if (location !== prev.location && !holder) {
+          add(`「${item.label}」的位置变为「${clientLocationLabel(location)}」。`);
+        }
+        const prevDiscovered = new Set(prev.discoveredBy || []);
+        const newlyDiscovered = (item.discoveredBy || []).filter((id) => !prevDiscovered.has(id));
+        if (newlyDiscovered.length && !newClueLabels.has(item.label)) add(`${newlyDiscovered.map(clientAgentName).join("、")} 注意到「${item.label}」的新细节。`);
+      }
+
+      for (const agent of state.agents || []) {
+        const prev = before.nextActions[agent.id] || "";
+        const next = agent.nextIntendedAction || "";
+        if (next && next !== prev) add(`任务状态：${agent.name} 下一步改为「${next}」。`);
+      }
+
+      const suspicionDeltas = [];
+      for (const agent of state.agents || []) {
+        const prevMap = before.suspicions[agent.id] || {};
+        for (const [targetId, value] of Object.entries(agent.suspicions || {})) {
+          const prev = typeof prevMap[targetId] === "number" ? prevMap[targetId] : 50;
+          const delta = Number(value) - prev;
+          if (Math.abs(delta) >= 5) suspicionDeltas.push({ agent, targetId, prev, value: Number(value), delta });
+        }
+      }
+      suspicionDeltas
+        .sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta))
+        .slice(0, 2)
+        .forEach((item) => add(`${item.agent.name} 对 ${clientAgentName(item.targetId)} 的怀疑 ${item.prev} → ${item.value}。`));
+
+      if (Math.abs((state.world.dangerLevel || 0) - (before.dangerLevel || 0)) >= 5) add(`危险等级 ${before.dangerLevel} → ${state.world.dangerLevel}。`);
+      if (Math.abs((state.world.threatLevel || 0) - (before.threatLevel || 0)) >= 5) add(`威胁等级 ${before.threatLevel} → ${state.world.threatLevel}。`);
+      return lines;
+    }
+
+    function flattenClientSummaryGroups(groups) {
+      return groups.flatMap((group) => (group.lines || []).map((line) => `${group.title}: ${line}`));
+    }
+
+    function buildClientActionOutcomeLines(before) {
+      const entries = (state?.transcript || []).filter((entry) => entry.type === "agent" && entry.turn === state.world.turn);
+      const actionLabel = {
+        speak:"发言", observe:"观察", act:"行动", challenge:"质问", lie:"撒谎", conceal:"掩盖",
+        reveal:"揭露", negotiate:"谈判", threaten:"威胁", ally:"结盟", betray:"背叛",
+        cooperate:"合作", move:"移动", silence:"沉默", inspect:"检视", search:"搜查",
+        use:"使用", steal:"夺取", hide:"藏匿", lock:"上锁", escape:"逃离", follow:"跟随"
+      };
+      return entries.slice(-4).map((entry) => {
+        const label = actionLabel[entry.actionType] || entry.actionType;
+        const target = entry.target ? `「${entry.target}」` : "";
+        const sim = entry.simulation;
+        let result = "";
+        if (sim && sim.kind && sim.kind !== "noop") {
+          if (sim.ok) {
+            if (sim.itemLabel) result = `动作成功,「${sim.itemLabel}」成为新的注意焦点。`;
+            else if (sim.fromLocation && sim.toLocation) result = `位置发生改变。`;
+            else result = "动作成功,现场状态被改写。";
+          } else {
+            result = sim.failureReason || "动作没有成功落地。";
+          }
+        } else if (entry.speech) {
+          result = "这句话改变了现场的压力方向。";
+        }
+        return `${entry.agentName} 选择${label}${target ? ` ${target}` : ""}。${result}`;
+      }).filter(Boolean);
+    }
+
+    function buildClientMeaningLines(changes, before) {
+      const lines = [];
+      if (changes.includes("线索")) lines.push("新线索不只是信息增加,它会改变角色可用的交换、威胁和试探筹码。");
+      if (changes.includes("物件")) lines.push("物件控制权变化意味着某些角色能推进自己的任务,另一些角色会失去遮掩空间。");
+      if (changes.includes("位置")) lines.push("位置变化会改变谁能看见谁、谁能接触物件,也会改变下一轮可行动作。");
+      if (changes.includes("怀疑")) lines.push("怀疑上升会让下一轮更容易出现质问、搜查、结盟或背叛。");
+      if (changes.includes("任务")) lines.push("任务状态改变后,角色之后的行动会围绕新的短期目标展开。");
+      if (changes.includes("阶段")) lines.push("剧情阶段推进后,系统会更倾向制造摊牌、揭露或不可逆选择。");
+      if (Math.abs((state.world.dangerLevel || 0) - (before.dangerLevel || 0)) >= 5) {
+        lines.push(`危险等级从 ${before.dangerLevel} 变到 ${state.world.dangerLevel},外部压力开始逼迫角色少说多做。`);
+      }
+      return lines.length ? lines.slice(0, 4) : ["本轮主要积累了态度和位置上的微妙压力,还没有形成明显的外部转折。"];
+    }
+
+    function buildClientNextPressureLines() {
+      const lines = [];
+      const upcoming = (state.world.deadlines || []).filter((d) => !d.fired)[0];
+      if (upcoming) lines.push(`最近的时间压力是「${upcoming.label}」(${clock(upcoming.atMinutes)}),角色会围绕它压缩选择。`);
+      const pairs = [];
+      for (const agent of state.agents || []) {
+        for (const [targetId, value] of Object.entries(agent.suspicions || {})) {
+          if (value >= 65) pairs.push({ from: agent.name, to: clientAgentName(targetId), value });
+        }
+      }
+      pairs.sort((a, b) => b.value - a.value);
+      if (pairs[0]) lines.push(`最紧张的关系是 ${pairs[0].from} → ${pairs[0].to} 的怀疑 ${pairs[0].value},下一轮很可能被它带偏。`);
+      const focus = (state.world.emergentFocus || [])[0];
+      if (focus) lines.push(`当前剧情焦点落在「${focus}」。`);
+      return lines.length ? lines.slice(0, 3) : ["下一轮的主要压力仍来自角色目标之间的冲突。"];
+    }
+
+    function buildClientOutcomeSummary(before) {
+      const changeLines = buildClientOutcomeLines(before);
+      const changeLabels = changeLines.map((line) => {
+        if (line.includes("发现")) return "线索";
+        if (line.includes("从") && line.includes("转到")) return "物件";
+        if (line.includes("移动到")) return "位置";
+        if (line.includes("任务状态")) return "任务";
+        if (line.includes("怀疑")) return "怀疑";
+        if (line.includes("剧情阶段")) return "阶段";
+        return "";
+      }).filter(Boolean);
+      const groups = [];
+      const actionLines = buildClientActionOutcomeLines(before);
+      if (actionLines.length) groups.push({ title: "本轮发生", lines: actionLines });
+      if (changeLines.length) groups.push({ title: "状态改变", lines: changeLines });
+      groups.push({ title: "局势含义", lines: buildClientMeaningLines(changeLabels, before) });
+      groups.push({ title: "下一轮压力", lines: buildClientNextPressureLines() });
+      return { groups, lines: flattenClientSummaryGroups(groups) };
+    }
+
+    function appendClientOutcomeIfNeeded(before) {
+      if (!before || !state || state.empty) return;
+      const turn = state.world.turn;
+      const serverHasSummary = (state.transcript || []).some((entry) => entry.type === "director" && entry.turn === turn && entry.meta?.stateSummary);
+      if (serverHasSummary) return;
+      const summary = buildClientOutcomeSummary(before);
+      if (!summary.lines.length) return;
+      const entry = {
+        id: `client-summary-${turn}-${Date.now()}`,
+        type: "director",
+        title: "回合结算",
+        text: summary.lines.join("\n"),
+        meta: { stateSummary: true, summaryLines: summary.lines, summaryGroups: summary.groups, clientGenerated: true },
+        turn,
+        clock: clock(state.world.minutes),
+        createdAt: new Date().toISOString()
+      };
+      const existingIndex = clientOutcomeEntries.findIndex((item) => item.turn === turn);
+      if (existingIndex >= 0) clientOutcomeEntries.splice(existingIndex, 1, entry);
+      else clientOutcomeEntries.push(entry);
+      clientOutcomeEntries = clientOutcomeEntries.slice(-20);
+    }
+
+    function buildClientOpeningBriefEntry() {
+      if (!state || state.empty) return null;
+      const openingEntry = (state.transcript || []).find((entry) => entry.type === "director" && entry.title === "开场");
+      const openingClock = openingEntry?.clock || clock(state.world.minutes);
+      const deadlines = (state.world.deadlines || []).slice(0, 4).map((d) => `${d.label}: ${clock(d.atMinutes)}`);
+      const visibleItems = (state.world.items || []).filter((item) => !item.hidden).slice(0, 5).map((item) => item.label);
+      const publicLines = [
+        `场景目标: ${state.scenario.sceneGoal || "让角色在冲突中自行演化。"}`,
+        `核心冲突: ${state.scenario.centralConflict || state.scenario.premise || "角色目标互相牵制。"}`,
+        `现场条件: ${openingClock}; ${state.world.weather || "天气未知"}; ${state.world.light || "光照未知"}; 危险 ${state.world.dangerLevel}, 威胁 ${state.world.threatLevel}。`
+      ];
+      if (deadlines.length) publicLines.push(`截止时间: ${deadlines.join(" / ")}`);
+      if (visibleItems.length) publicLines.push(`可见物件: ${visibleItems.join("、")}`);
+      const publicRoles = (state.agents || []).map((agent) => {
+        const posture = agent.currentAction ? `当前姿态: ${agent.currentAction}` : `公开身份: ${agent.publicIdentity || agent.role}`;
+        return `${agent.name}(${agent.role}) - ${posture}`;
+      });
+      const privateRoles = (state.agents || []).map((agent) => {
+        const secrets = (agent.secrets || []).slice(0, 2).map((secret) => secret.label).join(" / ") || "无显性秘密";
+        return `${agent.name}: 真实身份/暗线是「${agent.hiddenIdentity || "未设定"}」; 本场目标是「${agent.shortTermGoal || "未设定"}」; 秘密: ${secrets}`;
+      });
+      const groups = [
+        { title: "任务与约束", lines: publicLines },
+        { title: "公开角色", lines: publicRoles },
+        { title: "导演暗线", lines: privateRoles, private: true }
+      ];
+      return {
+        id: "client-opening-brief",
+        type: "director",
+        title: "任务介绍",
+        text: flattenClientSummaryGroups(groups).join("\n"),
+        meta: { openingBrief: true, summaryGroups: groups, summaryLines: flattenClientSummaryGroups(groups), clientGenerated: true },
+        turn: 0,
+        clock: openingClock,
+        createdAt: "0000-00-00T00:00:01.000Z"
+      };
+    }
+
+    function transcriptForRender() {
+      const transcript = state?.transcript || [];
+      const hasOpeningBrief = transcript.some((entry) => entry.type === "director" && entry.meta?.openingBrief);
+      const serverSummaryTurns = new Set(transcript.filter((entry) => entry.type === "director" && entry.meta?.stateSummary).map((entry) => entry.turn));
+      const extras = clientOutcomeEntries.filter((entry) => !serverSummaryTurns.has(entry.turn));
+      const openingBrief = hasOpeningBrief ? null : buildClientOpeningBriefEntry();
+      const sameTurnRank = (entry) => {
+        if (entry.type === "director" && entry.title === "开场") return 0;
+        if (entry.type === "director" && entry.meta?.openingBrief) return 1;
+        if (entry.type === "director" && entry.meta?.stateSummary) return 7;
+        if (entry.type === "director" && entry.meta?.sceneWriter) return 8;
+        if (entry.type === "director" && entry.meta?.finalScript) return 10;
+        return 5;
+      };
+      return transcript.concat(openingBrief ? [openingBrief] : [], extras).sort((a, b) => {
+        const turnDelta = (a.turn || 0) - (b.turn || 0);
+        if (turnDelta) return turnDelta;
+        const rankDelta = sameTurnRank(a) - sameTurnRank(b);
+        if (rankDelta) return rankDelta;
+        return String(a.createdAt || "").localeCompare(String(b.createdAt || ""));
+      });
+    }
+
+    function readinessIssue() {
+      if (!state) {
+        return {
+          title: "正在连接",
+          text: "正在读取本地 Agent Society 服务状态。"
+        };
+      }
+      if (state.empty) {
+        return {
+          title: "场景未准备好",
+          text: "先点“场景”，输入一句话 prompt 并应用开场。"
+        };
+      }
+      if (!state.provider?.hasApiKey) {
+        return {
+          title: "API key 未连接",
+          text: "后端没有检测到 API key。请用 GROQ_API_KEY 启动服务后刷新页面。"
+        };
+      }
+      return null;
+    }
+
+    async function advance(useCue) {
+      if (busy) return;
+      if (!ensureCanAdvance()) return;
+      setBusy(true);
+      const beforeTurn = captureClientNarrativeState();
+      const userCue = useCue ? els.cue.value.trim() : "";
+      const leadId = els.leadSelect.value || "";
+      const body = { userCue };
+      if (leadId) body.actorIds = [leadId];
+
+      els.turnBtn.dataset.label = els.turnBtn.dataset.label || els.turnBtn.textContent;
+      els.cueTurnBtn.dataset.label = els.cueTurnBtn.dataset.label || els.cueTurnBtn.textContent;
+      const setProgress = (text) => {
+        els.turnBtn.textContent = text;
+        els.cueTurnBtn.textContent = text;
+      };
+      const restoreLabel = () => {
+        els.turnBtn.textContent = els.turnBtn.dataset.label;
+        els.cueTurnBtn.textContent = els.cueTurnBtn.dataset.label;
+      };
+
+      try {
+        setProgress("等待 LLM…");
+        const ok = await advanceStreaming(body, setProgress);
+        if (!ok) {
+          setProgress("回退中…");
+          state = await request("/api/turn", { method: "POST", body: JSON.stringify(body) });
+        }
+        appendClientOutcomeIfNeeded(beforeTurn);
+        if (useCue) els.cue.value = "";
+        els.leadSelect.value = "";
+        render();
+      } catch (error) {
+        showProviderError(error);
+      } finally {
+        restoreLabel();
+        setBusy(false);
+      }
+    }
+
+    // 流式推进：NDJSON，每个 director/agent_entry 立刻 push 到 transcript 视图
+    async function advanceStreaming(body, setProgress) {
+      let lastError = null;
+      for (const base of API_BASES) {
+        let response;
+        try {
+          response = await fetch(`${base}/api/turn/stream`, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(body)
+          });
+        } catch (err) {
+          lastError = err;
+          continue;
+        }
+        if (!response.ok || !response.body) {
+          lastError = new Error(`stream backend ${response.status}`);
+          continue;
+        }
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let buffer = "";
+        let finished = false;
+        let agentSeen = 0;
+        while (!finished) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          let nl;
+          while ((nl = buffer.indexOf("\n")) >= 0) {
+            const line = buffer.slice(0, nl).trim();
+            buffer = buffer.slice(nl + 1);
+            if (!line) continue;
+            let msg;
+            try { msg = JSON.parse(line); } catch { continue; }
+            if (msg.kind === "turn_start") {
+              setProgress(`第 ${msg.turn} 回合…`);
+            } else if (msg.kind === "director_entry") {
+              if (state && msg.entry) {
+                state.transcript.push(msg.entry);
+                if (msg.world) state.world = { ...state.world, ...msg.world };
+                renderTranscript();
+                renderHeader();
+              }
+              setProgress("场景反馈…");
+            } else if (msg.kind === "agent_entry") {
+              if (state && msg.entry) {
+                state.transcript.push(msg.entry);
+                if (msg.world) state.world = { ...state.world, ...msg.world };
+                renderTranscript();
+              }
+              agentSeen += 1;
+              const name = (msg.entry && msg.entry.agentName) || "角色";
+              setProgress(`${name} 已发言…`);
+            } else if (msg.kind === "rate_limit_wait") {
+              const sec = Math.ceil((msg.waitMs || 0) / 1000);
+              setProgress(`Groq 限速，等 ${sec}s…`);
+            } else if (msg.kind === "heartbeat") {
+              // 心跳，无操作
+            } else if (msg.kind === "done") {
+              if (msg.state) state = msg.state;
+              finished = true;
+            } else if (msg.kind === "error") {
+              lastError = new Error(msg.message || "stream error");
+              finished = true;
+            }
+          }
+        }
+        if (state) return true;
+        if (!lastError) lastError = new Error("stream ended without state");
+      }
+      console.warn("streaming advance failed:", lastError);
+      return false;
+    }
+
+    async function eventOnly() {
+      if (busy) return;
+      if (!ensureCanAdvance()) return;
+      setBusy(true);
+      try {
+        const userCue = els.cue.value.trim();
+        state = await request("/api/event", {
+          method: "POST",
+          body: JSON.stringify({ userCue })
+        });
+        els.cue.value = "";
+        render();
+      } catch (error) {
+        showProviderError(error);
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    async function generateScript() {
+      if (busy) return;
+      if (!state || state.empty) {
+        showProviderError(new Error("请先创建场景，再推进几轮，最后生成剧本。"));
+        return;
+      }
+      setBusy(true);
+      const oldLabel = els.scriptBtn.textContent;
+      els.scriptBtn.textContent = "整理中…";
+      try {
+        const result = await request("/api/script/final", { method: "POST", body: "{}" });
+        state = result.state || state;
+        render();
+      } catch (error) {
+        showProviderError(error);
+      } finally {
+        els.scriptBtn.textContent = oldLabel;
+        setBusy(false);
+      }
+    }
+
+    async function reset() {
+      if (busy) return;
+      // 重置时停止自动推演
+      autoRunning = false;
+      updateAutoRunBtn?.();
+      setBusy(true);
+      try {
+        state = await request("/api/reset", { method: "POST", body: "{}" });
+        clientOutcomeEntries = [];
+        render();
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    async function setAutoBeat(enabled) {
+      if (busy) return;
+      if (!providerReady()) {
+        els.autoBeat.checked = false;
+        ensureCanAdvance();
+        return;
+      }
+      setBusy(true);
+      try {
+        state = await request("/api/director", {
+          method: "POST",
+          body: JSON.stringify({ autoBeat: enabled })
+        });
+        render();
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    // ============================================================
+    //   自动推演 (Auto Run)
+    //   连续触发 advance(),直到:
+    //     1. 用户再次点击按钮暂停
+    //     2. 剧情进入 resolution 且所有 deadlines 已 fired
+    //     3. 某一轮没推进 turn (后端错误/限速过长),自动停下
+    // ============================================================
+    let autoRunning = false;
+    const AUTO_RUN_INTERVAL_MS = 1500;   // 两轮之间的间隔,留给 LLM TPM 缓冲
+    const AUTO_RUN_MAX_TURNS = 60;       // 安全上限,避免无尽循环
+
+    function updateAutoRunBtn() {
+      if (!els.autoRunBtn) return;
+      els.autoRunBtn.classList.toggle("running", autoRunning);
+      els.autoRunBtn.textContent = autoRunning ? "⏸ 暂停推演" : "▶ 自动推演";
+    }
+
+    function shouldAutoStop() {
+      if (!state || !state.world) return true;
+      const w = state.world;
+      // 终局: resolution 阶段达成后,只要"任一截止已 fired"或"已在 resolution 至少 3 轮",就停
+      if (w.plotStage === "resolution") {
+        const deadlines = w.deadlines || [];
+        const anyFired = deadlines.some((d) => d.fired);
+        const allFired = deadlines.length === 0 || deadlines.every((d) => d.fired);
+        if (allFired) return true;
+        if (anyFired) return true;
+        const stageTurn = state.director?.lastPlotStageTurn || 0;
+        if ((w.turn - stageTurn) >= 3) return true;
+      }
+      return false;
+    }
+
+    function showEndBanner(text) {
+      const banner = document.createElement("div");
+      banner.className = "entry";
+      banner.innerHTML = `
+        <div class="avatar director">✓</div>
+        <div class="entry-card director" style="border-color:#406d4b;background:#e8f1ea">
+          <header><strong>自动推演结束</strong><span>${escapeHtml(text || "")}</span></header>
+        </div>
+      `;
+      els.transcript.appendChild(banner);
+      els.transcript.scrollTop = els.transcript.scrollHeight;
+    }
+
+    async function toggleAutoRun() {
+      if (autoRunning) {
+        // 暂停: 让循环在本轮结束后退出
+        autoRunning = false;
+        updateAutoRunBtn();
+        return;
+      }
+      if (!ensureCanAdvance()) return;
+      autoRunning = true;
+      updateAutoRunBtn();
+      let turnsRun = 0;
+      try {
+        while (autoRunning && turnsRun < AUTO_RUN_MAX_TURNS) {
+          if (shouldAutoStop()) {
+            showEndBanner("剧情已进入 resolution,所有截止点已触发");
+            break;
+          }
+          // 如果 busy(用户在另一轮中),等本轮完
+          while (busy && autoRunning) await sleep(250);
+          if (!autoRunning) break;
+          const turnBefore = state?.world?.turn ?? 0;
+          try {
+            await advance(false);   // 复用既有的流式推进逻辑
+          } catch (e) {
+            showEndBanner("推进出错,已暂停: " + ((e && e.message) || e));
+            break;
+          }
+          const turnAfter = state?.world?.turn ?? turnBefore;
+          if (turnAfter <= turnBefore) {
+            // 没推进,通常是限速过长或后端报错
+            showEndBanner("这一轮未能推进(可能限速),已暂停");
+            break;
+          }
+          turnsRun += 1;
+          if (!autoRunning) break;
+          if (shouldAutoStop()) {
+            showEndBanner("剧情已进入 resolution,所有截止点已触发");
+            break;
+          }
+          await sleep(AUTO_RUN_INTERVAL_MS);
+        }
+        if (autoRunning && turnsRun >= AUTO_RUN_MAX_TURNS) {
+          showEndBanner(`已连续推进 ${AUTO_RUN_MAX_TURNS} 轮,自动暂停防止无限循环`);
+        }
+      } finally {
+        autoRunning = false;
+        updateAutoRunBtn();
+      }
+    }
+
+    function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
+
+    function showStageNotice(title, text) {
+      if (els.readinessStatus) {
+        els.readinessStatus.classList.add("visible");
+        els.readinessStatus.innerHTML = `<strong>${escapeHtml(title)}</strong><span>${escapeHtml(text)}</span>`;
+      }
+      const banner = document.createElement("div");
+      banner.className = "entry";
+      banner.innerHTML = `
+        <div class="avatar director">!</div>
+        <div class="entry-card director">
+          <header><strong>${escapeHtml(title)}</strong><span>需要先处理</span></header>
+          <p>${escapeHtml(text)}</p>
+        </div>
+      `;
+      els.transcript.appendChild(banner);
+      els.transcript.scrollTop = els.transcript.scrollHeight;
+    }
+
+    function ensureCanAdvance() {
+      const issue = readinessIssue();
+      if (!issue) return true;
+      showStageNotice(issue.title, issue.text);
+      if (state?.empty) {
+        openScenarioEditor();
+      }
+      return false;
+    }
+
+    function showProviderError(error) {
+      const message = friendlyError(error);
+      const banner = document.createElement("div");
+      banner.className = "entry";
+      banner.innerHTML = `
+        <div class="avatar director">!</div>
+        <div class="entry-card director">
+          <header><strong>后端错误</strong><span>检查 API key 与网络</span></header>
+          <p>${escapeHtml(message)}</p>
+        </div>
+      `;
+      els.transcript.appendChild(banner);
+      els.transcript.scrollTop = els.transcript.scrollHeight;
+    }
+
+    function friendlyError(error) {
+      const message = (error && error.message) || String(error || "未知错误");
+      if (/Failed to fetch|fetch|connect|NetworkError/i.test(message)) {
+        return "后端没有连接上。请确认本地服务正在运行,然后刷新页面。";
+      }
+      if (/Cannot POST|Not found|404/i.test(message)) {
+        return "后端还是旧版本,没有新的场景接口。请重启 Agent Society 服务。";
+      }
+      try {
+        const parsed = JSON.parse(message);
+        if (parsed && parsed.error) return parsed.error;
+      } catch {}
+      return message;
+    }
+
+    function render() {
+      renderHeader();
+      renderReadinessStatus();
+      renderControls();
+      renderAgents();
+      renderTranscript();
+      renderWorld();
+      renderMatrix();
+      renderHooks();
+      renderScenarioLog();
+      renderFinalScript();
+      renderLog();
+    }
+
+    function renderReadinessStatus() {
+      const issue = readinessIssue();
+      if (!els.readinessStatus) return;
+      if (!issue) {
+        els.readinessStatus.classList.remove("visible");
+        els.readinessStatus.textContent = "";
+        return;
+      }
+      els.readinessStatus.classList.add("visible");
+      els.readinessStatus.innerHTML = `<strong>${escapeHtml(issue.title)}</strong><span>${escapeHtml(issue.text)}</span>`;
+    }
+
+    function renderControls() {
+      const ready = providerReady();
+      els.autoBeat.checked = Boolean(state.director?.autoBeat);
+      els.autoBeatLabel.classList.toggle("on", els.autoBeat.checked);
+      els.autoBeat.disabled = !ready;
+
+      const currentLead = els.leadSelect.value;
+      const options = ["<option value=\"\">下一轮自由发言</option>"]
+        .concat((state.agents || []).map((agent) => `<option value="${escapeHtml(agent.id)}">${escapeHtml(agent.name)} · ${escapeHtml(agent.role)}</option>`));
+      els.leadSelect.innerHTML = options.join("");
+      els.leadSelect.value = currentLead;
+      els.leadSelect.disabled = !ready;
+      els.scriptBtn.disabled = busy || !state || state.empty;
+
+      if (!els.quickCues.dataset.bound) {
+        els.quickCues.innerHTML = QUICK_CUES.map((text) => `<button type="button" data-cue="${escapeHtml(text)}">${escapeHtml(text.length > 14 ? text.slice(0, 14) + "…" : text)}</button>`).join("");
+        els.quickCues.querySelectorAll("button").forEach((btn) => {
+          btn.title = btn.dataset.cue;
+          btn.addEventListener("click", () => {
+            els.cue.value = btn.dataset.cue;
+            els.cue.focus();
+          });
+        });
+        els.quickCues.dataset.bound = "1";
+      }
+    }
+
+    function renderHeader() {
+      const provider = state.provider || {};
+      const ready = Boolean(provider.hasApiKey);
+      const models = provider.models || {};
+      els.mode.textContent = ready
+        ? `场景 ${models.scenario || provider.model || ""} · 角色 ${models.agent || provider.model || ""}`
+        : "未配置 API · 仅可查看";
+      els.mode.className = `status-pill ${ready ? "api" : "local"}`;
+      els.sceneTitle.textContent = state.empty ? "从一句话开始" : state.scenario.title;
+      els.sceneMeta.textContent = state.empty ? "输入 prompt 后，系统会生成 Agent Society" : `${state.scenario.genre} · ${state.scenario.place}`;
+      els.clock.textContent = `${clock(state.world.minutes)} · 第 ${state.world.turn} 回合`;
+      const event = state.world.activeEvent;
+      const eventText = event ? `· ${event.ambient ? "场景反馈" : "事件"}：${event.title}` : "";
+      els.beat.textContent = `压力 ${state.director?.pressure ?? 0} · 威胁 ${state.world.threatLevel} ${eventText}`;
+    }
+
+    function clock(minutes) {
+      const h = Math.floor(minutes / 60) % 24;
+      const m = minutes % 60;
+      return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+    }
+
+    function renderAgents() {
+      if (state.empty) {
+        els.agentList.innerHTML = `
+          <article class="agent">
+            <div class="agent-top">
+              <div class="avatar director">+</div>
+              <div>
+                <strong>还没有角色</strong>
+                <span>点击“场景”，用一句话创建他们</span>
+              </div>
+            </div>
+            <div class="agent-body">
+              <p class="compact">角色、秘密、关系、物件和截止时间都会从你的 prompt 自动生成。</p>
+            </div>
+          </article>
+        `;
+        return;
+      }
+      els.agentList.innerHTML = state.agents.map((agent) => {
+        // 从 transcript 取该 agent 最后一条 prethink
+        let prethink = null;
+        for (let i = state.transcript.length - 1; i >= 0; i--) {
+          const e = state.transcript[i];
+          if (e.type === "agent" && e.agentId === agent.id && e.prethink) { prethink = e.prethink; break; }
+        }
+        const susEntries = Object.entries(agent.suspicions || {});
+        return `
+        <article class="agent">
+          <div class="agent-top">
+            <div class="avatar ${agent.id}">${escapeHtml(agent.name[0])}</div>
+            <div>
+              <strong>${escapeHtml(agent.name)}</strong>
+              <span>${escapeHtml(agent.role)} · ${escapeHtml(agent.archetype)}</span>
+            </div>
+          </div>
+          <div class="agent-body">
+            <p class="compact"><strong>公开身份：</strong>${escapeHtml(agent.publicIdentity || "")}</p>
+            <p class="compact private"><strong>隐藏身份：</strong>${escapeHtml(agent.hiddenIdentity || "")}</p>
+            <p class="compact"><strong>本场目标：</strong>${escapeHtml(agent.shortTermGoal || "")}</p>
+            <p class="compact"><strong>下一步打算：</strong>${escapeHtml(agent.nextIntendedAction || "-")}</p>
+            ${prethink ? `<div class="private">内心：${escapeHtml(prethink.current_assessment || "")}${prethink.most_suspect_id ? ` · 最疑 ${escapeHtml(prethink.most_suspect_id)}` : ""}${prethink.must_act_not_chat ? " · 必须行动" : ""}</div>` : ""}
+            ${meter("恐惧", agent.status.fear, "fear")}
+            ${meter("决心", agent.status.resolve, "resolve")}
+            ${susEntries.length ? `<div class="meter"><div class="meter-row"><span>怀疑他人</span><span>${susEntries.map(([k,v]) => `${k}:${v}`).join(" · ")}</span></div></div>` : ""}
+            <div>
+              ${agent.secrets.map(secret => `
+                <div class="secret ${secret.revealed ? "revealed" : ""}">
+                  <div class="secret-name">
+                    <span>${escapeHtml(secret.label)}${secret.revealed ? " · 已暴露" : ""}</span>
+                    <span>${secret.exposure}</span>
+                  </div>
+                  <div class="bar exposure"><i style="width:${secret.exposure}%"></i></div>
+                </div>
+              `).join("")}
+            </div>
+            <p class="compact"><strong>已知事实：</strong>${escapeHtml((agent.knownFacts || []).slice(-2).join(" / ") || "无")}</p>
+          </div>
+        </article>`;
+      }).join("");
+    }
+
+    function meter(label, value, kind) {
+      return `
+        <div class="meter">
+          <div class="meter-row"><span>${label}</span><span>${value}</span></div>
+          <div class="bar ${kind}"><i style="width:${value}%"></i></div>
+        </div>
+      `;
+    }
+
+    function renderTranscript() {
+      const parts = [];
+      if (state.empty) {
+        els.transcript.innerHTML = `
+          <div class="entry">
+            <div class="avatar director">D</div>
+            <div class="entry-card director">
+              <header><strong>新剧场</strong><span>等待 prompt</span></header>
+              <p>点击“场景”，写一句话。系统会先把它转成结构化世界，再让角色开始行动。</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+      if (!providerReady()) {
+        parts.push(`
+          <div class="entry">
+            <div class="avatar director">!</div>
+            <div class="entry-card director">
+              <header><strong>未配置 API key</strong><span>仅可查看初始状态</span></header>
+              <p>这个版本完全依赖 LLM Agent 自主演化，已移除本地模拟。请按 README 设置 OPENAI_API_KEY 后重启服务，再点"推进社会回合"。</p>
+            </div>
+          </div>
+        `);
+      }
+      parts.push(transcriptForRender().map((entry) => {
+        if (entry.type === "director") {
+          const isPlot = Boolean(entry.meta && entry.meta.plot);
+          const isSummary = Boolean(entry.meta && entry.meta.stateSummary);
+          const isOpeningBrief = Boolean(entry.meta && entry.meta.openingBrief);
+          const isFinalScript = Boolean(entry.meta && entry.meta.finalScript);
+          const isDramaBeat = Boolean(entry.meta && entry.meta.dramaBeat);
+          const isSceneWriter = Boolean(entry.meta && entry.meta.sceneWriter);
+          const tag = isFinalScript ? "最终剧本" : (isSceneWriter ? "成片场景" : (isDramaBeat ? "戏剧Beat" : (isOpeningBrief ? "任务介绍" : (isSummary ? "状态变化" : (isPlot ? "剧情事件" : (entry.meta && entry.meta.ambient ? "场景反馈" : "导演"))))));
+          const summaryGroups = Array.isArray(entry.meta?.summaryGroups) ? entry.meta.summaryGroups : null;
+          const summaryLines = Array.isArray(entry.meta?.summaryLines) ? entry.meta.summaryLines : null;
+          const beat = entry.meta?.beat || null;
+          const beatHtml = isDramaBeat && beat
+            ? `<div class="state-groups">
+                <section class="state-group">
+                  <strong class="state-group-title">${escapeHtml(beat.actLabel || "戏剧幕")} · ${escapeHtml(beat.title || "")}</strong>
+                  <ul class="state-lines">
+                    <li>问题：${escapeHtml(beat.dramaticQuestion || "")}</li>
+                    <li>变化：${escapeHtml(beat.requiredChange || "")}</li>
+                    ${beat.focusObjectLabel ? `<li>焦点物件：${escapeHtml(beat.focusObjectLabel)}</li>` : ""}
+                    ${beat.evidenceAtom ? `<li>本轮证据：${escapeHtml(beat.evidenceAtom.label || beat.evidenceAtom.id || "")} - ${escapeHtml(beat.evidenceAtom.content || "")}</li>` : ""}
+                    ${beat.evidenceIfRevealed ? `<li>揭露后果：${escapeHtml(beat.evidenceIfRevealed)}</li>` : ""}
+                    ${beat.suggestedTactics?.length ? `<li>建议动作：${escapeHtml(beat.suggestedTactics.slice(0, 4).join(" / "))}</li>` : ""}
+                    <li>状态：${escapeHtml(beat.status === "fulfilled" ? "已完成" : beat.status === "missed" ? "未充分完成" : "待完成")}</li>
+                    ${beat.resolution ? `<li>${escapeHtml(beat.resolution)}</li>` : ""}
+                  </ul>
+                </section>
+              </div>`
+            : "";
+          const validation = entry.meta?.validation || null;
+          const validationHtml = validation && !validation.ok
+            ? `<div class="private">质量门：${escapeHtml((validation.issues || []).map((issue) => issue.message || issue.type).join(" / "))}</div>`
+            : "";
+          const bodyHtml = isFinalScript
+            ? `<pre class="script-output">${escapeHtml(entry.text || "")}</pre>${entry.meta?.file ? `<a class="script-link" href="/${escapeHtml(entry.meta.file)}" target="_blank" rel="noreferrer">打开 Markdown 文件</a>` : ""}`
+            : isSceneWriter
+              ? `<pre class="script-output">${escapeHtml(entry.text || "")}</pre>${validationHtml}`
+            : beatHtml
+              ? beatHtml
+            : summaryGroups && summaryGroups.length
+            ? `<div class="state-groups">${summaryGroups.map((group) => `
+                <section class="state-group ${group.private ? "private" : ""}">
+                  <strong class="state-group-title">${escapeHtml(group.title || "说明")}</strong>
+                  <ul class="state-lines">${(group.lines || []).map((line) => `<li>${escapeHtml(line)}</li>`).join("")}</ul>
+                </section>
+              `).join("")}</div>`
+            : summaryLines && summaryLines.length
+              ? `<ul class="state-lines">${summaryLines.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}</ul>`
+            : `<p>${escapeHtml(entry.text)}</p>`;
+          let dialogueLines = Array.isArray(entry.meta?.dialogueLines) ? entry.meta.dialogueLines : [];
+          if (!dialogueLines.length && isPlot && /对话|矛盾|言论|争执|不和谐/.test(`${entry.title || ""}${entry.text || ""}`)) {
+            dialogueLines = [
+              { speaker_agent_id: null, line: "这条旧剧情事件没有保存原始台词,所以无法还原'那段对话到底是什么'。重启服务后,同类事件若没有 4 句以上原话会被系统拒绝并重写。" }
+            ];
+          }
+          const dialogueHtml = dialogueLines.length
+            ? `<div class="event-dialogue">${dialogueLines.map((line) => {
+                const speaker = line.speaker_agent_id
+                  ? (state.agents.find((agent) => agent.id === line.speaker_agent_id)?.name || line.speaker_agent_id)
+                  : "现场";
+                return `<div class="event-dialogue-line"><strong>${escapeHtml(speaker)}</strong><span>${escapeHtml(line.line || "")}</span></div>`;
+              }).join("")}</div>`
+            : "";
+          return `
+            <div class="entry">
+              <div class="avatar director">D</div>
+              <div class="entry-card director">
+                <header><strong>${escapeHtml(tag)} · ${escapeHtml(entry.title)}</strong><span>${escapeHtml(entry.clock)}</span></header>
+                ${bodyHtml}
+                ${dialogueHtml}
+              </div>
+            </div>
+          `;
+        }
+        const avatarClass = entry.agentId || "";
+        // V2: 物理模拟 badge
+        let simHtml = "";
+        if (entry.simulation && entry.simulation.kind && entry.simulation.kind !== "noop") {
+          const sim = entry.simulation;
+          const okColor = sim.ok ? "#7bc77a" : "#c97a7a";
+          const okIcon = sim.ok ? "✓" : "✗";
+          const kindZh = { observe:"环视", inspect:"检视", search:"搜查", use:"使用", steal:"夺取", hide:"藏匿", move:"移动", lock:"上锁", escape:"逃离", follow:"跟踪" }[sim.kind] || sim.kind;
+          const witnessNames = (sim.witnessIds || []).map((id) => state.agents.find((a) => a.id === id)?.name || id).filter(Boolean);
+          const witnessStr = witnessNames.length ? ` · 旁观:${witnessNames.join("/")}` : "";
+          let detail = "";
+          if (sim.itemLabel) detail += ` 「${sim.itemLabel}」`;
+          if (sim.fromLocation && sim.toLocation) detail += ` ${sim.fromLocation}→${sim.toLocation}`;
+          if (sim.alreadyKnown) detail += " (已知)";
+          if (!sim.ok && sim.failureReason) detail += ` · ${sim.failureReason}`;
+          simHtml = `<div class="behavior" style="border-left:2px solid ${okColor};color:${okColor};font-size:11px;background:rgba(255,255,255,0.02);padding:4px 8px;margin-top:4px"><span>${okIcon} ${kindZh}${detail}${witnessStr}</span></div>`;
+        }
+        const targetHtml = entry.target ? ` <small style="color:#8b8579">→ ${escapeHtml(entry.target)}</small>` : "";
+        const hasSpeech = Boolean(entry.speech && entry.speech.trim());
+        const noSpeechHtml = entry.actionType === "silence"
+          ? `<p class="compact">选择沉默。</p>`
+          : `<p class="compact">没有多说，直接行动。</p>`;
+        const evidencePool = [
+          ...((state.storyLedger && Array.isArray(state.storyLedger.evidenceLedger)) ? state.storyLedger.evidenceLedger : []),
+          ...((state.world && Array.isArray(state.world.evidenceAtoms)) ? state.world.evidenceAtoms : [])
+        ];
+        const targetEvidence = entry.targetEvidenceId
+          ? evidencePool.find((atom) => atom && atom.id === entry.targetEvidenceId)
+          : null;
+        const evidenceActionLabel = {
+          reveal: "揭露",
+          suppress: "压下",
+          alter: "篡改",
+          trade: "交易",
+          destroy: "销毁",
+          protect: "保护",
+          use: "使用"
+        }[entry.evidenceAction] || entry.evidenceAction || "";
+        const evidenceHtml = entry.targetEvidenceId || entry.evidenceAction
+          ? `<div class="behavior" style="background:rgba(212,168,90,0.07);border-left:2px solid #d4a85a">
+              <strong>证据动作：</strong>${escapeHtml(evidenceActionLabel || "绑定")} ${targetEvidence ? `「${escapeHtml(targetEvidence.label || targetEvidence.id)}」` : escapeHtml(entry.targetEvidenceId || "")}
+              ${targetEvidence?.content ? `<br><strong>事实：</strong>${escapeHtml(targetEvidence.content)}` : ""}
+              ${targetEvidence?.ifRevealed ? `<br><strong>后果：</strong>${escapeHtml(targetEvidence.ifRevealed)}` : ""}
+            </div>`
+          : "";
+        const goalTraceHtml = entry.nextIntendedAction
+          ? `<div class="private">下一步目标动作：${escapeHtml(entry.nextIntendedAction)}</div>`
+          : "";
+        const tacticHtml = (entry.tactic || entry.concreteAction || entry.risk || entry.intendedStateChange)
+          ? `<div class="behavior" style="background:rgba(255,255,255,0.025)">
+              ${entry.tactic ? `<strong>战术：</strong>${escapeHtml(entry.tactic)}<br>` : ""}
+              ${entry.concreteAction ? `<strong>动作：</strong>${escapeHtml(entry.concreteAction)}<br>` : ""}
+              ${entry.intendedStateChange ? `<strong>变化：</strong>${escapeHtml(entry.intendedStateChange)}<br>` : ""}
+              ${entry.risk ? `<strong>风险：</strong>${escapeHtml(entry.risk)}` : ""}
+            </div>`
+          : "";
+        const writerMaterialHtml = (entry.dialogueIntent || entry.leverage || entry.whatToReveal || entry.whatToHide || entry.subtext)
+          ? `<div class="private">
+              ${entry.dialogueIntent ? `<strong>台词意图：</strong>${escapeHtml(entry.dialogueIntent)}<br>` : ""}
+              ${entry.leverage ? `<strong>筹码：</strong>${escapeHtml(entry.leverage)}<br>` : ""}
+              ${entry.whatToReveal ? `<strong>可揭露：</strong>${escapeHtml(entry.whatToReveal)}<br>` : ""}
+              ${entry.whatToHide ? `<strong>要隐藏：</strong>${escapeHtml(entry.whatToHide)}<br>` : ""}
+              ${entry.subtext ? `<strong>潜台词：</strong>${escapeHtml(entry.subtext)}` : ""}
+            </div>`
+          : "";
+        return `
+          <div class="entry">
+            <div class="avatar ${avatarClass}">${escapeHtml((entry.agentName || "?")[0])}</div>
+            <div class="entry-card">
+              <header>
+                <strong>${escapeHtml(entry.agentName)} · ${escapeHtml(entry.role)}</strong>
+                <span>${escapeHtml(entry.clock)} · ${escapeHtml(entry.actionType)}${targetHtml}</span>
+              </header>
+              ${hasSpeech ? `<p>${escapeHtml(entry.speech)}</p>` : noSpeechHtml}
+              ${entry.visibleBehavior ? `<div class="behavior">${escapeHtml(entry.visibleBehavior)}</div>` : ""}
+              ${evidenceHtml}
+              ${tacticHtml}
+              ${simHtml}
+              ${writerMaterialHtml}
+              ${entry.privateIntent ? `<div class="private">目标/意图：${escapeHtml(entry.privateIntent)}</div>` : ""}
+              ${goalTraceHtml}
+            </div>
+          </div>
+        `;
+      }).join(""));
+      els.transcript.innerHTML = parts.join("");
+      els.transcript.scrollTop = els.transcript.scrollHeight;
+    }
+
+    function renderWorld() {
+      if (state.empty) {
+        els.world.innerHTML = `
+          <div class="fact"><small>状态</small><strong>未创建</strong></div>
+          <div class="fact"><small>输入</small><strong>一句话 prompt</strong></div>
+          <div class="fact" style="grid-column:1/-1"><small>高级模式</small><strong>可编辑 YAML</strong></div>
+        `;
+        return;
+      }
+      const resources = state.world.resources;
+      const stage = state.world.plotStage || "setup";
+      const stageZh = { setup:"布局", suspicion:"猜忌", confrontation:"正面冲突", revelation:"揭露", resolution:"收场" }[stage] || stage;
+      const upcoming = (state.world.deadlines || []).filter((d) => !d.fired);
+      const nextDeadline = upcoming[0];
+      const fmtClock = (m) => {
+        const h = Math.floor(m/60)%24, mm = m%60;
+        return `${String(h).padStart(2,'0')}:${String(mm).padStart(2,'0')}`;
+      };
+      const clueCount = (state.world.revealedClues || []).length;
+      const agentDiscovered = (state.world.revealedClues || []).filter((c) => c.sourceAgentId).length;
+      const items = state.world.items || [];
+      const locations = state.world.locations || [];
+      const m = state.metrics || {};
+      const rate = typeof m.stateChangeRate === "number" ? m.stateChangeRate : 0;
+      const rateColor = rate >= 70 ? "#7bc77a" : rate >= 50 ? "#d4a85a" : "#c97a7a";
+      const audit = m.lastQualityAudit || null;
+      const beat = state.director?.currentBeat || null;
+      const auditScore = typeof audit?.score === "number" ? audit.score : null;
+      const auditColor = auditScore == null ? "#8b8579" : auditScore >= 80 ? "#7bc77a" : auditScore >= 60 ? "#d4a85a" : "#c97a7a";
+      const auditLabel = audit
+        ? `<strong style="color:${auditColor}">${auditScore}</strong> <small style="color:#8b8579">${escapeHtml((audit.issues || []).length ? (audit.issues || []).slice(0, 2).map((i) => i.text).join(" / ") : "稳定")}</small>`
+        : '<span style="color:#8b8579">待审计</span>';
+      const lastChanges = Array.isArray(m.lastTurnChanges) ? m.lastTurnChanges : [];
+      const lastChangesLabel = {
+        clue_revealed: "线索",
+        item_state: "物件",
+        location: "位置",
+        suspicion: "怀疑",
+        known_facts: "事实",
+        deadline_fired: "截止点",
+        danger_shift: "危险",
+        plot_stage_advanced: "阶段"
+      };
+      const lastChangesHtml = lastChanges.length
+        ? lastChanges.map((c) => `<span style="display:inline-block;background:#1f2f1f;color:#7bc77a;padding:1px 7px;border-radius:8px;font-size:10px;margin-right:3px">${escapeHtml(lastChangesLabel[c] || c)}</span>`).join(" ")
+        : '<span style="color:#8b8579">无变化</span>';
+      const patrol = state.world.patrol;
+      const train = state.world.train;
+      const factsRows = [
+        ["时间", clock(state.world.minutes)],
+        ["剧情阶段", stageZh],
+        ["产出率", `<strong style="color:${rateColor}">${rate}%</strong> <small style="color:#8b8579">(${m.productiveTurns || 0}/${m.totalTurns || 0})</small>`],
+        ["质量审计", auditLabel],
+        ["当前Beat", beat ? `${escapeHtml(beat.actLabel || "")} · ${escapeHtml(beat.title || "")} <small style="color:#8b8579">${escapeHtml(beat.status || "planned")}</small>` : "无"],
+        ["上轮变化", lastChangesHtml],
+        ["危险/威胁", `${state.world.dangerLevel ?? "-"} / ${state.world.threatLevel ?? "-"}`],
+        ["下个截止点", nextDeadline ? `${nextDeadline.label} · ${fmtClock(nextDeadline.atMinutes)}` : "无"],
+        ["现场线索", `${clueCount} 条 <small style="color:#8b8579">(${agentDiscovered} 由角色发现)</small>`],
+        patrol ? ["巡逻队距离", `${patrol.distanceMeters} m${patrol.arrivedTurn ? " · 已到达" : ""}`] : null,
+        train ? ["最后火车", `${train.departureClock} · 余票 ${train.remainingTickets}`] : null,
+        ["天气/灯光", `${state.world.weather || "-"} · ${state.world.light || "-"}`],
+        ["当前事件", state.world.activeEvent?.title || "无"]
+      ].filter(Boolean);
+      let html = factsRows.map(([label, value]) => `
+        <div class="fact"><small>${escapeHtml(label)}</small><strong>${value}</strong></div>
+      `).join("");
+
+      // V2: 物理世界 — 物品按位置分组
+      if (items.length > 0) {
+        html += `<div class="fact" style="grid-column:1/-1"><small>物理世界</small><strong style="font-weight:normal;line-height:1.6">`;
+        const byLoc = {};
+        for (const it of items) {
+          const key = it.location || (it.holder ? `holder:${it.holder}` : "_") || "_";
+          if (!byLoc[key]) byLoc[key] = [];
+          byLoc[key].push(it);
+        }
+        const locOrder = locations.map((l) => l.id).concat(Object.keys(byLoc).filter((k) => !locations.some((l) => l.id === k)));
+        const locLabel = (id) => {
+          if (id.startsWith("holder:")) {
+            const aid = id.slice(7);
+            const a = state.agents.find((x) => x.id === aid);
+            return a ? `${a.name}(随身)` : aid;
+          }
+          const l = locations.find((x) => x.id === id);
+          return l ? l.label : id;
+        };
+        for (const locId of locOrder) {
+          const list = byLoc[locId];
+          if (!list || list.length === 0) continue;
+          const here = state.agents.filter((a) => (a.location || state.world.defaultLocationId) === locId);
+          const hereStr = here.length ? ` <small style="color:#7a8a7a">[${here.map((a)=>a.name).join("/")}]</small>` : "";
+          html += `<div style="margin-top:4px"><span style="color:#a8a08c;font-size:11px">📍 ${escapeHtml(locLabel(locId))}${hereStr}</span></div>`;
+          for (const it of list) {
+            const discovered = Array.isArray(it.discoveredBy) && it.discoveredBy.length > 0;
+            const holder = it.holder ? state.agents.find((a) => a.id === it.holder) : null;
+            const badges = [];
+            if (it.hidden && !discovered) badges.push('<span style="background:#3a2f25;color:#c97a7a;padding:1px 6px;border-radius:8px;font-size:10px">隐藏</span>');
+            if (discovered) badges.push(`<span style="background:#1f2f1f;color:#7bc77a;padding:1px 6px;border-radius:8px;font-size:10px">已被 ${escapeHtml(it.discoveredBy.map((id)=>state.agents.find((x)=>x.id===id)?.name||id).join("/"))} 发现</span>`);
+            if (holder) badges.push(`<span style="background:#2f2a1f;color:#d4a85a;padding:1px 6px;border-radius:8px;font-size:10px">${escapeHtml(holder.name)} 持有</span>`);
+            if (it.moved) badges.push('<span style="background:#2a2a3a;color:#9aa;padding:1px 6px;border-radius:8px;font-size:10px">已移动</span>');
+            html += `<div style="margin-left:10px;font-size:12px;line-height:1.5"> · ${escapeHtml(it.label)} ${badges.join(" ")}`;
+            if (it.state && it.state !== "未触发") html += `<div style="margin-left:14px;color:#d4a85a;font-size:11px">状态：${escapeHtml(it.state)}</div>`;
+            if (Array.isArray(it.possibleActions) && it.possibleActions.length) html += `<div style="margin-left:14px;color:#8b8579;font-size:11px">可行动作：${escapeHtml(it.possibleActions.slice(0, 5).join(" / "))}</div>`;
+            if (discovered && it.contents) html += `<div style="margin-left:14px;color:#a8a08c;font-size:11px">${escapeHtml(it.contents)}</div>`;
+            html += `</div>`;
+          }
+        }
+        html += `</strong></div>`;
+      }
+      const ledger = state.storyLedger || null;
+      if (ledger) {
+        const publicFacts = (ledger.publicFacts || []).slice(-5);
+        const powerShifts = (ledger.powerShifts || []).slice(-4);
+        const evidenceLedger = (ledger.evidenceLedger || []).slice(0, 8);
+        const openQuestions = (ledger.openQuestions || []).slice(-4);
+        html += `<div class="fact" style="grid-column:1/-1"><small>故事账本</small><strong style="font-weight:normal;line-height:1.6">`;
+        if (publicFacts.length) {
+          html += `<div style="color:#a8a08c;font-size:11px">事实</div>`;
+          html += `<ul class="state-lines">${publicFacts.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}</ul>`;
+        }
+        if (powerShifts.length) {
+          html += `<div style="color:#a8a08c;font-size:11px;margin-top:6px">筹码变化</div>`;
+          html += `<ul class="state-lines">${powerShifts.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}</ul>`;
+        }
+        if (evidenceLedger.length) {
+          const statusLabel = { hidden: "隐藏", available: "可争夺", revealed: "已揭露", suppressed: "被压下", destroyed: "已销毁", contested: "争夺中" };
+          html += `<div style="color:#a8a08c;font-size:11px;margin-top:6px">证据原子</div>`;
+          html += `<ul class="state-lines">${evidenceLedger.map((atom) => {
+            const status = statusLabel[atom.status] || atom.status || "未知";
+            const names = [
+              atom.hurts?.length ? `伤害:${atom.hurts.join("/")}` : "",
+              atom.helps?.length ? `帮助:${atom.helps.join("/")}` : "",
+              atom.lastUsedBy ? `上次:${atom.lastUsedBy}` : ""
+            ].filter(Boolean).join(" · ");
+            return `<li><span style="color:#d4a85a">${escapeHtml(status)}</span> ${escapeHtml(atom.label || atom.id)} - ${escapeHtml(atom.content || "")}${names ? `<br><small style="color:#8b8579">${escapeHtml(names)}</small>` : ""}${atom.ifRevealed ? `<br><small style="color:#a8a08c">后果：${escapeHtml(atom.ifRevealed)}</small>` : ""}</li>`;
+          }).join("")}</ul>`;
+        }
+        if (openQuestions.length) {
+          html += `<div style="color:#a8a08c;font-size:11px;margin-top:6px">未解问题</div>`;
+          html += `<ul class="state-lines">${openQuestions.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}</ul>`;
+        }
+        html += `</strong></div>`;
+      }
+      els.world.innerHTML = html;
+    }
+
+    function renderMatrix() {
+      const agents = state.agents;
+      if (!agents || agents.length === 0) {
+        els.matrix.innerHTML = `<p class="compact">创建场景后，这里会显示角色之间的信任、怀疑、共情和筹码。</p>`;
+        return;
+      }
+      els.matrix.innerHTML = `
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>观察者</th>
+              ${agents.map(agent => `<th>${escapeHtml(agent.role)}</th>`).join("")}
+            </tr>
+          </thead>
+          <tbody>
+            ${agents.map(observer => `
+              <tr>
+                <th>${escapeHtml(observer.role)}</th>
+                ${agents.map(target => {
+                  if (target.id === observer.id) return "<td>自己</td>";
+                  const rel = observer.relationships[target.id];
+                  return `
+                    <td>
+                      <div class="relationship">
+                        <span>信任 ${rel.trust}</span>
+                        <span>怀疑 ${rel.suspicion}</span>
+                        <span>共情 ${rel.empathy}</span>
+                        <span>筹码 ${rel.leverage}</span>
+                      </div>
+                    </td>
+                  `;
+                }).join("")}
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function renderHooks() {
+      if (state.empty) {
+        els.hooks.innerHTML = `<li>等待你的 prompt。</li>`;
+        return;
+      }
+      const focus = Array.isArray(state.world.emergentFocus) ? state.world.emergentFocus : [];
+      if (focus.length === 0) {
+        els.hooks.innerHTML = `<li style="color:#8b8579">剧情还未出现明显焦点。</li>`;
+        return;
+      }
+      els.hooks.innerHTML = focus.map((hook) => `<li>${escapeHtml(hook)}</li>`).join("");
+    }
+
+    function renderLog() {
+      if (state.empty) {
+        els.log.innerHTML = `<li>还没有社会日志。</li>`;
+        return;
+      }
+      els.log.innerHTML = state.societyLog.slice(-9).reverse().map((item) => {
+        const text = item.kind === "quality_audit"
+          ? `质量审计 ${item.score}/100：${item.message || ""}`
+          : item.kind === "agent_action"
+          ? `${roleName(item.agentId)}：${item.actionType} · ${item.intent || item.speech || ""}`
+          : `${item.title || item.kind}：${item.text || item.message || ""}`;
+        return `<li>${escapeHtml(text)}</li>`;
+      }).join("");
+    }
+
+    function renderScenarioLog() {
+      const info = state.scenarioLog;
+      if (!info || state.empty) {
+        els.scenarioLog.innerHTML = `<li>创建场景后会保存完整剧本 JSON。</li>`;
+        return;
+      }
+      els.scenarioLog.innerHTML = `
+        <li>${escapeHtml(info.title || "当前剧本")}</li>
+        <li><a href="/${escapeHtml(info.file)}" target="_blank" rel="noreferrer">${escapeHtml(info.file)}</a></li>
+        <li style="color:#8b8579">${escapeHtml(info.id || "")}</li>
+      `;
+    }
+
+    function renderFinalScript() {
+      const info = state.finalScript;
+      if (!info || state.empty) {
+        els.finalScript.innerHTML = `<li>推演几轮后点击“生成剧本”。</li>`;
+        return;
+      }
+      els.finalScript.innerHTML = `
+        <li>${escapeHtml(info.title || "最终剧本")}</li>
+        ${info.logline ? `<li>${escapeHtml(info.logline)}</li>` : ""}
+        <li><a href="/${escapeHtml(info.file)}" target="_blank" rel="noreferrer">${escapeHtml(info.file)}</a></li>
+        <li style="color:#8b8579">${escapeHtml(info.model || "")}</li>
+      `;
+    }
+
+    function roleName(agentId) {
+      return state.agents.find((agent) => agent.id === agentId)?.role || agentId;
+    }
+
+    els.turnBtn.addEventListener("click", () => advance(false));
+    els.cueTurnBtn.addEventListener("click", () => advance(true));
+    els.eventBtn.addEventListener("click", eventOnly);
+    els.resetBtn.addEventListener("click", reset);
+    els.scriptBtn.addEventListener("click", generateScript);
+    els.scenarioBtn.addEventListener("click", openScenarioEditor);
+    els.autoRunBtn.addEventListener("click", toggleAutoRun);
+    els.privateToggle.addEventListener("click", () => {
+      document.body.classList.toggle("show-private");
+      els.privateToggle.textContent = document.body.classList.contains("show-private") ? "隐藏意图" : "导演视图";
+    });
+    els.autoBeat.addEventListener("change", (event) => {
+      setAutoBeat(event.target.checked);
+    });
+
+    // ============================================================
+    //   场景编辑器 (Scenario Editor)
+    // ============================================================
+    let scnDraft = null;          // 当前正在编辑的草稿
+    let scnTab = "prompt";        // prompt | yaml
+
+    function deepClone(o) { return JSON.parse(JSON.stringify(o)); }
+
+    // 从 publicState() 反向构造 scenario 输入(因为 state.scenarioInput 已经由后端给出)
+    function getInitialDraft() {
+      if (state && state.empty) return blankDraft();
+      if (state && state.scenarioInput) return deepClone(state.scenarioInput);
+      // fallback: 从 state 反推
+      if (!state) return blankDraft();
+      return {
+        scenario: { ...state.scenario },
+        world: {
+          startClock: minutesToClock(state.world.startMinutes ?? state.world.minutes ?? (22*60+15)),
+          weather: state.world.weather, temperature: state.world.temperature, light: state.world.light,
+          threatLevel: state.world.threatLevel, dangerLevel: state.world.dangerLevel,
+          facts: state.world.facts || [],
+          unresolvedTensions: state.world.unresolvedTensions || [],
+          deadlines: (state.world.deadlines || []).map((d) => ({ id: d.id, label: d.label, clock: minutesToClock(d.atMinutes) })),
+          hiddenClues: (state.world.hiddenClues || []).map((c) => ({ id: c.id, label: c.label, contents: c.contents }))
+        },
+        agents: state.agents.map((a) => ({
+          id: a.id, name: a.name, role: a.role, age: a.age,
+          archetype: a.archetype, publicIdentity: a.publicIdentity, hiddenIdentity: a.hiddenIdentity,
+          personality: a.personality, backstory: a.backstory, values: a.values || [],
+          shortTermGoal: a.shortTermGoal, longTermGoal: a.longTermGoal, fears: a.fears || [],
+          speechStyle: a.speechStyle, behaviorStyle: a.behaviorStyle,
+          currentAction: a.currentAction, nextIntendedAction: a.nextIntendedAction,
+          resources: a.resources || [], knownFacts: a.knownFacts || [],
+          initialSuspicions: { ...(a.suspicions || {}) },
+          status: { ...(a.status || {}) },
+          secrets: (a.secrets || []).map((s) => ({ id: s.id, label: s.label, content: s.content, triggers: s.triggers || [] }))
+        }))
+      };
+    }
+
+    function blankDraft() {
+      return {
+        scenario: { title: "", place: "", premise: "", genre: "", sceneGoal: "", centralConflict: "" },
+        world: {
+          startClock: "22:00", weather: "", temperature: "", light: "",
+          threatLevel: 30, dangerLevel: 30,
+          facts: [], unresolvedTensions: [],
+          deadlines: [], hiddenClues: []
+        },
+        agents: []
+      };
+    }
+
+    function minutesToClock(mins) {
+      mins = Number(mins) || 0;
+      const h = Math.floor(mins / 60), m = mins % 60;
+      return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}`;
+    }
+
+    function openScenarioEditor() {
+      scnDraft = getInitialDraft();
+      // 填充预设 dropdown
+      const presets = (state && state.presets) || [];
+      els.scnPresetSelect.innerHTML = presets.map((p) =>
+        `<option value="${escapeHtml(p.id)}">${escapeHtml(p.title)} — ${escapeHtml(p.summary)}</option>`).join("");
+      if (state && state.scenarioPresetId) els.scnPresetSelect.value = state.scenarioPresetId;
+      els.scnError.textContent = "";
+      if (state && state.empty) {
+        els.scnPrompt.value = "";
+      } else if (!els.scnPrompt.value.trim()) {
+        els.scnPrompt.value = promptFromDraft(scnDraft);
+      }
+      switchScnTab("prompt");
+      els.scnModal.classList.add("open");
+    }
+
+    function closeScenarioEditor() {
+      els.scnModal.classList.remove("open");
+    }
+
+    function switchScnTab(tab) {
+      scnTab = tab;
+      const isPrompt = tab === "prompt";
+      if (!isPrompt) {
+        scnDraft = scnDraft || getInitialDraft();
+        els.scnJsonText.value = stringifyYaml(scnDraft);
+      }
+      els.scnTabForm.classList.toggle("on", isPrompt);
+      els.scnTabJson.classList.toggle("on", !isPrompt);
+      els.scnPromptView.style.display = isPrompt ? "" : "none";
+      els.scnFormView.style.display = "none";
+      els.scnJsonView.style.display = isPrompt ? "none" : "";
+    }
+
+    function promptFromDraft(draft) {
+      const sc = draft?.scenario || {};
+      const agents = Array.isArray(draft?.agents) ? draft.agents.map((a) => a.role || a.name).filter(Boolean) : [];
+      const who = agents.length ? agents.join("、") : "几个角色";
+      return `${sc.place || sc.title || "一个封闭场景"}，${who}相遇。${sc.centralConflict || sc.sceneGoal || sc.premise || "他们都有秘密，关系会随事件演化。"}`;
+    }
+
+    function stringifyYaml(value, indent = 0) {
+      const sp = " ".repeat(indent);
+      if (Array.isArray(value)) {
+        if (value.length === 0) return "[]";
+        return value.map((item) => {
+          if (item && typeof item === "object") return `${sp}- ${JSON.stringify(item)}`;
+          return `${sp}- ${formatYamlScalar(item)}`;
+        }).join("\n");
+      }
+      if (value && typeof value === "object") {
+        return Object.entries(value).map(([key, val]) => {
+          if (Array.isArray(val)) {
+            if (val.length === 0) return `${sp}${key}: []`;
+            return `${sp}${key}:\n${stringifyYaml(val, indent + 2)}`;
+          }
+          if (val && typeof val === "object") {
+            return `${sp}${key}:\n${stringifyYaml(val, indent + 2)}`;
+          }
+          return `${sp}${key}: ${formatYamlScalar(val)}`;
+        }).join("\n");
+      }
+      return `${sp}${formatYamlScalar(value)}`;
+    }
+
+    function formatYamlScalar(value) {
+      if (value === null || value === undefined) return "null";
+      if (typeof value === "number" || typeof value === "boolean") return String(value);
+      return JSON.stringify(String(value));
+    }
+
+    function parseYamlLite(text) {
+      try { return JSON.parse(text); } catch {}
+      const lines = String(text || "")
+        .split(/\r?\n/)
+        .filter((line) => line.trim() && !line.trim().startsWith("#"));
+      const root = {};
+      const stack = [{ indent: -1, container: root }];
+
+      for (let i = 0; i < lines.length; i++) {
+        const raw = lines[i];
+        const indent = raw.match(/^ */)[0].length;
+        const line = raw.trim();
+        while (stack.length > 1 && indent <= stack[stack.length - 1].indent) stack.pop();
+        const parent = stack[stack.length - 1].container;
+
+        if (line.startsWith("- ")) {
+          if (!Array.isArray(parent)) throw new Error(`YAML 第 ${i + 1} 行不是有效列表`);
+          parent.push(parseYamlScalar(line.slice(2).trim()));
+          continue;
+        }
+
+        const sep = line.indexOf(":");
+        if (sep < 0) throw new Error(`YAML 第 ${i + 1} 行缺少冒号`);
+        const key = line.slice(0, sep).trim();
+        const rest = line.slice(sep + 1).trim();
+        if (!key) throw new Error(`YAML 第 ${i + 1} 行 key 为空`);
+
+        if (rest) {
+          parent[key] = parseYamlScalar(rest);
+        } else {
+          const next = lines[i + 1] || "";
+          const nextTrim = next.trim();
+          const child = nextTrim.startsWith("- ") ? [] : {};
+          parent[key] = child;
+          stack.push({ indent, container: child });
+        }
+      }
+      return root;
+    }
+
+    function parseYamlScalar(value) {
+      if (value === "null") return null;
+      if (value === "true") return true;
+      if (value === "false") return false;
+      if (value === "[]") return [];
+      if (value === "{}") return {};
+      if (/^-?\d+(\.\d+)?$/.test(value)) return Number(value);
+      if ((value.startsWith('"') && value.endsWith('"')) || value.startsWith("{") || value.startsWith("[")) {
+        try { return JSON.parse(value); } catch {}
+      }
+      return value.replace(/^['"]|['"]$/g, "");
+    }
+
+    function renderScnForm() {
+      const d = scnDraft || blankDraft();
+      const sc = d.scenario || {}, w = d.world || {};
+      els.scnTitle.value = sc.title || "";
+      els.scnGenre.value = sc.genre || "";
+      els.scnPlace.value = sc.place || "";
+      els.scnPremise.value = sc.premise || "";
+      els.scnSceneGoal.value = sc.sceneGoal || "";
+      els.scnConflict.value = sc.centralConflict || "";
+      els.scnStartClock.value = w.startClock || "22:00";
+      els.scnWeather.value = w.weather || "";
+      els.scnTemp.value = w.temperature || "";
+      els.scnLight.value = w.light || "";
+      els.scnThreat.value = w.threatLevel ?? 30;
+      els.scnDanger.value = w.dangerLevel ?? 30;
+      els.scnFacts.value = (w.facts || []).join("\n");
+      els.scnTensions.value = (w.unresolvedTensions || []).join("\n");
+      renderScnDeadlines();
+      renderScnClues();
+      renderScnAgents();
+    }
+
+    function renderScnDeadlines() {
+      const list = (scnDraft.world?.deadlines) || [];
+      els.scnDeadlines.innerHTML = list.map((d, i) => `
+        <div class="scn-list-item" data-idx="${i}">
+          <div class="scn-list-row">
+            <div class="scn-field" style="flex: 2;"><label>事件名称</label><input data-k="label" value="${escapeHtml(d.label || "")}"></div>
+            <div class="scn-field" style="flex: 1;"><label>时间 HH:MM</label><input data-k="clock" placeholder="23:30" value="${escapeHtml(d.clock || "")}"></div>
+            <button type="button" class="danger" data-act="rm">×</button>
+          </div>
+        </div>`).join("") || `<div class="scn-help" style="margin-bottom:0;">还没有截止时间。例如 边境关闭/巡逻队抵达/最后一班火车。</div>`;
+    }
+
+    function renderScnClues() {
+      const list = (scnDraft.world?.hiddenClues) || [];
+      els.scnClues.innerHTML = list.map((c, i) => `
+        <div class="scn-list-item" data-idx="${i}">
+          <div class="scn-list-row">
+            <div class="scn-field" style="flex: 1;"><label>线索名</label><input data-k="label" value="${escapeHtml(c.label || "")}"></div>
+            <button type="button" class="danger" data-act="rm">×</button>
+          </div>
+          <div class="scn-field"><label>详情(只对剧本可见)</label><textarea data-k="contents">${escapeHtml(c.contents || "")}</textarea></div>
+        </div>`).join("") || `<div class="scn-help" style="margin-bottom:0;">隐藏线索是 Director 用来推动剧情的弹药,会在 stagnation 时被自动揭开。</div>`;
+    }
+
+    function renderScnAgents() {
+      const list = (scnDraft.agents) || [];
+      const otherIds = list.map((a) => slugifyClient(a.id || a.name || ""));
+      els.scnAgents.innerHTML = list.map((a, i) => {
+        const aid = otherIds[i];
+        const others = otherIds.filter((_, j) => j !== i);
+        const susp = a.initialSuspicions || {};
+        return `
+        <details class="scn-agent" ${i < 2 ? "open" : ""} data-idx="${i}">
+          <summary>
+            <span>
+              <span class="scn-agent-title">${escapeHtml(a.name || `角色 ${i+1}`)}</span>
+              <span class="scn-agent-sub">${escapeHtml(a.role || "")}${a.publicIdentity ? " · " + escapeHtml(String(a.publicIdentity).slice(0,40)) : ""}</span>
+            </span>
+            <button type="button" class="danger" data-act="rm-agent">删除角色</button>
+          </summary>
+          <div class="scn-agent-body">
+            <div class="scn-grid cols-3">
+              <div class="scn-field"><label>姓名 *</label><input data-k="name" value="${escapeHtml(a.name || "")}"></div>
+              <div class="scn-field"><label>身份/职业 *</label><input data-k="role" value="${escapeHtml(a.role || "")}"></div>
+              <div class="scn-field"><label>年龄</label><input data-k="age" type="number" value="${escapeHtml(a.age ?? 30)}"></div>
+            </div>
+            <div class="scn-grid cols-2">
+              <div class="scn-field"><label>公开身份 * (其他人看到的)</label><textarea data-k="publicIdentity">${escapeHtml(a.publicIdentity || "")}</textarea></div>
+              <div class="scn-field"><label>隐藏身份 * (只他自己知道)</label><textarea data-k="hiddenIdentity">${escapeHtml(a.hiddenIdentity || "")}</textarea></div>
+            </div>
+            <div class="scn-grid cols-2">
+              <div class="scn-field"><label>本场目标 (短期) *</label><textarea data-k="shortTermGoal">${escapeHtml(a.shortTermGoal || "")}</textarea></div>
+              <div class="scn-field"><label>长期目标</label><textarea data-k="longTermGoal">${escapeHtml(a.longTermGoal || "")}</textarea></div>
+            </div>
+            <div class="scn-grid cols-2">
+              <div class="scn-field"><label>性格</label><textarea data-k="personality">${escapeHtml(a.personality || "")}</textarea></div>
+              <div class="scn-field"><label>说话风格</label><textarea data-k="speechStyle">${escapeHtml(a.speechStyle || "")}</textarea></div>
+            </div>
+            <div class="scn-grid cols-2">
+              <div class="scn-field"><label>背景故事</label><textarea data-k="backstory">${escapeHtml(a.backstory || "")}</textarea></div>
+              <div class="scn-field"><label>行为风格</label><textarea data-k="behaviorStyle">${escapeHtml(a.behaviorStyle || "")}</textarea></div>
+            </div>
+            <div class="scn-grid cols-2">
+              <div class="scn-field"><label>当前动作</label><input data-k="currentAction" value="${escapeHtml(a.currentAction || "")}"></div>
+              <div class="scn-field"><label>下一步打算</label><input data-k="nextIntendedAction" value="${escapeHtml(a.nextIntendedAction || "")}"></div>
+            </div>
+            <div class="scn-grid cols-3">
+              <div class="scn-field"><label>已知事实 (一行一条)</label><textarea data-k="knownFacts">${escapeHtml((a.knownFacts || []).join("\n"))}</textarea></div>
+              <div class="scn-field"><label>资源 (一行一条)</label><textarea data-k="resources">${escapeHtml((a.resources || []).join("\n"))}</textarea></div>
+              <div class="scn-field"><label>恐惧 (一行一条)</label><textarea data-k="fears">${escapeHtml((a.fears || []).join("\n"))}</textarea></div>
+            </div>
+            <div class="scn-field">
+              <label>对其他角色的初始怀疑度 (0-100)</label>
+              <div class="scn-grid cols-3" data-suspbox>
+                ${others.map((oid) => `
+                  <div class="scn-field">
+                    <label>${escapeHtml(oid)} →</label>
+                    <input data-susp="${escapeHtml(oid)}" type="number" min="0" max="100" value="${Number.isFinite(susp[oid]) ? susp[oid] : 50}">
+                  </div>`).join("")}
+              </div>
+            </div>
+            <div class="scn-field">
+              <label>秘密 (隐藏给该角色的不可外泄信息) <button type="button" class="scn-add" data-act="add-secret">+ 添加秘密</button></label>
+              <div class="scn-list" data-secretbox>
+                ${(a.secrets || []).map((s, si) => `
+                  <div class="scn-secret" data-secret-idx="${si}">
+                    <div class="scn-list-row">
+                      <div class="scn-field" style="flex:1;"><label>秘密名</label><input data-sk="label" value="${escapeHtml(s.label || "")}"></div>
+                      <button type="button" class="danger" data-act="rm-secret">×</button>
+                    </div>
+                    <div class="scn-field"><label>内容</label><textarea data-sk="content">${escapeHtml(s.content || "")}</textarea></div>
+                    <div class="scn-field"><label>触发词 (空格分隔,谈到这些词秘密暴露度上升)</label><input data-sk="triggers" value="${escapeHtml((s.triggers || []).join(" "))}"></div>
+                  </div>`).join("")}
+              </div>
+            </div>
+          </div>
+        </details>`;
+      }).join("");
+      bindAgentForm();
+    }
+
+    function slugifyClient(s) {
+      return String(s || "").trim().toLowerCase()
+        .replace(/[^a-z0-9_-]+/g, "-")
+        .replace(/^-+|-+$/g, "") || "agent";
+    }
+
+    function readScnFormDraft() {
+      const d = deepClone(scnDraft || blankDraft());
+      d.scenario = d.scenario || {};
+      d.scenario.title = els.scnTitle.value.trim();
+      d.scenario.genre = els.scnGenre.value.trim();
+      d.scenario.place = els.scnPlace.value.trim();
+      d.scenario.premise = els.scnPremise.value.trim();
+      d.scenario.sceneGoal = els.scnSceneGoal.value.trim();
+      d.scenario.centralConflict = els.scnConflict.value.trim();
+      d.world = d.world || {};
+      d.world.startClock = els.scnStartClock.value.trim() || "22:00";
+      d.world.weather = els.scnWeather.value.trim();
+      d.world.temperature = els.scnTemp.value.trim();
+      d.world.light = els.scnLight.value.trim();
+      d.world.threatLevel = clamp01_100(els.scnThreat.value, 30);
+      d.world.dangerLevel = clamp01_100(els.scnDanger.value, 30);
+      d.world.facts = els.scnFacts.value.split("\n").map((x) => x.trim()).filter(Boolean);
+      d.world.unresolvedTensions = els.scnTensions.value.split("\n").map((x) => x.trim()).filter(Boolean);
+      // 截止 / 线索由 DOM 行内 input 读取
+      d.world.deadlines = [...els.scnDeadlines.querySelectorAll(".scn-list-item")].map((node) => ({
+        label: node.querySelector('[data-k="label"]')?.value.trim() || "",
+        clock: node.querySelector('[data-k="clock"]')?.value.trim() || ""
+      })).filter((x) => x.label || x.clock);
+      d.world.hiddenClues = [...els.scnClues.querySelectorAll(".scn-list-item")].map((node) => ({
+        label: node.querySelector('[data-k="label"]')?.value.trim() || "",
+        contents: node.querySelector('[data-k="contents"]')?.value.trim() || ""
+      })).filter((x) => x.label);
+      d.agents = [...els.scnAgents.querySelectorAll(".scn-agent")].map((node) => readAgentNode(node));
+      return d;
+    }
+
+    function readAgentNode(node) {
+      const get = (k) => node.querySelector(`[data-k="${k}"]`)?.value ?? "";
+      const linesOf = (k) => String(get(k)).split("\n").map((x) => x.trim()).filter(Boolean);
+      const susp = {};
+      node.querySelectorAll("[data-susp]").forEach((inp) => {
+        const v = Number(inp.value);
+        if (Number.isFinite(v)) susp[inp.getAttribute("data-susp")] = clamp01_100(v, 50);
+      });
+      const secrets = [...node.querySelectorAll(".scn-secret")].map((sn) => {
+        const sg = (k) => sn.querySelector(`[data-sk="${k}"]`)?.value.trim() || "";
+        return {
+          label: sg("label"),
+          content: sg("content"),
+          triggers: sg("triggers").split(/\s+/).filter(Boolean)
+        };
+      }).filter((s) => s.label || s.content);
+      const ageVal = Number(get("age"));
+      return {
+        name: get("name").trim(),
+        role: get("role").trim(),
+        age: Number.isFinite(ageVal) ? ageVal : 30,
+        publicIdentity: get("publicIdentity").trim(),
+        hiddenIdentity: get("hiddenIdentity").trim(),
+        personality: get("personality").trim(),
+        backstory: get("backstory").trim(),
+        speechStyle: get("speechStyle").trim(),
+        behaviorStyle: get("behaviorStyle").trim(),
+        shortTermGoal: get("shortTermGoal").trim(),
+        longTermGoal: get("longTermGoal").trim(),
+        currentAction: get("currentAction").trim(),
+        nextIntendedAction: get("nextIntendedAction").trim(),
+        knownFacts: linesOf("knownFacts"),
+        resources: linesOf("resources"),
+        fears: linesOf("fears"),
+        initialSuspicions: susp,
+        secrets
+      };
+    }
+
+    function clamp01_100(v, fallback = 0) {
+      const n = Number(v);
+      if (!Number.isFinite(n)) return fallback;
+      return Math.max(0, Math.min(100, Math.round(n)));
+    }
+
+    function bindAgentForm() {
+      // + 添加秘密 / 删除秘密 / 删除角色 委托
+      els.scnAgents.querySelectorAll(".scn-agent").forEach((node) => {
+        node.querySelectorAll('[data-act="add-secret"]').forEach((btn) => {
+          btn.onclick = (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            const draft = readScnFormDraft();
+            const idx = Number(node.dataset.idx);
+            draft.agents[idx].secrets = draft.agents[idx].secrets || [];
+            draft.agents[idx].secrets.push({ label: "", content: "", triggers: [] });
+            scnDraft = draft;
+            renderScnAgents();
+          };
+        });
+        node.querySelectorAll('[data-act="rm-secret"]').forEach((btn) => {
+          btn.onclick = (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            const sec = btn.closest(".scn-secret");
+            const draft = readScnFormDraft();
+            const idx = Number(node.dataset.idx);
+            const sidx = Number(sec.dataset.secretIdx);
+            draft.agents[idx].secrets.splice(sidx, 1);
+            scnDraft = draft;
+            renderScnAgents();
+          };
+        });
+        node.querySelectorAll('[data-act="rm-agent"]').forEach((btn) => {
+          btn.onclick = (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            const draft = readScnFormDraft();
+            const idx = Number(node.dataset.idx);
+            draft.agents.splice(idx, 1);
+            scnDraft = draft;
+            renderScnAgents();
+          };
+        });
+      });
+    }
+
+    els.scnAddDeadline.addEventListener("click", () => {
+      scnDraft = readScnFormDraft();
+      scnDraft.world.deadlines.push({ label: "", clock: "" });
+      renderScnDeadlines();
+    });
+    els.scnAddClue.addEventListener("click", () => {
+      scnDraft = readScnFormDraft();
+      scnDraft.world.hiddenClues.push({ label: "", contents: "" });
+      renderScnClues();
+    });
+    els.scnAddAgent.addEventListener("click", () => {
+      scnDraft = readScnFormDraft();
+      const n = scnDraft.agents.length + 1;
+      scnDraft.agents.push({
+        name: `角色 ${n}`, role: "", age: 30,
+        publicIdentity: "", hiddenIdentity: "",
+        shortTermGoal: "", longTermGoal: "",
+        personality: "", backstory: "",
+        speechStyle: "", behaviorStyle: "",
+        currentAction: "", nextIntendedAction: "",
+        knownFacts: [], resources: [], fears: [],
+        initialSuspicions: {}, secrets: []
+      });
+      renderScnAgents();
+    });
+
+    // 截止 / 线索的 × 删除按钮(动态绑定)
+    els.scnDeadlines.addEventListener("click", (ev) => {
+      const btn = ev.target.closest('button[data-act="rm"]');
+      if (!btn) return;
+      const item = btn.closest(".scn-list-item");
+      const idx = Number(item.dataset.idx);
+      const draft = readScnFormDraft();
+      draft.world.deadlines.splice(idx, 1);
+      scnDraft = draft;
+      renderScnDeadlines();
+    });
+    els.scnClues.addEventListener("click", (ev) => {
+      const btn = ev.target.closest('button[data-act="rm"]');
+      if (!btn) return;
+      const item = btn.closest(".scn-list-item");
+      const idx = Number(item.dataset.idx);
+      const draft = readScnFormDraft();
+      draft.world.hiddenClues.splice(idx, 1);
+      scnDraft = draft;
+      renderScnClues();
+    });
+
+    els.scnLoadPreset.addEventListener("click", async () => {
+      const id = els.scnPresetSelect.value;
+      if (!id) return;
+      try {
+        els.scnError.textContent = "";
+        const preset = await request(`/api/preset?id=${encodeURIComponent(id)}`);
+        scnDraft = preset;
+        if (scnTab === "prompt") els.scnPrompt.value = promptFromDraft(scnDraft);
+        else els.scnJsonText.value = stringifyYaml(scnDraft);
+      } catch (e) {
+        els.scnError.textContent = "载入预设失败: " + (e.message || e);
+      }
+    });
+
+    document.querySelectorAll("[data-scn-example]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        els.scnPrompt.value = btn.dataset.scnExample || "";
+        els.scnPrompt.focus();
+      });
+    });
+
+    els.scnTabForm.addEventListener("click", () => switchScnTab("prompt"));
+    els.scnTabJson.addEventListener("click", () => switchScnTab("yaml"));
+    els.scnClose.addEventListener("click", closeScenarioEditor);
+    els.scnCancel.addEventListener("click", closeScenarioEditor);
+    els.scnModal.addEventListener("click", (ev) => {
+      if (ev.target === els.scnModal) closeScenarioEditor();
+    });
+    document.addEventListener("keydown", (ev) => {
+      if (ev.key === "Escape" && els.scnModal.classList.contains("open")) closeScenarioEditor();
+    });
+
+    els.scnApply.addEventListener("click", async () => {
+      els.scnError.textContent = "";
+      let payload;
+      try {
+        if (scnTab === "prompt") {
+          const prompt = els.scnPrompt.value.trim();
+          if (!prompt) { els.scnError.textContent = "先写一句话 prompt"; return; }
+          payload = { __prompt: prompt };
+        } else {
+          payload = parseYamlLite(els.scnJsonText.value);
+        }
+      } catch (e) {
+        els.scnError.textContent = "YAML 解析失败: " + (e.message || e);
+        return;
+      }
+      // 客户端基础校验,提早提示
+      if (!payload.__prompt) {
+        if (!payload.scenario?.title) { els.scnError.textContent = "scenario.title 必填"; return; }
+        if (!Array.isArray(payload.agents) || payload.agents.length < 2) { els.scnError.textContent = "至少需要 2 个角色"; return; }
+        if (payload.agents.length > 6) { els.scnError.textContent = "最多 6 个角色"; return; }
+        for (let i = 0; i < payload.agents.length; i++) {
+          const a = payload.agents[i];
+          if (!a.name) { els.scnError.textContent = `角色 ${i+1}: 姓名必填`; return; }
+          if (!a.publicIdentity) { els.scnError.textContent = `${a.name}: 公开身份必填`; return; }
+          if (!a.hiddenIdentity) { els.scnError.textContent = `${a.name}: 隐藏身份必填`; return; }
+          if (!a.shortTermGoal) { els.scnError.textContent = `${a.name}: 本场目标必填`; return; }
+        }
+      }
+      els.scnApply.disabled = true;
+      els.scnApply.textContent = payload.__prompt ? "生成中…" : "应用中…";
+      try {
+        const next = payload.__prompt
+          ? await request("/api/scenario/from-prompt", { method: "POST", body: JSON.stringify({ prompt: payload.__prompt }) })
+          : await request("/api/scenario", { method: "POST", body: JSON.stringify(payload) });
+        if (next && next.error) throw new Error(next.error);
+        state = next;
+        clientOutcomeEntries = [];
+        // 应用新场景时停止自动推演,让用户决定何时开演
+        autoRunning = false;
+        updateAutoRunBtn();
+        closeScenarioEditor();
+        render();
+      } catch (e) {
+        els.scnError.textContent = "应用失败: " + friendlyError(e);
+      } finally {
+        els.scnApply.disabled = false;
+        els.scnApply.textContent = "应用并开场";
+      }
+    });
+
+    loadState().catch((error) => {
+      document.body.classList.remove("busy");
+      els.mode.textContent = "后端未连接";
+      els.mode.className = "status-pill local";
+      els.transcript.innerHTML = `
+        <div class="entry">
+          <div class="avatar director">!</div>
+          <div class="entry-card director">
+            <header><strong>连接问题</strong><span>需要本地服务</span></header>
+            <p>这个页面需要 Agent Society 后端。请打开 http://127.0.0.1:4876/agent-society.html，或先启动 outputs/agent-society-server.mjs。</p>
+            <div class="behavior">${escapeHtml(error.message)}</div>
+          </div>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>

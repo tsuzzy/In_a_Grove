@@ -1,0 +1,36 @@
+{
+ "ring": {
+  "Guido": {
+   "exact": 30,
+   "gaBest": 30,
+   "gaSuccess": "6/8",
+   "gaCalls": 81620,
+   "rlBest": 30,
+   "rlSuccess": "8/8",
+   "rlEpisodes": 1337
+  },
+  "Pompilia": {
+   "exact": 100,
+   "gaBest": 100,
+   "gaSuccess": "8/8",
+   "gaCalls": 2438,
+   "rlBest": 100,
+   "rlSuccess": "8/8",
+   "rlEpisodes": 357
+  },
+  "Caponsacchi": {
+   "exact": 72,
+   "gaBest": 72,
+   "gaSuccess": "8/8",
+   "gaCalls": 3975,
+   "rlBest": 72,
+   "rlSuccess": "8/8",
+   "rlEpisodes": 315
+  },
+  "__summary": {
+   "distinctPctGA": 100,
+   "distinctPctRL": 100,
+   "inadmissible": 0
+  }
+ }
+}

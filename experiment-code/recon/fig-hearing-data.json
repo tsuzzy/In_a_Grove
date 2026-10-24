@@ -1,0 +1,465 @@
+{
+ "note": "gamma*(beta) boundary and the gamma=0 collapse, both evidence sets. Recomputed, not transcribed.",
+ "worlds": {
+  "run-06": {
+   "feasible": 11,
+   "betaStar": 0.05,
+   "boundary": [
+    {
+     "beta": 0,
+     "gammaStar": 0
+    },
+    {
+     "beta": 0.05,
+     "gammaStar": 0.2
+    },
+    {
+     "beta": 0.1,
+     "gammaStar": 0.2
+    },
+    {
+     "beta": 0.15,
+     "gammaStar": 0.2
+    },
+    {
+     "beta": 0.2,
+     "gammaStar": 0.2
+    },
+    {
+     "beta": 0.25,
+     "gammaStar": 0.2
+    },
+    {
+     "beta": 0.3,
+     "gammaStar": 0.2
+    },
+    {
+     "beta": 0.35,
+     "gammaStar": 0.2
+    },
+    {
+     "beta": 0.4,
+     "gammaStar": 0.2
+    },
+    {
+     "beta": 0.45,
+     "gammaStar": 0.2
+    },
+    {
+     "beta": 0.5,
+     "gammaStar": 0.2
+    },
+    {
+     "beta": 0.55,
+     "gammaStar": 0.2
+    },
+    {
+     "beta": 0.6,
+     "gammaStar": 0.2
+    },
+    {
+     "beta": 0.65,
+     "gammaStar": 0.225
+    },
+    {
+     "beta": 0.7,
+     "gammaStar": 0.25
+    },
+    {
+     "beta": 0.75,
+     "gammaStar": 0.325
+    },
+    {
+     "beta": 0.8,
+     "gammaStar": 0.425
+    },
+    {
+     "beta": 0.85,
+     "gammaStar": 0.5
+    },
+    {
+     "beta": 0.9,
+     "gammaStar": 0.55
+    },
+    {
+     "beta": 0.95,
+     "gammaStar": 0.575
+    },
+    {
+     "beta": 1,
+     "gammaStar": 0.625
+    }
+   ],
+   "collapse": [
+    {
+     "beta": 0,
+     "distinct": 3,
+     "lies": 2,
+     "closes": "Masago|strike|dagger + Tajomaru|strike|dagger + Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.05,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.1,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.15,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.2,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.25,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.3,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.35,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.4,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.45,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.5,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.55,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.6,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.65,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.7,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.75,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.8,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.85,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.9,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.95,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 1,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Tajomaru|strike|dagger"
+    }
+   ]
+  },
+  "akutagawa": {
+   "feasible": 22,
+   "betaStar": 0.45,
+   "boundary": [
+    {
+     "beta": 0,
+     "gammaStar": 0
+    },
+    {
+     "beta": 0.05,
+     "gammaStar": 0
+    },
+    {
+     "beta": 0.1,
+     "gammaStar": 0
+    },
+    {
+     "beta": 0.15,
+     "gammaStar": 0
+    },
+    {
+     "beta": 0.2,
+     "gammaStar": 0
+    },
+    {
+     "beta": 0.25,
+     "gammaStar": 0
+    },
+    {
+     "beta": 0.3,
+     "gammaStar": 0
+    },
+    {
+     "beta": 0.35,
+     "gammaStar": 0
+    },
+    {
+     "beta": 0.4,
+     "gammaStar": 0
+    },
+    {
+     "beta": 0.45,
+     "gammaStar": 0
+    },
+    {
+     "beta": 0.5,
+     "gammaStar": 0
+    },
+    {
+     "beta": 0.55,
+     "gammaStar": 0.05
+    },
+    {
+     "beta": 0.6,
+     "gammaStar": 0.075
+    },
+    {
+     "beta": 0.65,
+     "gammaStar": 0.125
+    },
+    {
+     "beta": 0.7,
+     "gammaStar": 0.175
+    },
+    {
+     "beta": 0.75,
+     "gammaStar": 0.3
+    },
+    {
+     "beta": 0.8,
+     "gammaStar": 0.4
+    },
+    {
+     "beta": 0.85,
+     "gammaStar": 0.475
+    },
+    {
+     "beta": 0.9,
+     "gammaStar": 0.55
+    },
+    {
+     "beta": 0.95,
+     "gammaStar": 0.625
+    },
+    {
+     "beta": 1,
+     "gammaStar": 0.675
+    }
+   ],
+   "collapse": [
+    {
+     "beta": 0,
+     "distinct": 3,
+     "lies": 2,
+     "closes": "Tajomaru|strike|dagger + Tajomaru|strike|longsword + Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.05,
+     "distinct": 3,
+     "lies": 2,
+     "closes": "Tajomaru|strike|dagger + Tajomaru|strike|longsword + Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.1,
+     "distinct": 3,
+     "lies": 2,
+     "closes": "Tajomaru|strike|dagger + Tajomaru|strike|longsword + Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.15,
+     "distinct": 3,
+     "lies": 2,
+     "closes": "Tajomaru|strike|dagger + Tajomaru|strike|longsword + Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.2,
+     "distinct": 3,
+     "lies": 2,
+     "closes": "Tajomaru|strike|dagger + Tajomaru|strike|longsword + Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.25,
+     "distinct": 3,
+     "lies": 2,
+     "closes": "Tajomaru|strike|dagger + Tajomaru|strike|longsword + Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.3,
+     "distinct": 3,
+     "lies": 2,
+     "closes": "Tajomaru|strike|dagger + Tajomaru|strike|longsword + Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.35,
+     "distinct": 3,
+     "lies": 2,
+     "closes": "Tajomaru|strike|dagger + Tajomaru|strike|longsword + Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.4,
+     "distinct": 3,
+     "lies": 2,
+     "closes": "Tajomaru|strike|dagger + Tajomaru|strike|longsword + Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.45,
+     "distinct": 2,
+     "lies": 2,
+     "closes": "Tajomaru|strike|dagger + Tajomaru|strike|longsword"
+    },
+    {
+     "beta": 0.5,
+     "distinct": 2,
+     "lies": 2,
+     "closes": "Tajomaru|strike|dagger + Tajomaru|strike|longsword"
+    },
+    {
+     "beta": 0.55,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.6,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.65,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.7,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.75,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.8,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.85,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.9,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 0.95,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Takehiro|self_strike|dagger"
+    },
+    {
+     "beta": 1,
+     "distinct": 1,
+     "lies": 0,
+     "closes": "Tajomaru|strike|dagger"
+    }
+   ]
+  }
+ },
+ "truthClaim": "Masago|strike|dagger",
+ "fineProbe": [
+  {
+   "beta": 0.0005,
+   "distinct": 1,
+   "lies": 0
+  },
+  {
+   "beta": 0.001,
+   "distinct": 1,
+   "lies": 0
+  },
+  {
+   "beta": 0.005,
+   "distinct": 1,
+   "lies": 0
+  },
+  {
+   "beta": 0.01,
+   "distinct": 1,
+   "lies": 0
+  }
+ ],
+ "gammaStarAtBeta0p0005": 0.2
+}

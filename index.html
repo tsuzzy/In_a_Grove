@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In a Grove, Again</title>
+<meta name="description" content="Project page for In a Grove, Again: optimizing over feasible event histories for incentive-driven testimony. Interactive demos that run in the browser.">
+<style>
+:root{
+  --bg:#0c0c0e; --panel:#141417; --panel2:#191920; --ink:#ece8e1; --muted:#9b958c; --line:#2a2a30;
+  --accent:#b8893f; --accent-ink:#e7c79a;
+  --serif:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.6;font-size:17px}
+a{color:var(--accent-ink)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1060px;margin:0 auto;padding:56px 16px 72px}
+
+header{text-align:center;padding-bottom:40px;border-bottom:1px solid var(--line)}
+.kicker{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:0 0 18px}
+h1{font-weight:normal;font-size:clamp(34px,6vw,54px);line-height:1.1;margin:0}
+.subtitle{font-size:clamp(18px,2.6vw,23px);color:#d9d3c8;margin:12px auto 0;max-width:30em}
+.authors{margin:22px 0 4px;font-size:18px}
+.affil{font-family:var(--sans);font-size:13px;color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
+.btn{font-family:var(--sans);font-size:14px;text-decoration:none;color:var(--ink);background:var(--panel2);
+  border:1px solid var(--line);border-radius:999px;padding:8px 18px}
+.btn:hover{border-color:var(--accent);color:#fff}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#16130d;font-weight:600}
+.btn.primary:hover{background:#c99a4c;color:#16130d}
+
+section{margin-top:56px}
+h2{font-family:var(--sans);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 16px;font-weight:600}
+.lede{font-size:19px;max-width:46em;margin:0}
+.lede em{color:#fff}
+
+.domains{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
+.domain{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.domain .name{font-size:16px}
+.domain .nums{font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:6px;display:grid;gap:2px}
+.domain .nums span,.nowrap{white-space:nowrap}
+.domain .nums b{color:var(--accent-ink);font-size:20px;font-weight:600}
+
+.intro{color:#cfc9bf;margin:0 0 22px;max-width:46em}
+.demo{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:26px;align-items:start;
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:22px}
+.demo video{width:100%;height:auto;display:block;border-radius:9px;border:1px solid var(--line);background:#000;aspect-ratio:1440/1000}
+.demo h3{font-weight:normal;font-size:26px;margin:0;line-height:1.2}
+.demo .tag{font-family:var(--sans);font-size:13px;color:var(--muted);margin:6px 0 14px}
+.demo .try{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.demo ol{margin:0 0 18px;padding-left:20px;font-size:15.5px}
+.demo li{margin-bottom:7px}
+.demo li b{font-family:var(--sans);font-size:14px;color:#fff}
+
+.more{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.card{display:block;text-decoration:none;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card:hover{border-color:var(--accent)}
+.card .t{font-size:17px;color:var(--accent-ink);line-height:1.3}
+.card .d{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:6px}
+
+details{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+summary{cursor:pointer;font-family:var(--sans);font-size:14px;color:var(--accent-ink)}
+details p{margin:12px 0 2px;color:#d9d3c8}
+
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13px;color:var(--muted)}
+footer code{color:#cfc9bf}
+
+@media (max-width:820px){
+  .wrap{padding-top:36px}
+  .domains{grid-template-columns:1fr}
+  .demo{grid-template-columns:1fr;padding:16px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">NeurIPS 2026 · Creative AI Track · submission</p>
+  <h1>In a Grove, Again</h1>
+  <p class="subtitle">Optimizing over Feasible Event Histories for Incentive-Driven Testimony</p>
+  <p class="authors">Ruixin Song<sup>1</sup> &nbsp;·&nbsp; Jingjing Zheng<sup>1,2</sup></p>
+  <p class="affil"><sup>1</sup>GradientX Technologies Inc. &nbsp; <sup>2</sup>Department of Mathematics, University of British Columbia</p>
+  <nav class="links" aria-label="Project links">
+    <a class="btn primary" href="#demos">Try the demos</a>
+    <a class="btn" href="paper/neurips_2026_v2.pdf">Paper (PDF)</a>
+    <a class="btn" href="paper/neurips_2026_v2_supplement.pdf">Supplement (PDF)</a>
+    <a class="btn" href="https://github.com/tsuzzy/2026-grove-again">Code</a>
+    <a class="btn" href="https://github.com/tsuzzy/2026-grove-again#readme">Reproduce the results</a>
+  </nav>
+</header>
+
+<section aria-labelledby="idea">
+  <h2 id="idea">The idea</h2>
+  <p class="lede">Three witnesses describe one death, and each tells a different story. Instead of generating
+    their testimony as text, we let each witness <em>select a history</em>. A deterministic simulator enumerates
+    every history consistent with the public evidence <i>F</i>, and each witness picks the feasible history that
+    maximizes a transparent self-interest utility <i>U<sub>i</sub></i>. The evidence decides what can be said;
+    the objective decides what is said.</p>
+  <div class="domains">
+    <div class="domain"><div class="name"><i>In a Grove</i> (Akutagawa)</div>
+      <div class="nums"><span><b>3,631</b> reachable states</span><span><b>11</b> feasible under <i>F</i></span></div></div>
+    <div class="domain"><div class="name"><i>The Ring and the Book</i> (Browning)</div>
+      <div class="nums"><span><b>32,928</b> reachable states</span><span><b>36</b> feasible under <i>F</i></span></div></div>
+    <div class="domain"><div class="name">An agent-operations incident</div>
+      <div class="nums"><span><b>23,978</b> reachable states</span><span><b>48</b> feasible under <i>F</i></span></div></div>
+  </div>
+</section>
+
+<section id="demos" aria-labelledby="demos-h">
+  <h2 id="demos-h">Try it in your browser</h2>
+  <p class="intro">Each demo is a single page that runs from static files: open it, click, and the solver
+    replays. Nothing to install, no server, and no language model computes any number. Not sure where to
+    start? Watch the walkthrough, then follow the steps.</p>
+
+  <article class="demo">
+    <video controls preload="none" playsinline poster="demo/videos/magistrate.jpg"
+      aria-label="Walkthrough of The Magistrate's File">
+      <source src="demo/videos/magistrate.mp4" type="video/mp4">
+    </video>
+    <div>
+      <h3>The Magistrate's File</h3>
+      <p class="tag"><i>In a Grove</i> · the demo described in the paper · <span class="nowrap">1-minute walkthrough</span></p>
+      <p class="try">Try this</p>
+      <ol>
+        <li>In <i>The file</i>, click "the dagger drew blood". Accounts it rules out disappear, and the witness standing on one is caught out.</li>
+        <li>Click <b>our run-06 scene</b>. The paper's record is now on file before anyone speaks.</li>
+        <li>Drag <b>β</b> to 0. Each witness serves only itself: three accounts, two provable lies.</li>
+        <li>Drag <b>β</b> back to 0.5. Corroboration collapses the testimony into the samurai's suicide.</li>
+        <li>Drag <b>γ</b> to 0.2. Held to their opening statements, the witnesses return to three accounts.</li>
+      </ol>
+      <a class="btn primary" href="demo/magistrate.html">Open The Magistrate's File</a>
+    </div>
+  </article>
+
+  <article class="demo">
+    <video controls preload="none" playsinline poster="demo/videos/ring-magistrate.jpg"
+      aria-label="Walkthrough of The Pope's File">
+      <source src="demo/videos/ring-magistrate.mp4" type="video/mp4">
+    </video>
+    <div>
+      <h3>The Pope's File</h3>
+      <p class="tag"><i>The Ring and the Book</i> · Rome, 1698 · <span class="nowrap">45-second walkthrough</span></p>
+      <p class="try">Try this</p>
+      <ol>
+        <li>Click documents in the <i>Old Yellow Book</i> one at a time. A document that contradicts an account catches its witness out.</li>
+        <li>Click <b>Establish all</b>. 36 accounts remain, and no two of the three witnesses can be right together.</li>
+        <li>Read <i>Where they conflict</i>: "—" marks a witness who is indifferent, and so makes no claim.</li>
+        <li>Click <b>Show bystanders</b> to add three narrators with nothing at stake.</li>
+      </ol>
+      <a class="btn primary" href="demo/ring-magistrate.html">Open The Pope's File</a>
+    </div>
+  </article>
+</section>
+
+<section aria-labelledby="more-h">
+  <h2 id="more-h">More to explore</h2>
+  <div class="more">
+    <a class="card" href="demo/recon.html"><div class="t">One aftermath, three pasts that all fit</div>
+      <div class="d">Reconstruct candidate histories from the public aftermath alone.</div></a>
+    <a class="card" href="demo/testimony.html"><div class="t">Given only a motive, they reinvent the lie</div>
+      <div class="d">Witnesses told only the verifiable facts and what they want.</div></a>
+    <a class="card" href="demo/testimony-opt.html"><div class="t">Now the argmax is actually computed</div>
+      <div class="d">Best-of-K testimony under a hard evidence constraint.</div></a>
+    <a class="card" href="demo/game.html"><div class="t">When the witnesses can hear each other coming</div>
+      <div class="d">Coupled testimony: each witness answers the others in turn.</div></a>
+    <a class="card" href="demo/private-hearing.html"><div class="t">Three ways to keep a record honest</div>
+      <div class="d">Three levers on the hearing, and only one of them works.</div></a>
+    <a class="card" href="demo/akutagawa.html"><div class="t">Two Groves</div>
+      <div class="d">The same machine, run on the scene Akutagawa actually wrote.</div></a>
+    <a class="card" href="demo/atlas.html"><div class="t">Rashomon Manifold</div>
+      <div class="d">One frozen instant from <i>In a Grove</i>, replayed across recorded runs.</div></a>
+  </div>
+</section>
+
+<section aria-labelledby="abs-h">
+  <h2 id="abs-h">Abstract</h2>
+  <details>
+    <summary>Read the abstract</summary>
+    <p>We formulate narrative agency in testimony as a computational problem for Creative AI. Rather than
+      generating different texts, agents select feasible histories from shared evidence. A deterministic
+      simulator constructs Feasible(<i>F</i>), the set of histories consistent with public facts <i>F</i>. Each
+      witness selects the feasible history that maximizes a transparent self-interest utility
+      <i>U<sub>i</sub></i>. We study the framework's computational feasibility across three exactly enumerated
+      domains: an agent-operations incident, an adaptation of Akutagawa's <i>In a Grove</i>, and an adaptation
+      of Browning's <i>The Ring and the Book</i>. Enumeration provides ground truth. Q-learning recovers every
+      reference optimum, while genetic search recovers all but the hardest Ring witness in 6/8 seeds. This work
+      provides a formal problem definition and feasibility framework for goal-driven history selection, rather
+      than a new text-generation architecture.</p>
+  </details>
+</section>
+
+<footer>
+  Every page here is static HTML. The solver inside each demo is the same code as the experiment scripts,
+  bundled by <code>experiment-code/recon/build-magistrate.mjs</code> and
+  <code>build-ring-magistrate.mjs</code>; the walkthrough videos are recorded by
+  <code>experiment-code/recon/record-demos.mjs</code>. To reproduce the paper's numbers, follow the README.
+</footer>
+
+</div>
+</body>
+</html>

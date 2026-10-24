@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Ring and the Book — The Pope's File</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#141417; --panel2:#191920; --ink:#ece8e1; --muted:#9b958c;
+    --line:#2a2a30; --accent:#c2a24a; --good:#7d9c7d; --bad:#a8364a; --open:#5b9c93; --info:#5b7f96;
+    --serif:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,"Songti SC","Source Han Serif SC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:1340px;margin:0 auto;padding:24px 20px 70px}
+  header{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:20px}
+  .kicker{font-family:var(--sans);letter-spacing:.22em;text-transform:uppercase;font-size:11px;color:var(--muted);margin-bottom:10px}
+  h1{font-size:clamp(24px,3.6vw,36px);line-height:1.12;margin:0 0 9px;font-weight:600}
+  .lede{color:#cfc9bf;max-width:92ch;font-size:16px}
+  .lede b{color:#ece8e1}
+  h2{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 10px;font-weight:600}
+  h2 span{color:var(--muted);letter-spacing:0;text-transform:none;font-size:12px;margin-left:8px}
+
+  .cols{display:grid;grid-template-columns:370px 1fr;gap:18px;align-items:start}
+  @media (max-width:1040px){.cols{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+
+  /* the file */
+  .fact{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:8px 0;border-top:1px solid #1d1d23;cursor:pointer}
+  .fact:first-of-type{border-top:0}
+  .fact:hover{background:rgba(194,162,74,.05)}
+  .fact:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .box{width:15px;height:15px;border:1px solid #3a3a44;border-radius:4px;margin-top:4px;flex:none;position:relative}
+  .fact.on .box{background:var(--accent);border-color:var(--accent)}
+  .fact.on .box:after{content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #14140f;border-width:0 2px 2px 0;transform:rotate(42deg)}
+  .fact .nm{font-size:14.5px}
+  .fact.on .nm{color:#f2e8d2}
+  .fact .pv{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:2px}
+  .fact .pv .cut{color:#e0a5b0}
+  .fact .pv .nil{color:#5c5750}
+  .fact .pv b{color:#e7c79a}
+  .fact .ord{font-family:var(--mono);font-size:10px;color:var(--accent);margin-left:6px}
+
+  .btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  button{font-family:var(--sans);font-size:12px;background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+         border-radius:7px;padding:6px 12px;cursor:pointer}
+  button:hover{border-color:var(--accent);color:#f2e8d2}
+  button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  button.on{background:rgba(194,162,74,.16);border-color:var(--accent);color:#f2e8d2}
+
+  /* record */
+  .rec{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end}
+  .rec div{min-width:90px}
+  .rec .k{font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .rec .v{font-size:25px;font-weight:600;color:#e7c79a;line-height:1.2;font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .rec .v.good{color:#9fc09f} .rec .v.bad{color:#e7a3af}
+  .rec .v small{font-size:14px;color:var(--muted);font-family:var(--serif)}
+
+  /* witness booths */
+  .booths{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+  .booth{background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--line);border-radius:0 10px 10px 0;padding:11px 14px}
+  .booth.caught{border-left-color:var(--bad)}
+  .booth .w{font-size:16px;font-weight:600;color:#f2e8d2;display:flex;justify-content:space-between;align-items:baseline}
+  .booth .u{font-family:var(--mono);font-size:14px;color:var(--accent);font-variant-numeric:tabular-nums}
+  .booth .dims{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin:2px 0 8px}
+  .booth .says{display:grid;gap:3px;font-size:13px}
+  .booth .says .r{display:grid;grid-template-columns:1fr auto;gap:8px}
+  .booth .says .q{color:var(--muted);font-family:var(--sans);font-size:11px;align-self:center}
+  .booth .says .a{text-align:right;color:#e9e2d4}
+  .booth .says .a.nil{color:#5c5750;font-family:var(--mono)}
+  .booth .m{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:8px;border-top:1px solid #232329;padding-top:6px}
+  .booth .m .hit{color:#e0a5b0}
+
+  /* contradiction matrix */
+  .mx{width:100%;border-collapse:collapse;font-size:13.5px}
+  .mx th,.mx td{text-align:left;padding:7px 10px;border-bottom:1px solid #1d1d23;white-space:nowrap}
+  .mx thead th{font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .mx td.q{color:var(--muted);font-family:var(--sans);font-size:11.5px}
+  .mx td.nil{color:#5c5750;font-family:var(--mono)}
+  .mx tr.clash td.q{color:#e7c79a}
+  .mx tr.clash{background:rgba(168,54,74,.07)}
+  .scroll{overflow-x:auto}
+
+  /* coordinates */
+  .co{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:7px}
+  .co .c{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-family:var(--mono);font-size:11.5px}
+  .co .c.pin{border-color:#3a2a2e;color:var(--muted)}
+  .co .c.opn{border-color:var(--open);color:#bfe3dd}
+  .co .c .k{color:var(--muted);font-size:10px;letter-spacing:.05em}
+  .co .c.opn .k{color:var(--open)}
+
+  /* story */
+  .story{display:grid;gap:9px}
+  .st{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:start}
+  .st .n{font-family:var(--mono);font-size:11px;color:var(--accent);background:var(--panel2);border:1px solid var(--line);
+         border-radius:50%;width:22px;height:22px;display:grid;place-items:center;flex:none}
+  .st .b{font-size:14px}
+  .st .b b{color:#f2e8d2}
+  .st .caught{color:#e7a3af}
+  .st .m{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:2px}
+
+  .note{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:10px 13px;font-size:13.5px;color:#bdb7ad}
+  .note b{color:#e7c79a}
+  .dead{color:#e7a3af}
+  footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-family:var(--sans);font-size:11px;color:#6f6a63}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">History Optimization · Second domain · Browning 1868</div>
+    <h1>The Ring and the Book — The Pope's File</h1>
+    <p class="lede">
+      Rome, 1698: Count Franceschini's murder of his wife. <b>Unlike the <i>In a Grove</i> page, there is no whodunit here.</b>
+      Guido confesses to the killing twice, in Books V and XI, and every feasible account agrees on what he did.
+      What is disputed is <b>what that act was</b>: what happened at the inn, whose hand held the pen, and why she fled.
+      Establish the Old Yellow Book documents on the left one at a time and watch the three witnesses re-optimize, each on their own.
+      <b>No one can hear anyone else</b>: the three optimization problems are independent and interact only through the shared feasible set. Each takes one account from the same set, and the choices collide.
+    </p>
+  </header>
+
+  <div class="cols">
+    <div>
+      <div class="card">
+        <h2>Old Yellow Book <span>click to establish · click again to withdraw</span></h2>
+        <div id="facts"></div>
+        <div class="btns">
+          <button id="all">Establish all</button>
+          <button id="none">Clear</button>
+          <button id="spec">Show bystanders (Books II–IV)</button>
+        </div>
+        <div class="note" style="margin-top:12px">
+          <b>Withdrawing is not undoing.</b> Order matters: the same documents arriving in a different order make a different hearing,
+          so withdrawing one replays the remaining sequence from the start instead of pretending the judge forgot.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>What the record settles <span>agreed by all vs still open</span></h2>
+        <div class="co" id="coords"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2>The record <span>as it stands</span></h2>
+        <div class="rec" id="rec"></div>
+      </div>
+
+      <div class="card">
+        <h2>What each witness says <span>optimized independently · no one hears the others</span></h2>
+        <div class="booths" id="booths"></div>
+      </div>
+
+      <div class="card" id="specCard" style="display:none">
+        <h2>Bystanders <span>not present · nothing at stake · optimize only "alignment with the audience"</span></h2>
+        <div class="booths" id="specBooths"></div>
+        <div class="note" style="margin-top:12px">
+          These three are a <b>departure</b>: their objective is the audience, not their own image. They are here because,
+          if people with nothing at stake can reproduce the parties' positions, the disagreement is not caused by self-flattery.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Where they conflict <span>"—" = the witness is indifferent, so makes no claim here</span></h2>
+        <div class="scroll"><table class="mx" id="mx"></table></div>
+        <div class="note" style="margin-top:12px">
+          <b>Why the "—" is necessary.</b> Pompilia's utility only requires that the pen was <b>not in her hand</b>, so "in Guido's hand" and "in Caponsacchi's hand"
+          are exactly equal for her. Printing the raw argmax would have her accuse the priest: an artifact of string ordering, and the exact opposite of Book VII.
+          So a witness counts as making a claim only when <b>all</b> of their optimal accounts agree on it.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>The story <span>every turning point, in the order you caused it</span></h2>
+        <div class="story" id="story"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script src="ring-magistrate-bundle.js"></script>
+<script>
+const M = window.RING.magistrate;
+const SP = window.RING.spectators;
+const CAST = M.CAST;
+const esc = s => String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+const t0 = performance.now();
+const space = M.buildSpace();
+const enumMs = Math.round(performance.now() - t0);
+
+// the page state: an ORDERED list of established documents
+let facts = [];
+let showSpec = false;
+let run = null;
+
+function recompute(){ run = M.replay({ space, facts }); render(); }
+
+function render(){
+  const dead = !!run.impossible;
+  const pool = run.pool, sol = run.sol, audit = run.audit;
+  const caughtNow = {};
+  for (const t of run.turns) for (const T of t.caught) caughtNow[T] = (caughtNow[T]||0)+1;
+
+  // ---- the file, with a live preview on every unestablished document ----
+  document.getElementById('facts').innerHTML = M.FACT_KEYS.map(f=>{
+    const on = facts.includes(f);
+    const ord = on ? facts.indexOf(f)+1 : null;
+    let pv;
+    if (on) pv = `<span class="nil">established</span>`;
+    else if (dead) pv = `<span class="nil">—</span>`;
+    else {
+      const p = M.preview(run, { space, fact: f });
+      if (p.impossible) pv = `<span class="cut">no account fits this file</span>`;
+      else if (!p.eliminates) pv = `<span class="nil">rules nothing out</span>`;
+      else pv = `rules out <b>${p.eliminates}</b> of ${p.feasibleBefore}` +
+        (p.wouldCatch.length ? ` · <span class="cut">would catch out ${esc(p.wouldCatch.join(', '))}</span>` : '');
+    }
+    return `<div class="fact ${on?'on':''}" data-f="${f}" tabindex="0" role="button" aria-pressed="${on}">
+      <div class="box"></div>
+      <div><div class="nm">${esc(M.FACTS[f].note)}${ord?`<span class="ord">#${ord}</span>`:''}</div>
+      <div class="pv">${pv}</div></div></div>`;
+  }).join('');
+
+  // ---- the record ----
+  document.getElementById('rec').innerHTML = dead
+    ? `<div style="min-width:100%"><div class="k">this file</div><div class="v bad" style="font-size:19px">no account fits it</div>
+       <div style="font-size:14px;color:#cfc9bf;margin-top:6px;max-width:60ch">Establishing <b>${esc(M.FACTS[run.impossible]?.note||run.impossible)}</b>
+       contradicts the documents already on file. Shown below is the last consistent state.</div></div>`
+    : `<div><div class="k">accounts still standing</div><div class="v">${pool.length}</div></div>
+       <div><div class="k">distinct claims</div><div class="v">${audit.distinctClaims}<small> / 3</small></div></div>
+       <div><div class="k">most witnesses true at once</div><div class="v ${audit.bestTogether<=1?'bad':''}">${audit.bestTogether}<small> / 3</small></div></div>
+       <div><div class="k">provable lies, without knowing the truth</div><div class="v ${audit.provenLies>=2?'good':'bad'}">${audit.provenLies}</div></div>
+       <div style="min-width:180px"><div class="k">pairs that can both be true</div>
+         <div class="v ${Object.values(audit.pairs).every(n=>n===0)?'bad':''}" style="font-size:19px">
+         ${Object.values(audit.pairs).every(n=>n===0)?'none':Object.entries(audit.pairs).filter(([,n])=>n>0).map(([k])=>k).join(', ')}</div></div>`;
+
+  // ---- the witnesses ----
+  document.getElementById('booths').innerHTML = CAST.map(T=>{
+    const w = sol[T], n = caughtNow[T]||0;
+    const rows = M.DISPUTED.map(d=>{
+      const a = w.says[d.q];
+      return `<div class="r"><span class="q">${esc(d.q)}</span><span class="a ${a===null?'nil':''}">${a===null?'—':esc(a)}</span></div>`;
+    }).join('');
+    return `<div class="booth ${n?'caught':''}">
+      <div class="w"><span>${esc(T)}</span><span class="u">U=${Math.round(100*w.u)}</span></div>
+      <div class="dims">${esc(M.DIM_NAMES[T].join(' · '))}</div>
+      <div class="says">${rows}</div>
+      <div class="m">${n?`<span class="hit">caught out ${n} time${n===1?'':'s'}</span> · `:''}${w.tied>1?`${w.tied} accounts tie for best; the witness is indifferent among them`:'unique optimum'}</div>
+    </div>`;
+  }).join('');
+
+  // ---- spectators ----
+  document.getElementById('specCard').style.display = showSpec ? '' : 'none';
+  if (showSpec && pool.length){
+    document.getElementById('specBooths').innerHTML = SP.SPECTATORS.map(S=>{
+      const best = pool.slice().sort((a,b)=>(SP.V[S](b.g)-SP.V[S](a.g))||(a.assertion<b.assertion?-1:1))[0];
+      const hits = CAST.filter(T=>sol[T].maxers.some(r=>r.assertion===best.assertion));
+      return `<div class="booth">
+        <div class="w"><span>${esc(S)}</span><span class="u">V=${Math.round(100*SP.V[S](best.g))}</span></div>
+        <div class="dims">${esc(SP.SPECTATOR_NOTE[S])} · tilt ${SP.tilt(best.g).toFixed(2)}</div>
+        <div class="says"><div class="r"><span class="q" style="grid-column:1/-1;font-family:var(--serif);font-size:13px;color:#cfc9bf">${esc(M.brief(best.g))}</span></div></div>
+        <div class="m">${hits.length?`lands on an account that ${esc(hits.join(', '))} would also accept`:'takes a position no party chose'}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // ---- coordinates ----
+  const pin = pool.length ? M.pinning(pool) : {};
+  document.getElementById('coords').innerHTML = pool.length ? M.COORDS.map(c=>{
+    const p = pin[c];
+    return `<div class="c ${p.pinned?'pin':'opn'}"><div class="k">${esc(c)} ${p.pinned?'· settled':'· open'}</div>${esc(p.values.join(' / '))}</div>`;
+  }).join('') : `<div class="note">No feasible account.</div>`;
+
+  // ---- contradiction matrix ----
+  document.getElementById('mx').innerHTML =
+    `<thead><tr><th>disputed fact</th>${CAST.map(T=>`<th>${esc(T)}</th>`).join('')}</tr></thead><tbody>` +
+    M.DISPUTED.map(d=>{
+      const vals = CAST.map(T=>sol[T].says[d.q]);
+      const clash = new Set(vals.filter(v=>v!==null)).size > 1;
+      return `<tr class="${clash?'clash':''}"><td class="q">${esc(d.q)}</td>` +
+        vals.map(v=>`<td class="${v===null?'nil':''}">${v===null?'—':esc(v)}</td>`).join('') + `</tr>`;
+    }).join('') + `</tbody>`;
+
+  // ---- the story ----
+  const turns = run.turns.filter(t=>t.caught.length||t.moved.length||t.impossible);
+  document.getElementById('story').innerHTML = turns.length ? turns.map((t,i)=>{
+    if (t.impossible) return `<div class="st"><div class="n">${i+1}</div><div class="b dead">
+      Establishing <b>${esc(M.FACTS[t.fact].note)}</b> — the file contradicts itself; no account fits it.</div></div>`;
+    const bits = [];
+    if (t.caught.length) bits.push(`<span class="caught">${esc(t.caught.join(', '))} caught out</span>`);
+    const others = t.moved.filter(x=>!t.caught.includes(x));
+    if (others.length) bits.push(`${esc(others.join(', '))} then changed too`);
+    return `<div class="st"><div class="n">${i+1}</div><div class="b">
+      you established <b>${esc(M.FACTS[t.fact].note)}</b> — ${bits.join('; ')||'nobody moved'}
+      <div class="m">ruled out ${t.eliminated} · ${t.feasible} left · ${t.audit.distinctClaims} distinct claims · at most ${t.audit.bestTogether} true at once</div>
+    </div></div>`;
+  }).join('') : `<div class="note">No turning point yet. Establish a document that rules something out.</div>`;
+
+  document.getElementById('foot').textContent =
+    `Enumerated ${space.statesExplored} states / ${space.causalSignatures} causal signatures / ${M.ALL_FACTS.length} documents ` +
+    `in ${enumMs} ms; after that, each toggle only re-filters and re-solves. The solver is the same code as the node scripts (generated by experiment-code/recon/build-ring-magistrate.mjs). No LLM.`;
+}
+
+// ---- interaction ----
+document.getElementById('facts').addEventListener('click', e=>{
+  const el = e.target.closest('.fact'); if(!el) return; toggle(el.dataset.f);
+});
+document.getElementById('facts').addEventListener('keydown', e=>{
+  if (e.key!=='Enter' && e.key!==' ') return;
+  const el = e.target.closest('.fact'); if(!el) return; e.preventDefault(); toggle(el.dataset.f);
+});
+function toggle(f){
+  facts = facts.includes(f) ? facts.filter(x=>x!==f) : [...facts, f];
+  recompute();
+}
+document.getElementById('all').onclick = ()=>{ facts = [...M.ALL_FACTS]; recompute(); };
+document.getElementById('none').onclick = ()=>{ facts = []; recompute(); };
+document.getElementById('spec').onclick = (e)=>{ showSpec=!showSpec; e.target.classList.toggle('on',showSpec); render(); };
+
+recompute();
+</script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+{
+ "generatedAt": "2026-07-31T08:02:31.945Z",
+ "beta": 0.5,
+ "gamma": 0,
+ "delta": 0.3,
+ "ladder": [
+  {
+   "fact": "corpse",
+   "caught": [],
+   "feasible": 22,
+   "moved": [],
+   "audit": {
+    "claims": [
+     "Tajomaru|strike|longsword",
+     "Tajomaru|strike|dagger",
+     "Tajomaru|strike|dagger"
+    ],
+    "distinctClaims": 2,
+    "jointlySat": false,
+    "atMostTrue": 1,
+    "provenLies": 2,
+    "indivFeasible": true,
+    "blame": [
+     {
+      "from": "Tajomaru",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Masago",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Takehiro",
+      "to": "Tajomaru"
+     }
+    ],
+    "unaccused": [
+     "Masago",
+     "Takehiro"
+    ]
+   }
+  },
+  {
+   "fact": "part",
+   "caught": [],
+   "feasible": 22,
+   "moved": [],
+   "audit": {
+    "claims": [
+     "Tajomaru|strike|longsword",
+     "Tajomaru|strike|dagger",
+     "Tajomaru|strike|dagger"
+    ],
+    "distinctClaims": 2,
+    "jointlySat": false,
+    "atMostTrue": 1,
+    "provenLies": 2,
+    "indivFeasible": true,
+    "blame": [
+     {
+      "from": "Tajomaru",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Masago",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Takehiro",
+      "to": "Tajomaru"
+     }
+    ],
+    "unaccused": [
+     "Masago",
+     "Takehiro"
+    ]
+   }
+  },
+  {
+   "fact": "rope",
+   "caught": [],
+   "feasible": 22,
+   "moved": [],
+   "audit": {
+    "claims": [
+     "Tajomaru|strike|longsword",
+     "Tajomaru|strike|dagger",
+     "Tajomaru|strike|dagger"
+    ],
+    "distinctClaims": 2,
+    "jointlySat": false,
+    "atMostTrue": 1,
+    "provenLies": 2,
+    "indivFeasible": true,
+    "blame": [
+     {
+      "from": "Tajomaru",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Masago",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Takehiro",
+      "to": "Tajomaru"
+     }
+    ],
+    "unaccused": [
+     "Masago",
+     "Takehiro"
+    ]
+   }
+  },
+  {
+   "fact": "banditGone",
+   "caught": [],
+   "feasible": 22,
+   "moved": [],
+   "audit": {
+    "claims": [
+     "Tajomaru|strike|longsword",
+     "Tajomaru|strike|dagger",
+     "Tajomaru|strike|dagger"
+    ],
+    "distinctClaims": 2,
+    "jointlySat": false,
+    "atMostTrue": 1,
+    "provenLies": 2,
+    "indivFeasible": true,
+    "blame": [
+     {
+      "from": "Tajomaru",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Masago",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Takehiro",
+      "to": "Tajomaru"
+     }
+    ],
+    "unaccused": [
+     "Masago",
+     "Takehiro"
+    ]
+   }
+  },
+  {
+   "fact": "wifePresent",
+   "caught": [],
+   "feasible": 22,
+   "moved": [],
+   "audit": {
+    "claims": [
+     "Tajomaru|strike|longsword",
+     "Tajomaru|strike|dagger",
+     "Tajomaru|strike|dagger"
+    ],
+    "distinctClaims": 2,
+    "jointlySat": false,
+    "atMostTrue": 1,
+    "provenLies": 2,
+    "indivFeasible": true,
+    "blame": [
+     {
+      "from": "Tajomaru",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Masago",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Takehiro",
+      "to": "Tajomaru"
+     }
+    ],
+    "unaccused": [
+     "Masago",
+     "Takehiro"
+    ]
+   }
+  },
+  {
+   "fact": "daggerBlood",
+   "caught": [
+    "Tajomaru"
+   ],
+   "feasible": 11,
+   "moved": [
+    "Tajomaru"
+   ],
+   "audit": {
+    "claims": [
+     "Tajomaru|strike|dagger",
+     "Tajomaru|strike|dagger",
+     "Tajomaru|strike|dagger"
+    ],
+    "distinctClaims": 1,
+    "jointlySat": true,
+    "atMostTrue": 3,
+    "provenLies": 0,
+    "indivFeasible": true,
+    "blame": [
+     {
+      "from": "Tajomaru",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Masago",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Takehiro",
+      "to": "Tajomaru"
+     }
+    ],
+    "unaccused": [
+     "Masago",
+     "Takehiro"
+    ]
+   }
+  },
+  {
+   "fact": "swordClean",
+   "caught": [],
+   "feasible": 11,
+   "moved": [],
+   "audit": {
+    "claims": [
+     "Tajomaru|strike|dagger",
+     "Tajomaru|strike|dagger",
+     "Tajomaru|strike|dagger"
+    ],
+    "distinctClaims": 1,
+    "jointlySat": true,
+    "atMostTrue": 3,
+    "provenLies": 0,
+    "indivFeasible": true,
+    "blame": [
+     {
+      "from": "Tajomaru",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Masago",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Takehiro",
+      "to": "Tajomaru"
+     }
+    ],
+    "unaccused": [
+     "Masago",
+     "Takehiro"
+    ]
+   }
+  },
+  {
+   "fact": "weapon",
+   "caught": [],
+   "feasible": 11,
+   "moved": [],
+   "audit": {
+    "claims": [
+     "Tajomaru|strike|dagger",
+     "Tajomaru|strike|dagger",
+     "Tajomaru|strike|dagger"
+    ],
+    "distinctClaims": 1,
+    "jointlySat": true,
+    "atMostTrue": 3,
+    "provenLies": 0,
+    "indivFeasible": true,
+    "blame": [
+     {
+      "from": "Tajomaru",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Masago",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Takehiro",
+      "to": "Tajomaru"
+     }
+    ],
+    "unaccused": [
+     "Masago",
+     "Takehiro"
+    ]
+   }
+  }
+ ],
+ "totalCaught": 1,
+ "deltaSweep": [
+  {
+   "delta": 0,
+   "caught": 1,
+   "story": "Tajomaru struck/dagger",
+   "distinctClaims": 1,
+   "provenLies": 0,
+   "standing": [
+    100,
+    100,
+    100
+   ]
+  },
+  {
+   "delta": 0.1,
+   "caught": 1,
+   "story": "Tajomaru struck/dagger",
+   "distinctClaims": 1,
+   "provenLies": 0,
+   "standing": [
+    90,
+    100,
+    100
+   ]
+  },
+  {
+   "delta": 0.2,
+   "caught": 1,
+   "story": "Tajomaru struck/dagger",
+   "distinctClaims": 1,
+   "provenLies": 0,
+   "standing": [
+    80,
+    100,
+    100
+   ]
+  },
+  {
+   "delta": 0.3,
+   "caught": 1,
+   "story": "Tajomaru struck/dagger",
+   "distinctClaims": 1,
+   "provenLies": 0,
+   "standing": [
+    70,
+    100,
+    100
+   ]
+  },
+  {
+   "delta": 0.5,
+   "caught": 1,
+   "story": "Takehiro suicide/dagger",
+   "distinctClaims": 1,
+   "provenLies": 0,
+   "standing": [
+    50,
+    100,
+    100
+   ]
+  },
+  {
+   "delta": 0.7,
+   "caught": 1,
+   "story": "Takehiro suicide/dagger",
+   "distinctClaims": 1,
+   "provenLies": 0,
+   "standing": [
+    30,
+    100,
+    100
+   ]
+  },
+  {
+   "delta": 1,
+   "caught": 1,
+   "story": "Masago struck/dagger + Takehiro impaled/dagger",
+   "distinctClaims": 2,
+   "provenLies": 2,
+   "standing": [
+    0,
+    100,
+    100
+   ]
+  }
+ ],
+ "order": {
+  "facts": [
+   "part",
+   "rope",
+   "daggerBlood",
+   "swordClean",
+   "weapon"
+  ],
+  "orderings": 120,
+  "outcomes": [
+   [
+    "Tajomaru struck/dagger",
+    120
+   ]
+  ],
+  "stocks": [
+   [
+    "1/0/0",
+    120
+   ]
+  ]
+ }
+}

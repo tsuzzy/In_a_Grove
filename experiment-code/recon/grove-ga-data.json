@@ -1,0 +1,28 @@
+{
+ "generatedAt": null,
+ "solver": "genetic algorithm",
+ "domain": "In a Grove",
+ "population": 40,
+ "generations": 40,
+ "seeds": 12,
+ "witnesses": {
+  "Tajomaru": {
+   "exactU": 58,
+   "bestGAU": 58,
+   "successRate": 1,
+   "medianSimulatorCalls": 305
+  },
+  "Masago": {
+   "exactU": 75,
+   "bestGAU": 75,
+   "successRate": 1,
+   "medianSimulatorCalls": 445
+  },
+  "Takehiro": {
+   "exactU": 80,
+   "bestGAU": 80,
+   "successRate": 1,
+   "medianSimulatorCalls": 1200
+  }
+ }
+}

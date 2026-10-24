@@ -1,0 +1,274 @@
+{
+ "note": "where enumeration stops, and what the sampler recovers. One entry per (parties, budget) run.",
+ "runs": {
+  "3p-400000": {
+   "parties": 3,
+   "budget": 400000,
+   "statesExplored": 5856211,
+   "causalSignatures": 2016,
+   "assertions": 972,
+   "feasible": 162,
+   "coverage": 143,
+   "truth": 162,
+   "coveragePct": 88,
+   "approxSeconds": 0.8,
+   "recoversEveryOptimalValue": true,
+   "rows": [
+    {
+     "party": "Foreman",
+     "exactU": 100,
+     "approxU": 100,
+     "sameAccount": true,
+     "gap": 0
+    },
+    {
+     "party": "Erector",
+     "exactU": 77,
+     "approxU": 77,
+     "sameAccount": false,
+     "gap": 0
+    },
+    {
+     "party": "Worker",
+     "exactU": 87,
+     "approxU": 87,
+     "sameAccount": true,
+     "gap": 0
+    }
+   ]
+  },
+  "4p-400000": {
+   "parties": 4,
+   "budget": 400000,
+   "statesExplored": 69031733,
+   "assertions": 5120,
+   "feasible": 768,
+   "coverage": 455,
+   "truth": 768,
+   "coveragePct": 59,
+   "approxSeconds": 1,
+   "recoversEveryOptimalValue": true,
+   "rows": [
+    {
+     "party": "Foreman",
+     "exactU": 100,
+     "approxU": 100,
+     "sameAccount": false,
+     "gap": 0
+    },
+    {
+     "party": "Erector",
+     "exactU": 77,
+     "approxU": 77,
+     "sameAccount": false,
+     "gap": 0
+    },
+    {
+     "party": "Worker",
+     "exactU": 87,
+     "approxU": 87,
+     "sameAccount": true,
+     "gap": 0
+    },
+    {
+     "party": "Labourer1",
+     "exactU": 55,
+     "approxU": 55,
+     "sameAccount": true,
+     "gap": 0
+    }
+   ]
+  },
+  "5p-400000": {
+   "parties": 5,
+   "budget": 400000,
+   "statesExplored": 442483261,
+   "assertions": 18750,
+   "feasible": 2500,
+   "coverage": 773,
+   "truth": 2500,
+   "coveragePct": 31,
+   "approxSeconds": 1.1,
+   "recoversEveryOptimalValue": false,
+   "rows": [
+    {
+     "party": "Foreman",
+     "exactU": 100,
+     "approxU": 100,
+     "sameAccount": false,
+     "gap": 0
+    },
+    {
+     "party": "Erector",
+     "exactU": 77,
+     "approxU": 72,
+     "sameAccount": false,
+     "gap": 5
+    },
+    {
+     "party": "Worker",
+     "exactU": 87,
+     "approxU": 87,
+     "sameAccount": true,
+     "gap": 0
+    },
+    {
+     "party": "Labourer1",
+     "exactU": 55,
+     "approxU": 55,
+     "sameAccount": false,
+     "gap": 0
+    },
+    {
+     "party": "Labourer2",
+     "exactU": 55,
+     "approxU": 55,
+     "sameAccount": false,
+     "gap": 0
+    }
+   ]
+  },
+  "5p-3000000": {
+   "parties": 5,
+   "budget": 3000000,
+   "statesExplored": 442483261,
+   "assertions": 18750,
+   "feasible": 2500,
+   "coverage": 1444,
+   "truth": 2500,
+   "coveragePct": 58,
+   "approxSeconds": 8.1,
+   "recoversEveryOptimalValue": true,
+   "rows": [
+    {
+     "party": "Foreman",
+     "exactU": 100,
+     "approxU": 100,
+     "sameAccount": false,
+     "gap": 0
+    },
+    {
+     "party": "Erector",
+     "exactU": 77,
+     "approxU": 77,
+     "sameAccount": false,
+     "gap": 0
+    },
+    {
+     "party": "Worker",
+     "exactU": 87,
+     "approxU": 87,
+     "sameAccount": true,
+     "gap": 0
+    },
+    {
+     "party": "Labourer1",
+     "exactU": 55,
+     "approxU": 55,
+     "sameAccount": true,
+     "gap": 0
+    },
+    {
+     "party": "Labourer2",
+     "exactU": 55,
+     "approxU": 55,
+     "sameAccount": false,
+     "gap": 0
+    }
+   ]
+  },
+  "6p-400000": {
+   "parties": 6,
+   "budget": 400000,
+   "statesExplored": 1969635331,
+   "assertions": 54432,
+   "feasible": 6480,
+   "coverage": 1032,
+   "truth": 6480,
+   "coveragePct": 16,
+   "approxSeconds": 1.4,
+   "recoversEveryOptimalValue": false,
+   "rows": [
+    {
+     "party": "Foreman",
+     "exactU": 100,
+     "approxU": 100,
+     "sameAccount": false,
+     "gap": 0
+    },
+    {
+     "party": "Erector",
+     "exactU": 77,
+     "approxU": 72,
+     "sameAccount": false,
+     "gap": 5
+    },
+    {
+     "party": "Worker",
+     "exactU": 87,
+     "approxU": 87,
+     "sameAccount": true,
+     "gap": 0
+    },
+    {
+     "party": "Labourer1",
+     "exactU": 55,
+     "approxU": 55,
+     "sameAccount": false,
+     "gap": 0
+    },
+    {
+     "party": "Labourer2",
+     "exactU": 55,
+     "approxU": 55,
+     "sameAccount": false,
+     "gap": 0
+    },
+    {
+     "party": "Labourer3",
+     "exactU": 55,
+     "approxU": 55,
+     "sameAccount": false,
+     "gap": 0
+    }
+   ]
+  },
+  "3p-3000000-uniform": {
+   "parties": 3,
+   "budget": 3000000,
+   "uniform": true,
+   "statesExplored": 5856211,
+   "causalSignatures": 2016,
+   "assertions": 972,
+   "feasible": 162,
+   "coverage": 117,
+   "truth": 162,
+   "coveragePct": 72,
+   "approxSeconds": 5.7,
+   "recoversEveryOptimalValue": false,
+   "rows": [
+    {
+     "party": "Foreman",
+     "exactU": 100,
+     "approxU": 100,
+     "sameAccount": false,
+     "gap": 0
+    },
+    {
+     "party": "Erector",
+     "exactU": 77,
+     "approxU": 72,
+     "sameAccount": false,
+     "gap": 5
+    },
+    {
+     "party": "Worker",
+     "exactU": 87,
+     "approxU": 87,
+     "sameAccount": true,
+     "gap": 0
+    }
+   ]
+  }
+ }
+}

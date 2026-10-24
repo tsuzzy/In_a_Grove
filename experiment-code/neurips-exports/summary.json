@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-07-23T01:51:06.148Z",
+  "runs": 2,
+  "turnsPerRun": 5,
+  "perRun": [
+    {
+      "run": 1,
+      "finalModel": "zai-glm-4.7+script-scenes",
+      "llmSceneTurns": 5,
+      "totalSceneTurns": 5,
+      "cast": [
+        "Tajomaru",
+        "Masago",
+        "Takehiro"
+      ],
+      "endingPreview": "*The longsword lies hidden in the shadows, removing the poss"
+    },
+    {
+      "run": 2,
+      "finalModel": "zai-glm-4.7+script-scenes",
+      "llmSceneTurns": 2,
+      "totalSceneTurns": 5,
+      "cast": [
+        "Tajomaru",
+        "Masago",
+        "Takehiro"
+      ],
+      "endingPreview": "*The grove is silent, save for the heavy breathing of the me"
+    }
+  ],
+  "usableForSubmission": true
+}

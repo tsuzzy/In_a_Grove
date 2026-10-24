@@ -1,0 +1,88 @@
+{
+ "solver": "constrained beam search",
+ "width": 32,
+ "horizon": 7,
+ "witnesses": {
+  "Tajomaru": {
+   "bestU": 58,
+   "calls": 175,
+   "reached": true,
+   "history": [
+    {
+     "type": "cut_rope",
+     "actor": "Masago",
+     "object": "dagger"
+    },
+    {
+     "type": "flee",
+     "actor": "Tajomaru"
+    },
+    {
+     "type": "impale_on_held",
+     "actor": "Takehiro",
+     "object": "dagger",
+     "part": "throat"
+    },
+    {
+     "type": "take",
+     "actor": "Masago",
+     "object": "longsword"
+    }
+   ]
+  },
+  "Masago": {
+   "bestU": 75,
+   "calls": 175,
+   "reached": true,
+   "history": [
+    {
+     "type": "cut_rope",
+     "actor": "Masago",
+     "object": "dagger"
+    },
+    {
+     "type": "flee",
+     "actor": "Tajomaru"
+    },
+    {
+     "type": "impale_on_held",
+     "actor": "Takehiro",
+     "object": "dagger",
+     "part": "throat"
+    },
+    {
+     "type": "take",
+     "actor": "Masago",
+     "object": "longsword"
+    }
+   ]
+  },
+  "Takehiro": {
+   "bestU": 73,
+   "calls": 171,
+   "reached": true,
+   "history": [
+    {
+     "type": "cut_rope",
+     "actor": "Masago",
+     "object": "dagger"
+    },
+    {
+     "type": "flee",
+     "actor": "Tajomaru"
+    },
+    {
+     "type": "impale_on_held",
+     "actor": "Takehiro",
+     "object": "dagger",
+     "part": "throat"
+    },
+    {
+     "type": "take",
+     "actor": "Masago",
+     "object": "longsword"
+    }
+   ]
+  }
+ }
+}

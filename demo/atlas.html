@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In a Grove, Again — Rashomon Manifold</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#141417; --panel2:#191920; --ink:#ece8e1; --muted:#9b958c;
+    --line:#2a2a30; --accent:#b8893f; --blood:#8a2f2f;
+    --death:#a8364a; --severance:#b8893f; --unresolved:#5f6b78; --other:#444;
+    --serif:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.6;
+    -webkit-font-smoothing:antialiased;font-size:16px}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1280px;margin:0 auto;padding:26px 22px 80px}
+  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:18px}
+  .kicker{font-family:var(--sans);letter-spacing:.22em;text-transform:uppercase;font-size:11px;color:var(--muted);margin-bottom:12px}
+  h1{font-size:clamp(26px,4vw,40px);line-height:1.1;margin:0 0 10px;font-weight:600}
+  .lede{color:#cfc9bf;max-width:70ch;font-size:16.5px;margin:0}
+  .finding{font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:14px;
+    border-left:2px solid var(--blood);padding-left:14px;max-width:90ch}
+  .finding b{color:#cfc9bf;font-weight:600}
+
+  .layout{display:grid;grid-template-columns:1.35fr 1fr;gap:22px;align-items:start}
+  @media (max-width:880px){.layout{grid-template-columns:1fr}}
+
+  .stage{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 6px 4px;position:relative}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-family:var(--sans);font-size:12px;color:var(--muted);
+    padding:8px 12px 4px}
+  .legend .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  svg{width:100%;height:auto;display:block}
+  .node{cursor:pointer}
+  .node circle{transition:r .12s ease, stroke-width .12s ease}
+  .node:hover circle{stroke:#fff;stroke-width:2.5}
+  .node.sel circle{stroke:#fff;stroke-width:3}
+  .node text{font-family:var(--sans);font-size:11px;fill:var(--muted);pointer-events:none}
+  .node.sel text{fill:var(--ink)}
+  .edge{fill:none;stroke:var(--line);stroke-width:1.2}
+  .edge.death{stroke:rgba(168,54,74,.5)}
+  .zoneLabel{font-family:var(--sans);font-size:12px;letter-spacing:.06em;fill:var(--ink);text-anchor:middle;font-weight:600}
+  .zoneSub{font-family:var(--sans);font-size:10.5px;fill:var(--muted);text-anchor:middle}
+  .bandLabel{font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;fill:#54545e;text-anchor:start}
+  .rootLabel{font-family:var(--sans);font-size:11.5px;fill:var(--ink);text-anchor:middle;font-weight:600}
+  .divider{stroke:var(--line);stroke-dasharray:3 5}
+
+  /* detail panel */
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;position:sticky;top:14px}
+  .panel .hint{color:var(--muted);font-size:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+  .chip{font-family:var(--sans);font-size:11px;letter-spacing:.04em;border-radius:999px;padding:4px 11px;border:1px solid var(--line);color:var(--muted)}
+  .chip.kind-death{border-color:var(--death);color:#e7a3af}
+  .chip.kind-severance{border-color:var(--severance);color:#e7c79a}
+  .chip.kind-unresolved{border-color:var(--unresolved);color:#aab4c0}
+  .chip.cfg{color:var(--accent);border-color:rgba(184,137,63,.5)}
+  .chip.warn{color:#e7a3af;border-color:var(--death)}
+  .oc{font-size:20px;font-weight:600;margin:2px 0 14px;line-height:1.25}
+  .ending{font-style:italic;color:#ddd7cd;border-left:2px solid var(--blood);padding:4px 0 4px 16px;margin:0 0 18px;font-size:15.5px}
+
+  h3.sec{font-size:12px;font-family:var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);
+    font-weight:600;margin:22px 0 6px}
+  .spineCard{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin-bottom:6px;font-size:14px}
+  .spineCard .nm{font-weight:600}
+  .spineCard .gl{color:var(--muted);font-size:13px;font-style:italic;margin-top:4px}
+
+  .chain{position:relative;margin:10px 0 6px;padding-left:18px}
+  .chain:before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .step{position:relative;margin:0 0 14px}
+  .step:before{content:"";position:absolute;left:-16px;top:5px;width:9px;height:9px;border-radius:50%;
+    background:var(--accent);border:2px solid var(--bg)}
+  .step.fb:before{background:#3a3a42}
+  .step .t{font-family:var(--sans);font-size:11px;letter-spacing:.06em;color:var(--muted)}
+  .step .obj{font-family:var(--sans);font-size:10.5px;color:#cdb98c;border:1px solid rgba(184,137,63,.35);
+    border-radius:6px;padding:1px 7px;margin-left:8px}
+  .step .conceal{color:#c98b8b;font-size:13.5px;margin-top:3px}
+  .step .conceal b{font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#a85a5a;font-weight:600;margin-right:6px}
+  .step .intent{color:var(--muted);font-size:13px;margin-top:3px}
+  .step .line{font-style:italic;color:#e6e0d6;font-size:14.5px;margin-top:5px}
+  .step .gloss{font-family:var(--sans);color:var(--muted);font-size:12.5px;margin-top:3px}
+  .step.fb{opacity:.62}
+  .step.fb .note{font-family:var(--sans);font-size:11px;color:#7a6f6f;margin-top:3px}
+
+  .fallnote{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:6px}
+  details.full{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
+  details.full summary{font-family:var(--sans);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);cursor:pointer}
+  .prose{margin-top:12px;font-size:14.5px;max-height:360px;overflow:auto;padding-right:8px}
+  .prose h4{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:16px 0 4px}
+  .prose .spk{color:var(--accent);font-family:var(--sans);font-size:12px;font-weight:600}
+  .prose em{color:#cfc9bf}
+  footer{margin-top:26px;color:var(--muted);font-family:var(--sans);font-size:12px;border-top:1px solid var(--line);padding-top:14px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">In a Grove, Again · Rashomon Manifold</div>
+    <h1>The same frozen instant, made walkable</h1>
+    <p class="lede">One fixed moment from Akutagawa&rsquo;s <em>In a Grove</em>, replayed. No one wrote a word of any single ending — the divergence comes entirely from three agents acting on private goals, turn by turn. Open any resolved leaf and a <b>responsibility line</b> surfaces: which agent, on which turn, concealed or revealed what, and carried the instant to that end.</p>
+    <p class="finding" id="finding"></p>
+  </header>
+
+  <div class="layout">
+    <div>
+      <div class="stage">
+        <div class="legend">
+          <span><span class="dot" style="background:var(--death)"></span>Death</span>
+          <span><span class="dot" style="background:var(--severance)"></span>Severance / flight</span>
+          <span><span class="dot" style="background:var(--unresolved)"></span>Unresolved / standoff</span>
+          <span style="margin-left:auto">each dot = one real run</span>
+        </div>
+        <svg id="atlas" viewBox="0 0 1000 660" preserveAspectRatio="xMidYMid meet" aria-label="Rashomon manifold"></svg>
+      </div>
+    </div>
+
+    <aside class="panel" id="panel">
+      <div id="empty">
+        <div class="chips"><span class="chip">Fixed opening · identical for every run</span></div>
+        <p class="ending" id="opening"></p>
+        <p class="hint">Core conflict: <span id="conflict"></span></p>
+        <p class="hint" style="margin-top:18px">&larr; Open any leaf on the left to see that run&rsquo;s ending and its responsibility line.</p>
+      </div>
+      <div id="detail" style="display:none"></div>
+    </aside>
+  </div>
+
+  <footer id="footer"></footer>
+</div>
+
+<script src="atlas-data.js"></script>
+<script src="fallback-glosses.js"></script>
+<script>
+const A = window.ATLAS;
+const KIND_LABEL = {death:'Death', severance:'Severance', unresolved:'Unresolved', other:'Other'};
+const KIND_COLOR = {death:'var(--death)', severance:'var(--severance)', unresolved:'var(--unresolved)', other:'var(--other)'};
+
+// ---- header text ----
+document.getElementById('opening').textContent = A.opening;
+document.getElementById('conflict').textContent = A.conflict;
+(function(){
+  const b = A.summary["B'"]||{byKind:{},deaths:0}, p = A.summary["pre-B'"]||{byKind:{},deaths:0};
+  const kc = (s)=>Object.entries(s.byKind||{}).map(([k,v])=>v+'×'+KIND_LABEL[k].toLowerCase()).join(' / ');
+  document.getElementById('finding').innerHTML =
+    `What the map shows at a glance: the <b>strong-pressure layer</b> (pre-B′) forces deaths (${p.deaths} of them, every one initiated by Masago) but compresses the space; `+
+    `the <b>frozen-B′ layer</b> protects the possibility space, yielding rich unresolved states (${kc(b)}), yet has produced <b>no death so far</b>. That is a result, not a bug.`;
+})();
+
+// ---- layout ----
+const W=1000,H=660, rootX=500, rootY=46;
+const ZONE = {"B'":{cx:265,label:"Frozen B′",sub:"honest batch · director changes only the environment"}, "pre-B'":{cx:735,label:"Strong pressure (pre-B′)",sub:"dev archive · resolution pressure"}};
+const BAND = {death:150, severance:320, unresolved:470, other:585};
+const BAND_NAMES = [['death','Death',150],['severance','Severance / flight',320],['unresolved','Unresolved / standoff',470]];
+
+// group runs by zone+kind, assign x spread
+const groups = {};
+for (const r of A.runs){ const k=r.config+'|'+r.kind; (groups[k]=groups[k]||[]).push(r); }
+const pos = {};
+for (const key in groups){
+  const arr = groups[key]; const [cfg,kind]=key.split('|'); const cx=ZONE[cfg].cx; const by=BAND[kind]||585;
+  const n=arr.length, sp=Math.min(150, 380/Math.max(n,1));
+  arr.forEach((r,i)=>{ pos[r.key]={x: cx + (i-(n-1)/2)*sp, y: by, r}; });
+}
+
+const svg = document.getElementById('atlas');
+const NS='http://www.w3.org/2000/svg';
+function el(name,attrs,parent){const e=document.createElementNS(NS,name);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+
+// vertical divider between zones
+el('line',{x1:500,y1:96,x2:500,y2:H-30,class:'divider'},svg);
+// zone labels
+for (const cfg in ZONE){ const z=ZONE[cfg];
+  el('text',{x:z.cx,y:88,class:'zoneLabel'},svg).textContent=z.label;
+  el('text',{x:z.cx,y:104,class:'zoneSub'},svg).textContent=z.sub;
+}
+// band labels (left edge)
+for (const [k,name,y] of BAND_NAMES){ el('text',{x:24,y:y+4,class:'bandLabel'},svg).textContent=name; }
+
+// root node
+el('text',{x:rootX,y:rootY-14,class:'rootLabel'},svg).textContent='the same frozen instant';
+el('text',{x:rootX,y:rootY-1,class:'zoneSub'},svg).textContent='every run begins here';
+el('circle',{cx:rootX,cy:rootY+14,r:8,fill:'#e9e2d5',stroke:'#000','stroke-width':1},svg);
+
+// edges + leaf nodes
+for (const r of A.runs){
+  const p=pos[r.key]; if(!p)continue;
+  const midY=(rootY+14+p.y)/2;
+  el('path',{d:`M ${rootX} ${rootY+22} C ${rootX} ${midY}, ${p.x} ${midY}, ${p.x} ${p.y}`,class:'edge'+(r.kind==='death'?' death':'')},svg);
+}
+for (const r of A.runs){
+  const p=pos[r.key]; if(!p)continue;
+  const g=el('g',{class:'node','data-key':r.key,tabindex:0,role:'button'},svg);
+  const tt=el('title',{},g); tt.textContent=`[${r.config}] ${r.id} — ${r.outcomeEn}`;
+  el('circle',{cx:p.x,cy:p.y,r:14,fill:KIND_COLOR[r.kind],stroke:'#0c0c0e','stroke-width':1.5},g);
+  if (r.fallbackRate>=0.5){ el('circle',{cx:p.x+12,cy:p.y-12,r:5,fill:'#000',stroke:'#e7a3af','stroke-width':1.4},g);
+    el('text',{x:p.x+12,y:p.y-9,'text-anchor':'middle','font-size':'8','fill':'#e7a3af','font-family':'var(--sans)'},g).textContent='!'; }
+  el('text',{x:p.x,y:p.y+28,'text-anchor':'middle'},g).textContent=r.id;
+  g.addEventListener('click',()=>select(r.key));
+  g.addEventListener('keypress',(e)=>{if(e.key==='Enter')select(r.key)});
+}
+
+// ---- detail rendering ----
+function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function renderProse(md){
+  const lines=(md||'').split('\n'); let out='';
+  for (let ln of lines){
+    if(/^##\s+/.test(ln)){ out+='<h4>'+esc(ln.replace(/^##\s+/,''))+'</h4>'; continue; }
+    if(/^#\s+/.test(ln)){ out+='<h4>'+esc(ln.replace(/^#\s+/,''))+'</h4>'; continue; }
+    let t=esc(ln);
+    t=t.replace(/\*\*(.+?)\*\*/g,'<span class="spk">$1</span>');
+    t=t.replace(/\*(.+?)\*/g,'<em>$1</em>');
+    if(t.trim()) out+='<p style="margin:6px 0">'+t+'</p>';
+  }
+  return out;
+}
+
+function select(key){
+  document.querySelectorAll('.node').forEach(n=>n.classList.toggle('sel', n.getAttribute('data-key')===key));
+  const r = A.runs.find(x=>x.key===key); if(!r) return;
+  document.getElementById('empty').style.display='none';
+  const d = document.getElementById('detail'); d.style.display='block';
+
+  const fbPct=Math.round(r.fallbackRate*100);
+  const info = r.agentInfo[r.spine]||{};
+  const chain = (r.chains[r.spine]||[]);
+
+  let chainHtml='';
+  for (const s of chain){
+    if (s.fallback){
+      chainHtml += `<div class="step fb"><div class="t">Turn ${s.turn} · ${esc(s.clock)}</div>`+
+        `<div class="note">system fallback turn (model call failure) — excluded from attribution</div>`+
+        (s.line?`<div class="line">${esc(s.line)}</div>`:'')+
+        (s.line&&(window.FALLBACK_GLOSSES||{})[s.line]?`<div class="gloss">English gloss: ${esc(window.FALLBACK_GLOSSES[s.line])}</div>`:'')+`</div>`;
+      continue;
+    }
+    chainHtml += `<div class="step"><div class="t">Turn ${s.turn} · ${esc(s.clock)}`+
+      (s.object?`<span class="obj">acts on ${esc(s.object)}</span>`:'')+`</div>`+
+      (s.concealed?`<div class="conceal"><b>conceals</b>${esc(s.concealed)}</div>`:'')+
+      (s.intent?`<div class="intent">${esc(s.intent)}</div>`:'')+
+      (s.line?`<div class="line">&ldquo;${esc(s.line)}&rdquo;</div>`:'')+
+      `</div>`;
+  }
+
+  const spineNote = (r.initiator && r.initiator!=='contested')
+    ? `${esc(r.spine)} initiated this irreversible ending. Below is the chain of decisions ${esc(r.spine)} had already committed — the outcome traces back here, not to anything the narrator invented.`
+    : (r.initiator==='contested'
+        ? `Responsibility here is split (intent, weapon, and hand belong to different people). Below is the decision chain of the agent who withheld the most (${esc(r.spine)}).`
+        : `This instant never resolved. Below is the decision chain of the agent who withheld the most (${esc(r.spine)}) — how ${esc(r.spine)} kept the scene suspended.`);
+
+  d.innerHTML =
+    `<div class="chips">`+
+      `<span class="chip cfg">${esc(r.configLabel)}</span>`+
+      `<span class="chip kind-${r.kind}">${KIND_LABEL[r.kind]}</span>`+
+      `<span class="chip">${esc(r.id)} · ${esc(r.finalModel)}</span>`+
+      `<span class="chip ${fbPct>=50?'warn':''}">system fallback ${fbPct}%${fbPct>=50?' · degenerate run':''}</span>`+
+    `</div>`+
+    `<div class="oc">${esc(r.outcomeEn)}</div>`+
+    `<div class="ending">${esc(r.endingProse.replace(/^\*|\*$/g,''))}</div>`+
+    `<h3 class="sec">Responsibility line</h3>`+
+    `<div class="spineCard"><span class="nm">${esc(r.spine)}</span> <span style="color:var(--muted);font-family:var(--sans);font-size:12px">${esc(info.role||'')}</span>`+
+      (info.hiddenIdentity?`<div class="gl">Conceals: ${esc(info.hiddenIdentity)}</div>`:'')+
+      (info.shortTermGoal?`<div class="gl">Goal: ${esc(info.shortTermGoal)}</div>`:'')+
+    `</div>`+
+    `<p class="fallnote">${spineNote}</p>`+
+    `<div class="chain">${chainHtml}</div>`+
+    `<p class="fallnote">This run logged ${r.moveCount} decisions; ${r.fallbackTurns.length} were system fallbacks (turn ${r.fallbackTurns.join(', ')||'—'}), greyed above and excluded from attribution.</p>`+
+    `<details class="full"><summary>Full prose</summary><div class="prose">${renderProse(r.fullProse)}</div></details>`;
+  d.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// deep-link: ?leaf=<key> (e.g. ?leaf=pre-B'/run-06) auto-selects a leaf on load
+(function(){
+  const q=new URLSearchParams(location.search).get('leaf');
+  if(q && A.runs.some(r=>r.key===q)) select(q);
+})();
+
+// footer
+document.getElementById('footer').innerHTML =
+  `Generated ${esc((A.generatedAt||'').slice(0,10))} · ${A.runs.length} real runs, all retained, none cherry-picked.`+
+  `<br>${esc(A.honesty)}`;
+</script>
+</body>
+</html>

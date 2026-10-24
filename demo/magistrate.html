@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In a Grove, Again — The Magistrate's File</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#141417; --panel2:#191920; --ink:#ece8e1; --muted:#9b958c;
+    --line:#2a2a30; --accent:#b8893f; --good:#7d9c7d; --bad:#a8364a; --info:#5b7f96; --warn:#c9a227;
+    --serif:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:1320px;margin:0 auto;padding:24px 20px 70px}
+  header{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:20px}
+  .kicker{font-family:var(--sans);letter-spacing:.22em;text-transform:uppercase;font-size:11px;color:var(--muted);margin-bottom:10px}
+  h1{font-size:clamp(24px,3.6vw,36px);line-height:1.12;margin:0 0 9px;font-weight:600}
+  .lede{color:#cfc9bf;max-width:88ch;font-size:16px}
+  .lede b{color:#ece8e1}
+  h2{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 10px;font-weight:600}
+  h2 span{color:var(--muted);letter-spacing:0;text-transform:none;font-size:12px;margin-left:8px}
+
+  .cols{display:grid;grid-template-columns:340px 1fr;gap:18px;align-items:start}
+  @media (max-width:1000px){.cols{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+
+  /* the file */
+  .fact{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:8px 0;border-top:1px solid #1d1d23;cursor:pointer}
+  .fact:first-of-type{border-top:0}
+  .fact:hover{background:rgba(184,137,63,.04)}
+  .box{width:15px;height:15px;border:1px solid #3a3a44;border-radius:4px;margin-top:4px;flex:none;position:relative}
+  .fact.on .box{background:var(--accent);border-color:var(--accent)}
+  .fact.on .box:after{content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #14140f;border-width:0 2px 2px 0;transform:rotate(42deg)}
+  .fact .nm{font-size:14.5px}
+  .fact.on .nm{color:#f0e6d6}
+  .fact .pv{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:2px}
+  .fact .pv .cut{color:#d2a15f}
+  .fact .pv .nil{color:#5c5750}
+  .fact .ord{font-family:var(--sans);font-size:10px;color:var(--accent);margin-left:6px}
+
+  /* sliders */
+  .sl{margin-bottom:14px}
+  .sl .top{display:flex;justify-content:space-between;font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-bottom:3px}
+  .sl .top b{color:#e7c79a;font-size:13px}
+  input[type=range]{width:100%;accent-color:var(--accent);background:transparent}
+  .marks{position:relative;height:14px;font-family:var(--sans);font-size:9.5px;color:#6f6a63}
+  .marks i{position:absolute;transform:translateX(-50%);font-style:normal;white-space:nowrap}
+  .marks i:before{content:"";position:absolute;left:50%;top:-4px;width:1px;height:4px;background:#4a4a54}
+  .marks i.hot{color:var(--bad)}
+
+  /* record */
+  .rec{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end}
+  .rec div{min-width:84px}
+  .rec .k{font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .rec .v{font-size:25px;font-weight:600;color:#e7c79a;line-height:1.2}
+  .rec .v.good{color:#9fc09f} .rec .v.bad{color:#e7a3af}
+  .claims{margin-top:12px;display:grid;gap:7px}
+  .cl{background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--line);border-radius:0 9px 9px 0;padding:8px 12px;font-size:14px}
+  .cl.caught{border-left-color:var(--bad)}
+  .cl .w{font-family:var(--sans);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+  .cl .m{font-family:var(--sans);font-size:10.5px;color:var(--muted);margin-top:2px}
+
+  /* transcript */
+  .tr{max-height:520px;overflow-y:auto;border:1px solid var(--line);border-radius:11px;background:var(--panel)}
+  .rnd{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#6f6a63;padding:9px 16px 4px;position:sticky;top:0;background:var(--panel)}
+  .rnd.ev{color:var(--bad);background:linear-gradient(90deg,rgba(168,54,74,.12),var(--panel))}
+  .mv{padding:6px 16px;border-top:1px solid #1a1a20;font-size:14px}
+  .mv .who{font-family:var(--sans);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:inline-block;width:76px}
+  .mv .act{font-family:var(--sans);font-size:10px;color:var(--muted);margin-right:6px}
+  .mv.refuted{background:rgba(168,54,74,.07)}
+  .mv .strike{color:#8f8a83;text-decoration:line-through}
+  .pill{display:inline-block;font-family:var(--sans);font-size:9.5px;border:1px solid var(--line);border-radius:999px;padding:0 7px;margin-left:5px;color:var(--muted)}
+  .pill.st{border-color:rgba(168,54,74,.5);color:#d09aa4}
+
+  /* three columns, one per witness — output only */
+  .booths{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media (max-width:1100px){.booths{grid-template-columns:1fr}}
+  .booth{background:var(--panel);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;min-height:300px}
+  .booth h3{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);padding:11px 14px 8px;font-weight:600;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+  .booth h3 em{font-style:normal;font-size:10px;color:var(--muted);letter-spacing:0;text-transform:none}
+  .booth.hit h3{color:#e7a3af}
+  .feed{flex:1;overflow-y:auto;max-height:430px;padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+  .bub{border-radius:11px;padding:7px 11px;font-size:13.5px;line-height:1.55;max-width:96%;
+       animation:rise .28s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .bub.think{background:#17171c;color:#b9b3aa;font-style:italic}
+  .bub.say{background:#20202a;color:#ece8e1;border-left:2px solid var(--accent)}
+  .bub.cost{background:transparent;color:#8f8a83;font-size:12.5px;padding:2px 11px}
+  .bub.blow{background:rgba(168,54,74,.14);color:#e7a3af;border-left:2px solid var(--bad)}
+  .strip{font-family:var(--sans);font-size:10px;color:#6f6a63;padding:6px 13px 10px;border-top:1px solid var(--line)}
+  .strip b{color:#cfc9bf}
+  .typing{display:inline-flex;gap:3px;padding:8px 11px}
+  .typing i{width:4px;height:4px;border-radius:50%;background:#5a5560;animation:blink 1s infinite}
+  .typing i:nth-child(2){animation-delay:.2s} .typing i:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,60%,100%{opacity:.25}30%{opacity:1}}
+  .bench{font-family:var(--sans);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--bad);
+         text-align:center;padding:4px 0;border-top:1px solid rgba(168,54,74,.3);border-bottom:1px solid rgba(168,54,74,.3);margin:2px 0}
+
+  .story{display:grid;gap:6px;font-size:14px}
+  .st{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:7px 0;border-top:1px solid #1d1d23}
+  .st:first-child{border-top:0}
+  .st .n{font-family:var(--sans);font-size:10px;color:var(--muted);padding-top:4px}
+  .st .b b{color:#f0e6d6}
+  .st .caught{color:#e7a3af}
+  .note{color:var(--muted);font-size:13px;margin-top:10px}
+  .btn{font-family:var(--sans);font-size:11.5px;padding:5px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);cursor:pointer;background:var(--panel2)}
+  .btn:hover{color:#e6e0d6;border-color:var(--accent)}
+  footer{margin-top:26px;color:var(--muted);font-family:var(--sans);font-size:11.5px;border-top:1px solid var(--line);padding-top:13px;line-height:1.7;max-width:104ch}
+  footer b{color:#cfc9bf}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Agent Society · The Magistrate's File</div>
+    <h1>You hold the file. They are still talking.</h1>
+    <p class="lede">Three witnesses to one death, each wanting a different thing from the record, none of them told to lie. They speak in turn and revise as they hear each other. <b>You establish the facts</b>, one at a time, while they are mid-testimony — and when a fact destroys the account somebody is standing on, they are caught out in front of everyone and must say something else. The two scene buttons do it the paper's way: the whole file is on record before anyone speaks, and facts you click after that arrive mid-testimony. Every account on this page is a complete history the grove's physics permits; nothing is generated text. <b>Watch what your own evidence does to the record you are trying to audit.</b></p>
+  </header>
+
+  <div class="cols">
+    <div>
+      <div class="card">
+        <h2>The file <span>click to establish · click again to withdraw</span></h2>
+        <div id="facts"></div>
+        <div style="margin-top:12px;display:flex;gap:7px;flex-wrap:wrap">
+          <span class="btn" id="clear">empty the file</span>
+          <span class="btn" id="loadRun06">our run-06 scene</span>
+          <span class="btn" id="loadAku">Akutagawa's scene</span>
+        </div>
+        <div class="note" id="fileNote"></div>
+      </div>
+
+      <div class="card">
+        <h2>The witnesses <span>what each cares about</span></h2>
+        <div class="sl">
+          <div class="top"><span>β — how much they want to be believed</span><b id="bv">0.50</b></div>
+          <input type="range" id="beta" min="0" max="1" step="0.05" value="0.5">
+          <div class="marks" id="bm"></div>
+        </div>
+        <div class="sl">
+          <div class="top"><span>γ — held to their own opening</span><b id="gv">0.00</b></div>
+          <input type="range" id="gamma" min="0" max="1" step="0.025" value="0">
+          <div class="marks" id="gm"></div>
+        </div>
+        <div class="sl">
+          <div class="top"><span>δ — price of being caught out</span><b id="dv">0.30</b></div>
+          <input type="range" id="delta" min="0" max="1" step="0.05" value="0.3">
+          <div class="marks" id="dm"></div>
+        </div>
+        <div class="note">At <b>β=0</b> nothing but self-interest matters and the other two dials do nothing — that is the published problem, untouched.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2>The record <span>as it stands</span></h2>
+        <div class="rec" id="rec"></div>
+        <div class="claims" id="claims"></div>
+      </div>
+
+      <div class="card">
+        <h2>What each of them is thinking <span id="narrMode">output only · they cannot hear this</span></h2>
+        <div class="booths" id="booths"></div>
+      </div>
+
+      <div class="card">
+        <h2>The story <span>every turning point, in the order you caused it</span></h2>
+        <div class="story" id="story"></div>
+      </div>
+
+      <div class="card">
+        <h2>The hearing <span>every move, appended</span></h2>
+        <div class="tr" id="tr"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script src="magistrate-bundle.js"></script>
+<script>
+const { magistrate: M, evidence: EV, domain: D, narrate: NT } = window.GROVE;
+const CAST = M.CAST;
+const esc = s => String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+const t0 = performance.now();
+const space = M.buildSpace({ 'run-06': D.AFTERMATH["pre-B'/run-06"], akutagawa: D.AFTERMATH['akutagawa/canonical'] });
+const enumMs = Math.round(performance.now() - t0);
+
+// the page state: the facts on file before anyone speaks (a loaded scene, as in the paper's
+// protocol), an ORDERED list of facts established during testimony, and the three dials
+let known = [];
+let facts = ['corpse'];
+let opt = { part: 'throat' };
+const dial = { beta: 0.5, gamma: 0, delta: 0.3 };
+let run = null;
+
+const shortClaim = k => {
+  const [a,t,w] = k.split('|');
+  const how = t==='self_strike' ? 'killed himself' : t==='impale_on_held' ? 'fell on the blade' : 'struck the blow';
+  return `${a} ${how} · ${w==='longsword'?'sword':'dagger'}`;
+};
+const params = () => ({ beta: dial.beta, gamma: dial.gamma, delta: dial.delta });
+
+// narration comes from the local proxy, which holds the key; with no proxy the page falls
+// back to the template renderer the solver drives. Either way the NUMBERS beside each line
+// come from the solver, never from a model.
+// what actually wrote the last batch of lines — NOT whether the proxy answered. The proxy
+// answers even with no key, from the template renderer, and the page must not claim a model
+// voiced something it did not.
+let narrSource = null;   // null = nothing narrated yet | 'model' | 'template'
+let narrateOK = null;    // whether the proxy is reachable at all
+async function narrate(witness, moves, ctx){
+  if (narrateOK === false || !moves.length) return null;
+  try {
+    const res = await fetch('/api/narrate', { method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ witness, moves, ctx }) });
+    if (!res.ok) throw new Error(res.status);
+    narrateOK = true;
+    const j = await res.json();
+    if (j && j.source) narrSource = j.source;
+    return j;
+  } catch { narrateOK = false; return null; }
+}
+
+let runToken = 0;   // cancels an animation still playing when you toggle again
+function recompute(){
+  run = M.replay({ space, known, facts, params: params(), opt, explain: true });
+  render();
+  playBooths(++runToken);
+}
+
+function render(){
+  const dead = !!run.impossible;
+  const audit = M.jointAudit(run.state.profile);
+  const caughtNow = {};
+  for (const T of CAST) caughtNow[T] = run.state.refutations[T] || 0;
+
+  // ---- the file, with a live preview on every unestablished fact ----
+  document.getElementById('facts').innerHTML = EV.FACT_KEYS.map(f=>{
+    const pre = known.includes(f);
+    const on = pre || facts.includes(f);
+    const ord = facts.includes(f) ? facts.indexOf(f)+1 : null;
+    let pv = '';
+    if (pre) pv = `<span class="nil">on file before the hearing opened</span>`;
+    else if (on) pv = `<span class="nil">established</span>`;
+    else {
+      const p = M.preview(run, { space, fact: f, params: params(), opt });
+      if (p.impossible) pv = `<span class="cut">no scene fits this file</span>`;
+      else if (!p.eliminates) pv = `<span class="nil">rules nothing out</span>`;
+      else pv = `rules out <b>${p.eliminates}</b> of ${p.feasibleBefore}` +
+        (p.wouldCatch.length ? ` · <span class="cut">catches ${esc(p.wouldCatch.join(', '))}</span>` : '');
+    }
+    return `<div class="fact ${on?'on':''}" data-f="${f}">
+      <div class="box"></div>
+      <div><div class="nm">${esc(EV.FACTS[f].note)}${ord?`<span class="ord">#${ord}</span>`:''}</div>
+      <div class="pv">${pv}</div></div></div>`;
+  }).join('');
+
+  // ---- the record ----
+  document.getElementById('rec').innerHTML = dead
+    ? `<div style="min-width:100%"><div class="k">this file</div><div class="v bad" style="font-size:19px">no scene fits it</div>
+       <div style="font-size:14px;color:#cfc9bf;margin-top:6px;max-width:60ch">Nothing the grove permits produces all of these facts at once — establishing
+       <b>${esc(EV.FACTS[run.impossible]?.note || run.impossible)}</b> contradicts the file. The record below is frozen at the last consistent state.</div></div>`
+    : `<div><div class="k">accounts still standing</div><div class="v">${run.pool.length}</div></div>
+     <div><div class="k">distinct claims</div><div class="v">${audit.distinctClaims} <span style="font-size:14px;color:var(--muted)">of 3</span></div></div>
+     <div><div class="k">provable lies, without knowing the truth</div><div class="v ${audit.provenLies===2?'good':'bad'}">${audit.provenLies}</div></div>
+     <div><div class="k">the auditor's proof</div><div class="v ${audit.provenLies===2?'good':'bad'}" style="font-size:19px">${audit.provenLies===2?'holds':'is gone'}</div></div>`;
+
+  document.getElementById('claims').innerHTML = CAST.map(T=>{
+    const r = run.state.profile[T];
+    const n = caughtNow[T];
+    return `<div class="cl ${n?'caught':''}">
+      <div class="w">${esc(T)}</div>${esc(M.claimKey(r).split('|').slice(0,3).join('|')).length?shortClaim(M.claimKey(r)):''}
+      <div class="m">${n?`caught out ${n}×, standing ${Math.round(100*Math.max(0,1-dial.delta*n))}%`:'never caught out'}</div>
+    </div>`;
+  }).join('');
+
+  // ---- the story ----
+  const turns = run.turns.filter(t=>t.caught.length || t.moved.length);
+  document.getElementById('story').innerHTML = turns.length ? turns.map((t,i)=>{
+    const bits = [];
+    if (t.caught.length) bits.push(`<span class="caught">${esc(t.caught.join(', '))} caught out</span>`);
+    const others = t.moved.filter(x=>!t.caught.includes(x));
+    if (others.length) bits.push(`${esc(others.join(', '))} then changed too`);
+    return `<div class="st"><div class="n">${i+1}</div><div class="b">
+      you established <b>${esc(EV.FACTS[t.fact].note)}</b> — ${bits.join('; ')||'nobody moved'}
+      <div class="m" style="font-family:var(--sans);font-size:11px;color:var(--muted)">${t.feasible} accounts left · ${t.audit.distinctClaims} claims · proof ${t.audit.provenLies===2?'holds':'gone'}</div>
+    </div></div>`;
+  }).join('') : `<div class="note">Nothing has turned yet. Establish a fact that rules something out.</div>`;
+
+  // ---- the transcript ----
+  let html = '', last = null;
+  for (const m of run.state.moves){
+    const key = m.act==='refuted' ? 'ev:'+m.fact : 'r'+m.round;
+    if (key !== last){
+      html += m.act==='refuted'
+        ? `<div class="rnd ev">you establish: ${esc(EV.FACTS[m.fact]?.note || m.fact)}</div>`
+        : `<div class="rnd">${m.round===0?(known.length?'opening statements, with the file already on record':'opening statements'):'round '+m.round}</div>`;
+      last = key;
+    }
+    const body = m.act==='refuted'
+      ? `<span class="strike">${esc(m.fromLabel)}</span> — the file destroys it — now says <b>${esc(m.toLabel)}</b>`
+      : m.act==='revise'
+        ? `<span class="strike">${esc(m.fromLabel)}</span> → ${esc(m.toLabel)}`
+        : esc(m.toLabel);
+    html += `<div class="mv ${m.act==='refuted'?'refuted':''}">
+      <span class="who">${esc(m.speaker)}</span><span class="act">${m.act==='refuted'?'caught out':m.act==='revise'?'retracts':m.act==='open'?'states':'stands'}</span>${body}
+      <span class="pill">U ${m.uSelf}</span><span class="pill">cred ${m.cred}</span>${m.standing<100?`<span class="pill st">standing ${m.standing}</span>`:''}</div>`;
+  }
+  document.getElementById('tr').innerHTML = html;
+
+  document.getElementById('fileNote').innerHTML =
+    dead
+      ? `<span style="color:var(--bad)">No scene fits this file — "${esc(EV.FACTS[run.impossible]?.note || run.impossible)}" contradicts the rest. Withdraw it or something before it.</span>`
+      : known.length
+        ? `${known.length} fact${known.length===1?'':'s'} on file before the hearing opened · ${facts.length} established during it · ${run.pool.length} of 44 accounts survive them.`
+        : `${facts.length} fact${facts.length===1?'':'s'} established · ${run.pool.length} of 44 accounts survive them.`;
+
+  markThresholds();
+}
+
+// ---- the three booths, filled in round by round ----
+const sleep = ms => new Promise(r=>setTimeout(r,ms));
+
+function bubble(feed, kind, text){
+  const d = document.createElement('div');
+  d.className = 'bub ' + kind;
+  d.textContent = text;
+  feed.appendChild(d);
+  feed.scrollTop = feed.scrollHeight;
+}
+
+async function playBooths(token){
+  const audit = M.jointAudit(run.state.profile);
+  // scaffold
+  document.getElementById('booths').innerHTML = CAST.map(T=>{
+    const r = run.state.profile[T], n = run.state.refutations[T] || 0;
+    return `<div class="booth ${n?'hit':''}" data-w="${T}">
+      <h3>${esc(T)}<em>${n?`caught out ${n}×`:'never caught out'}</em></h3>
+      <div class="feed" id="feed-${T}"></div>
+      <div class="strip">now says <b>${esc(shortClaim(M.claimKey(r)))}</b></div>
+    </div>`;
+  }).join('');
+  const feeds = Object.fromEntries(CAST.map(T=>[T, document.getElementById('feed-'+T)]));
+
+  // group the transcript into episodes: the opening, then one per fact established
+  const episodes = [];
+  let cur = { fact: null, moves: [] };
+  for (const m of run.state.moves){
+    if (m.act === 'refuted' && m.fact !== cur.fact && cur.moves.length){ episodes.push(cur); cur = { fact: m.fact, moves: [] }; }
+    else if (m.act === 'refuted' && !cur.fact) cur.fact = m.fact;
+    cur.moves.push(m);
+  }
+  if (cur.moves.length) episodes.push(cur);
+
+  for (const ep of episodes){
+    if (token !== runToken) return;
+    if (ep.fact){
+      for (const T of CAST){
+        const b = document.createElement('div'); b.className='bench';
+        b.textContent = 'the bench establishes: ' + (EV.FACTS[ep.fact]?.note || ep.fact);
+        feeds[T].appendChild(b);
+      }
+    }
+    // one narration request per witness per episode, in parallel
+    const perWitness = Object.fromEntries(CAST.map(T=>[T, ep.moves.filter(m=>m.speaker===T)]));
+    const pending = CAST.map(T=>{
+      if (!perWitness[T].length) return Promise.resolve([T,null]);
+      const t = document.createElement('div'); t.className='typing'; t.innerHTML='<i></i><i></i><i></i>';
+      feeds[T].appendChild(t);
+      return narrate(T, perWitness[T], { factNote: ep.fact ? EV.FACTS[ep.fact]?.note : null })
+        .then(res=>{ t.remove(); return [T,res]; });
+    });
+    const results = Object.fromEntries(await Promise.all(pending));
+    if (token !== runToken) return;
+
+    // interleave: everyone's lines for this episode, witness by witness, paced
+    for (const T of CAST){
+      const moves = perWitness[T]; if (!moves.length) continue;
+      const lines = results[T]?.lines || NT.narrateTemplate(moves, { factNote: ep.fact ? EV.FACTS[ep.fact]?.note : null });
+      for (const l of lines){
+        if (token !== runToken) return;
+        bubble(feeds[T], l.kind || 'think', l.text);
+        await sleep(160);
+      }
+      const last = moves[moves.length-1];
+      const strip = document.querySelector(`.booth[data-w="${T}"] .strip`);
+      if (strip) strip.innerHTML = `now says <b>${esc(shortClaim(M.claimKey(run.state.profile[T])))}</b>` +
+        ` · <b>me ${last.uSelf}</b> · backing ${last.cred}` + (last.standing<100?` · standing ${last.standing}`:'');
+    }
+  }
+  document.getElementById('narrMode').textContent =
+    narrSource === 'model' ? 'output only · voiced by a model, every number from the solver'
+    : narrateOK ? 'output only · the proxy has no key — this is the solver\'s own readout, nothing generated'
+    : 'output only · no narration proxy — the solver\'s own readout, nothing generated';
+}
+
+// thresholds for the CURRENT file, computed live — the sweep discipline, made interactive
+let markTimer = null;
+function markThresholds(){
+  clearTimeout(markTimer);
+  markTimer = setTimeout(()=>{
+    const scan = (key, values) => {
+      for (const v of values){
+        const p = { ...params(), [key]: v };
+        const r = M.replay({ space, known, facts, params: p, opt });
+        if (M.jointAudit(r.state.profile).provenLies === 2) return v;
+      }
+      return null;
+    };
+    // β: where does the proof FAIL as they start caring about agreement?
+    let bStar = null;
+    for (let i=0;i<=20;i++){
+      const v=i/20, r=M.replay({space,known,facts,params:{...params(),beta:v},opt});
+      if (M.jointAudit(r.state.profile).provenLies===0){ bStar=v; break; }
+    }
+    const gStar = scan('gamma', Array.from({length:21},(_,i)=>i/20));
+    const dStar = scan('delta', Array.from({length:21},(_,i)=>i/20));
+    const put = (id, v, label) => {
+      document.getElementById(id).innerHTML = v==null ? `<i style="left:0">no threshold in [0,1] for this file</i>`
+        : `<i class="hot" style="left:${v*100}%">${label} ${v.toFixed(2)}</i>`;
+    };
+    put('bm', bStar, 'proof fails at β');
+    put('gm', gStar, 'proof restored at γ');
+    put('dm', dStar, 'proof restored at δ');
+  }, 180);
+}
+
+// ---- interaction ----
+document.getElementById('facts').addEventListener('click', e=>{
+  const el = e.target.closest('.fact'); if (!el) return;
+  const f = el.dataset.f;
+  // establishing appends; withdrawing REWINDS — the remaining sequence is replayed clean,
+  // because a refutation stock is not undone by taking the fact back
+  if (known.includes(f)) known = known.filter(x=>x!==f);   // part of the file the hearing opened on
+  else facts = facts.includes(f) ? facts.filter(x=>x!==f) : [...facts, f];
+  recompute();
+});
+for (const k of ['beta','gamma','delta']){
+  document.getElementById(k).addEventListener('input', e=>{
+    dial[k] = Number(e.target.value);
+    document.getElementById(k[0]+'v').textContent = dial[k].toFixed(2);
+    recompute();
+  });
+}
+document.getElementById('clear').onclick = ()=>{ known = []; facts = []; recompute(); };
+// a scene's file is on record before anyone speaks: the protocol of the paper's hearing table
+document.getElementById('loadRun06').onclick = ()=>{ known = [...EV.WORLDS['run-06'].facts]; facts = []; opt = EV.WORLDS['run-06'].opt; recompute(); };
+document.getElementById('loadAku').onclick = ()=>{ known = [...EV.WORLDS.akutagawa.facts]; facts = []; opt = EV.WORLDS.akutagawa.opt; recompute(); };
+
+document.getElementById('foot').innerHTML =
+  `<b>What is real here.</b> The ${space.all.length} accounts are every causally distinct history the grove's physics admits, enumerated once (${enumMs} ms) by the same simulator the papers use; a file filters them. Each witness maximises the published objective U<sub>i</sub> plus a coupling layer — corroboration × self-consistency × standing — and <b>no language model computes anything on this page</b>. Withdrawing a fact is a rewind, not an undo: being caught out is permanent, so the remaining sequence is replayed from the opening statements. Loading a scene puts its whole file on record before the opening statements, the protocol of the paper's hearing experiments; facts established afterwards arrive during testimony.<br>` +
+  `<b>About the monologues.</b> The heading above them says which of the two you are looking at, and it is read off the response rather than off whether the proxy answered — the proxy answers with templates when it has no key, and the page must not claim a model wrote something it did not. The deliberation is real — for every account still open the solver scores how far it flatters the teller, how far the other two back it, how far it strays from their own opening, and what a previous refutation has left of their standing. That is computed on every move and was previously thrown away. The numbers beside each thought come from the solver whether or not a model voiced it. If a narration proxy is running the words are a model's, and the <b>same file clicked twice will give identical numbers and different words</b>; with no proxy the page reads the solver's own account of itself, and nothing is generated at all. The witnesses cannot hear each other's thoughts, and they do not model each other's motives — they react to what is on the record.<br>` +
+  `<b>What it is not.</b> Witnesses are myopic — they react to what you have established and never hedge against what you might establish next. Evidence only accumulates within a run. One scene, three witnesses, equal weights. The thresholds under the sliders are readings taken of <i>this</i> file, not constants.<br>` +
+  `Reproduce any state with <b>node recon/magistrate.mjs</b> · rebuild this page's solver with <b>node recon/build-magistrate.mjs</b>.`;
+
+recompute();
+</script>
+</body>
+</html>

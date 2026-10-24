@@ -1,0 +1,652 @@
+{
+ "generatedAt": "2026-07-30T07:54:21.253Z",
+ "beta": 0.5,
+ "worlds": [
+  {
+   "world": "run-06",
+   "feasible": 11,
+   "beta": 0.5,
+   "transcript": [
+    {
+     "round": 0,
+     "speaker": "Tajomaru",
+     "act": "open",
+     "from": null,
+     "to": "Masago|strike|dagger|throat|bound:false|armed:false",
+     "toLabel": "Masago — dagger killing (dagger) [unarmed]",
+     "uSelf": 58,
+     "cred": 67,
+     "drift": 0,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": null,
+     "corroborates": [],
+     "contradicts": [
+      "Masago",
+      "Takehiro"
+     ],
+     "account": "Masago — dagger killing (dagger, throat); rope cut by Masago",
+     "retracted": null
+    },
+    {
+     "round": 0,
+     "speaker": "Masago",
+     "act": "open",
+     "from": null,
+     "to": "Tajomaru|strike|dagger|throat|bound:false|armed:false",
+     "toLabel": "Tajomaru — dagger killing (dagger) [unarmed]",
+     "uSelf": 75,
+     "cred": 67,
+     "drift": 0,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": null,
+     "corroborates": [],
+     "contradicts": [
+      "Tajomaru",
+      "Takehiro"
+     ],
+     "account": "Tajomaru — dagger killing (dagger, throat); rope cut by Tajomaru",
+     "retracted": null
+    },
+    {
+     "round": 0,
+     "speaker": "Takehiro",
+     "act": "open",
+     "from": null,
+     "to": "Takehiro|self_strike|dagger|throat|bound:false|armed:true",
+     "toLabel": "Takehiro (self) — suicide (dagger) [armed]",
+     "uSelf": 80,
+     "cred": 53,
+     "drift": 0,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": null,
+     "corroborates": [],
+     "contradicts": [
+      "Tajomaru",
+      "Masago"
+     ],
+     "account": "Takehiro (self) — suicide (dagger, throat); rope cut by Masago",
+     "retracted": null
+    },
+    {
+     "round": 1,
+     "speaker": "Tajomaru",
+     "act": "revise",
+     "from": "Masago|strike|dagger|throat|bound:false|armed:false",
+     "fromLabel": "Masago — dagger killing (dagger) [unarmed]",
+     "to": "Takehiro|self_strike|dagger|throat|bound:false|armed:true",
+     "toLabel": "Takehiro (self) — suicide (dagger) [armed]",
+     "uSelf": 58,
+     "cred": 77,
+     "drift": 58,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": 5,
+     "gainSelf": 0,
+     "gainCred": 10,
+     "corroborates": [
+      "Takehiro"
+     ],
+     "contradicts": [
+      "Masago"
+     ],
+     "account": "Takehiro (self) — suicide (dagger, throat); rope cut by Masago",
+     "retracted": "Masago — dagger killing (dagger, throat); rope cut by Masago"
+    },
+    {
+     "round": 1,
+     "speaker": "Masago",
+     "act": "revise",
+     "from": "Tajomaru|strike|dagger|throat|bound:false|armed:false",
+     "fromLabel": "Tajomaru — dagger killing (dagger) [unarmed]",
+     "to": "Takehiro|self_strike|dagger|throat|bound:false|armed:true",
+     "toLabel": "Takehiro (self) — suicide (dagger) [armed]",
+     "uSelf": 75,
+     "cred": 100,
+     "drift": 67,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": 23,
+     "gainSelf": 0,
+     "gainCred": 47,
+     "corroborates": [
+      "Tajomaru",
+      "Takehiro"
+     ],
+     "contradicts": [],
+     "account": "Takehiro (self) — suicide (dagger, throat); rope cut by Masago",
+     "retracted": "Tajomaru — dagger killing (dagger, throat); rope cut by Tajomaru"
+    },
+    {
+     "round": 1,
+     "speaker": "Takehiro",
+     "act": "stand",
+     "from": null,
+     "fromLabel": null,
+     "to": "Takehiro|self_strike|dagger|throat|bound:false|armed:true",
+     "toLabel": "Takehiro (self) — suicide (dagger) [armed]",
+     "uSelf": 80,
+     "cred": 100,
+     "drift": 0,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": 0,
+     "gainSelf": 0,
+     "gainCred": 0,
+     "corroborates": [
+      "Tajomaru",
+      "Masago"
+     ],
+     "contradicts": [],
+     "account": "Takehiro (self) — suicide (dagger, throat); rope cut by Masago",
+     "retracted": null
+    },
+    {
+     "round": 2,
+     "speaker": "Tajomaru",
+     "act": "stand",
+     "from": null,
+     "fromLabel": null,
+     "to": "Takehiro|self_strike|dagger|throat|bound:false|armed:true",
+     "toLabel": "Takehiro (self) — suicide (dagger) [armed]",
+     "uSelf": 58,
+     "cred": 100,
+     "drift": 58,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": 0,
+     "gainSelf": 0,
+     "gainCred": 0,
+     "corroborates": [
+      "Masago",
+      "Takehiro"
+     ],
+     "contradicts": [],
+     "account": "Takehiro (self) — suicide (dagger, throat); rope cut by Masago",
+     "retracted": null
+    },
+    {
+     "round": 2,
+     "speaker": "Masago",
+     "act": "stand",
+     "from": null,
+     "fromLabel": null,
+     "to": "Takehiro|self_strike|dagger|throat|bound:false|armed:true",
+     "toLabel": "Takehiro (self) — suicide (dagger) [armed]",
+     "uSelf": 75,
+     "cred": 100,
+     "drift": 67,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": 0,
+     "gainSelf": 0,
+     "gainCred": 0,
+     "corroborates": [
+      "Tajomaru",
+      "Takehiro"
+     ],
+     "contradicts": [],
+     "account": "Takehiro (self) — suicide (dagger, throat); rope cut by Masago",
+     "retracted": null
+    },
+    {
+     "round": 2,
+     "speaker": "Takehiro",
+     "act": "stand",
+     "from": null,
+     "fromLabel": null,
+     "to": "Takehiro|self_strike|dagger|throat|bound:false|armed:true",
+     "toLabel": "Takehiro (self) — suicide (dagger) [armed]",
+     "uSelf": 80,
+     "cred": 100,
+     "drift": 0,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": 0,
+     "gainSelf": 0,
+     "gainCred": 0,
+     "corroborates": [
+      "Tajomaru",
+      "Masago"
+     ],
+     "contradicts": [],
+     "account": "Takehiro (self) — suicide (dagger, throat); rope cut by Masago",
+     "retracted": null
+    }
+   ],
+   "terminal": {
+    "kind": "settled",
+    "round": 2,
+    "period": 1
+   },
+   "closes": "Takehiro|self_strike|dagger",
+   "nash": true,
+   "audit": {
+    "claims": [
+     "Takehiro|self_strike|dagger",
+     "Takehiro|self_strike|dagger",
+     "Takehiro|self_strike|dagger"
+    ],
+    "distinctClaims": 1,
+    "jointlySat": true,
+    "atMostTrue": 3,
+    "provenLies": 0,
+    "indivFeasible": true,
+    "blame": [
+     {
+      "from": "Tajomaru",
+      "to": "Takehiro"
+     },
+     {
+      "from": "Masago",
+      "to": "Takehiro"
+     },
+     {
+      "from": "Takehiro",
+      "to": "Takehiro"
+     }
+    ],
+    "unaccused": [
+     "Tajomaru",
+     "Masago"
+    ]
+   },
+   "byOrder": [
+    {
+     "order": [
+      "Tajomaru",
+      "Masago",
+      "Takehiro"
+     ],
+     "kind": "settled",
+     "round": 2,
+     "nash": true,
+     "story": "Takehiro|self_strike|dagger"
+    },
+    {
+     "order": [
+      "Tajomaru",
+      "Takehiro",
+      "Masago"
+     ],
+     "kind": "settled",
+     "round": 2,
+     "nash": true,
+     "story": "Takehiro|self_strike|dagger"
+    },
+    {
+     "order": [
+      "Masago",
+      "Tajomaru",
+      "Takehiro"
+     ],
+     "kind": "settled",
+     "round": 2,
+     "nash": true,
+     "story": "Takehiro|self_strike|dagger"
+    },
+    {
+     "order": [
+      "Masago",
+      "Takehiro",
+      "Tajomaru"
+     ],
+     "kind": "settled",
+     "round": 2,
+     "nash": true,
+     "story": "Takehiro|self_strike|dagger"
+    },
+    {
+     "order": [
+      "Takehiro",
+      "Tajomaru",
+      "Masago"
+     ],
+     "kind": "settled",
+     "round": 2,
+     "nash": true,
+     "story": "Takehiro|impale_on_held|dagger"
+    },
+    {
+     "order": [
+      "Takehiro",
+      "Masago",
+      "Tajomaru"
+     ],
+     "kind": "settled",
+     "round": 2,
+     "nash": true,
+     "story": "Takehiro|impale_on_held|dagger"
+    }
+   ],
+   "distinctPasts": 2,
+   "stableStories": 3
+  },
+  {
+   "world": "akutagawa",
+   "feasible": 22,
+   "beta": 0.5,
+   "transcript": [
+    {
+     "round": 0,
+     "speaker": "Tajomaru",
+     "act": "open",
+     "from": null,
+     "to": "Tajomaru|strike|longsword|chest|bound:false|armed:true",
+     "toLabel": "Tajomaru — sword duel (longsword) [armed]",
+     "uSelf": 72,
+     "cred": 63,
+     "drift": 0,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": null,
+     "corroborates": [],
+     "contradicts": [
+      "Masago",
+      "Takehiro"
+     ],
+     "account": "Tajomaru — sword duel (longsword, chest); rope cut by Tajomaru",
+     "retracted": null
+    },
+    {
+     "round": 0,
+     "speaker": "Masago",
+     "act": "open",
+     "from": null,
+     "to": "Tajomaru|strike|dagger|chest|bound:false|armed:false",
+     "toLabel": "Tajomaru — dagger killing (dagger) [unarmed]",
+     "uSelf": 75,
+     "cred": 67,
+     "drift": 0,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": null,
+     "corroborates": [],
+     "contradicts": [
+      "Tajomaru",
+      "Takehiro"
+     ],
+     "account": "Tajomaru — dagger killing (dagger, chest); rope cut by Tajomaru",
+     "retracted": null
+    },
+    {
+     "round": 0,
+     "speaker": "Takehiro",
+     "act": "open",
+     "from": null,
+     "to": "Takehiro|self_strike|dagger|chest|bound:false|armed:true",
+     "toLabel": "Takehiro (self) — suicide (dagger) [armed]",
+     "uSelf": 80,
+     "cred": 50,
+     "drift": 0,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": null,
+     "corroborates": [],
+     "contradicts": [
+      "Tajomaru",
+      "Masago"
+     ],
+     "account": "Takehiro (self) — suicide (dagger, chest); rope cut by Masago",
+     "retracted": null
+    },
+    {
+     "round": 1,
+     "speaker": "Tajomaru",
+     "act": "stand",
+     "from": null,
+     "fromLabel": null,
+     "to": "Tajomaru|strike|longsword|chest|bound:false|armed:true",
+     "toLabel": "Tajomaru — sword duel (longsword) [armed]",
+     "uSelf": 72,
+     "cred": 63,
+     "drift": 0,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": 0,
+     "gainSelf": 0,
+     "gainCred": 0,
+     "corroborates": [],
+     "contradicts": [
+      "Masago",
+      "Takehiro"
+     ],
+     "account": "Tajomaru — sword duel (longsword, chest); rope cut by Tajomaru",
+     "retracted": null
+    },
+    {
+     "round": 1,
+     "speaker": "Masago",
+     "act": "revise",
+     "from": "Tajomaru|strike|dagger|chest|bound:false|armed:false",
+     "fromLabel": "Tajomaru — dagger killing (dagger) [unarmed]",
+     "to": "Tajomaru|strike|dagger|chest|bound:false|armed:true",
+     "toLabel": "Tajomaru — dagger killing (dagger) [armed]",
+     "uSelf": 75,
+     "cred": 73,
+     "drift": 8,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": 3,
+     "gainSelf": 0,
+     "gainCred": 7,
+     "corroborates": [],
+     "contradicts": [
+      "Tajomaru",
+      "Takehiro"
+     ],
+     "account": "Tajomaru — dagger killing (dagger, chest); rope cut by Tajomaru",
+     "retracted": "Tajomaru — dagger killing (dagger, chest); rope cut by Tajomaru"
+    },
+    {
+     "round": 1,
+     "speaker": "Takehiro",
+     "act": "revise",
+     "from": "Takehiro|self_strike|dagger|chest|bound:false|armed:true",
+     "fromLabel": "Takehiro (self) — suicide (dagger) [armed]",
+     "to": "Tajomaru|strike|dagger|chest|bound:false|armed:true",
+     "toLabel": "Tajomaru — dagger killing (dagger) [armed]",
+     "uSelf": 48,
+     "cred": 93,
+     "drift": 58,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": 4,
+     "gainSelf": -32,
+     "gainCred": 40,
+     "corroborates": [
+      "Masago"
+     ],
+     "contradicts": [
+      "Tajomaru"
+     ],
+     "account": "Tajomaru — dagger killing (dagger, chest); rope cut by Tajomaru",
+     "retracted": "Takehiro (self) — suicide (dagger, chest); rope cut by Masago"
+    },
+    {
+     "round": 2,
+     "speaker": "Tajomaru",
+     "act": "stand",
+     "from": null,
+     "fromLabel": null,
+     "to": "Tajomaru|strike|longsword|chest|bound:false|armed:true",
+     "toLabel": "Tajomaru — sword duel (longsword) [armed]",
+     "uSelf": 72,
+     "cred": 87,
+     "drift": 0,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": 0,
+     "gainSelf": 0,
+     "gainCred": 0,
+     "corroborates": [],
+     "contradicts": [
+      "Masago",
+      "Takehiro"
+     ],
+     "account": "Tajomaru — sword duel (longsword, chest); rope cut by Tajomaru",
+     "retracted": null
+    },
+    {
+     "round": 2,
+     "speaker": "Masago",
+     "act": "stand",
+     "from": null,
+     "fromLabel": null,
+     "to": "Tajomaru|strike|dagger|chest|bound:false|armed:true",
+     "toLabel": "Tajomaru — dagger killing (dagger) [armed]",
+     "uSelf": 75,
+     "cred": 93,
+     "drift": 8,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": 0,
+     "gainSelf": 0,
+     "gainCred": 0,
+     "corroborates": [
+      "Takehiro"
+     ],
+     "contradicts": [
+      "Tajomaru"
+     ],
+     "account": "Tajomaru — dagger killing (dagger, chest); rope cut by Tajomaru",
+     "retracted": null
+    },
+    {
+     "round": 2,
+     "speaker": "Takehiro",
+     "act": "stand",
+     "from": null,
+     "fromLabel": null,
+     "to": "Tajomaru|strike|dagger|chest|bound:false|armed:true",
+     "toLabel": "Tajomaru — dagger killing (dagger) [armed]",
+     "uSelf": 48,
+     "cred": 93,
+     "drift": 58,
+     "selfCons": 100,
+     "standing": 100,
+     "gain": 0,
+     "gainSelf": 0,
+     "gainCred": 0,
+     "corroborates": [
+      "Masago"
+     ],
+     "contradicts": [
+      "Tajomaru"
+     ],
+     "account": "Tajomaru — dagger killing (dagger, chest); rope cut by Tajomaru",
+     "retracted": null
+    }
+   ],
+   "terminal": {
+    "kind": "settled",
+    "round": 2,
+    "period": 1
+   },
+   "closes": "Tajomaru|strike|dagger  +  Tajomaru|strike|longsword",
+   "nash": true,
+   "audit": {
+    "claims": [
+     "Tajomaru|strike|longsword",
+     "Tajomaru|strike|dagger",
+     "Tajomaru|strike|dagger"
+    ],
+    "distinctClaims": 2,
+    "jointlySat": false,
+    "atMostTrue": 1,
+    "provenLies": 2,
+    "indivFeasible": true,
+    "blame": [
+     {
+      "from": "Tajomaru",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Masago",
+      "to": "Tajomaru"
+     },
+     {
+      "from": "Takehiro",
+      "to": "Tajomaru"
+     }
+    ],
+    "unaccused": [
+     "Masago",
+     "Takehiro"
+    ]
+   },
+   "byOrder": [
+    {
+     "order": [
+      "Tajomaru",
+      "Masago",
+      "Takehiro"
+     ],
+     "kind": "settled",
+     "round": 2,
+     "nash": true,
+     "story": "Tajomaru|strike|dagger  +  Tajomaru|strike|longsword"
+    },
+    {
+     "order": [
+      "Tajomaru",
+      "Takehiro",
+      "Masago"
+     ],
+     "kind": "settled",
+     "round": 2,
+     "nash": true,
+     "story": "Tajomaru|strike|dagger  +  Tajomaru|strike|longsword"
+    },
+    {
+     "order": [
+      "Masago",
+      "Tajomaru",
+      "Takehiro"
+     ],
+     "kind": "settled",
+     "round": 2,
+     "nash": true,
+     "story": "Tajomaru|strike|dagger  +  Tajomaru|strike|longsword"
+    },
+    {
+     "order": [
+      "Masago",
+      "Takehiro",
+      "Tajomaru"
+     ],
+     "kind": "settled",
+     "round": 2,
+     "nash": true,
+     "story": "Tajomaru|strike|dagger  +  Tajomaru|strike|longsword"
+    },
+    {
+     "order": [
+      "Takehiro",
+      "Tajomaru",
+      "Masago"
+     ],
+     "kind": "settled",
+     "round": 2,
+     "nash": true,
+     "story": "Tajomaru|strike|dagger  +  Tajomaru|strike|longsword"
+    },
+    {
+     "order": [
+      "Takehiro",
+      "Masago",
+      "Tajomaru"
+     ],
+     "kind": "settled",
+     "round": 2,
+     "nash": true,
+     "story": "Tajomaru|strike|dagger  +  Tajomaru|strike|longsword"
+    }
+   ],
+   "distinctPasts": 1,
+   "stableStories": 6
+  }
+ ]
+}

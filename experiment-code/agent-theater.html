@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Theater</title>
+  <style>
+    :root {
+      --bg: #161719;
+      --panel: #f7f2e7;
+      --panel-2: #efe5d2;
+      --ink: #211d19;
+      --muted: #70685e;
+      --line: #d7c8ae;
+      --red: #9f3328;
+      --blue: #234f6d;
+      --green: #3f684b;
+      --gold: #a96d20;
+      --shadow: 0 18px 50px rgba(0, 0, 0, .24);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(22, 23, 25, .45), rgba(22, 23, 25, .82)),
+        url("./agent-theater-bg.png") center / cover fixed;
+    }
+
+    button, input, textarea, select { font: inherit; }
+    button {
+      border: 1px solid var(--line);
+      color: var(--ink);
+      background: #fffaf0;
+      border-radius: 7px;
+      padding: 9px 12px;
+      cursor: pointer;
+      min-height: 38px;
+    }
+    button:hover { border-color: #aa8f62; background: #fff3d7; }
+    button.primary { background: var(--ink); color: #fff7e9; border-color: var(--ink); }
+    button.primary:hover { background: #3b332b; }
+    button.icon {
+      width: 38px;
+      padding: 0;
+      display: inline-grid;
+      place-items: center;
+    }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+
+    .app {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr) 330px;
+      min-height: 100vh;
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .pane {
+      background: rgba(247, 242, 231, .94);
+      border: 1px solid rgba(215, 200, 174, .9);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .left, .right { border-radius: 8px; display: flex; flex-direction: column; min-height: 0; }
+    .stage { border-radius: 8px; display: grid; grid-template-rows: auto 1fr auto; min-height: calc(100vh - 28px); }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 250, 240, .76);
+    }
+    .brand { min-width: 0; }
+    .brand h1 {
+      margin: 0;
+      font-size: 21px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+    .brand p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+    .controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+
+    .section { padding: 14px; border-bottom: 1px solid var(--line); }
+    .section:last-child { border-bottom: 0; }
+    .section h2 {
+      margin: 0 0 10px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #5e554b;
+    }
+
+    .scene-fields {
+      display: grid;
+      gap: 9px;
+    }
+    .field label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fffaf0;
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 9px 10px;
+      outline: none;
+    }
+    textarea { min-height: 76px; resize: vertical; line-height: 1.45; }
+
+    .agents { overflow: auto; padding: 10px; display: grid; gap: 10px; }
+    .agent-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff8e9;
+      overflow: hidden;
+    }
+    .agent-head {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 700;
+      flex: 0 0 auto;
+    }
+    .avatar.math { background: var(--blue); }
+    .avatar.writer { background: var(--red); }
+    .avatar.politic { background: var(--green); }
+    .agent-head strong { display: block; font-size: 14px; }
+    .agent-head span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .agent-body { padding: 10px; display: grid; gap: 8px; }
+    .agent-body textarea { min-height: 62px; }
+
+    .world-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      background: #fff8e9;
+      border-radius: 7px;
+      padding: 9px;
+      min-width: 0;
+    }
+    .stat small { color: var(--muted); display: block; margin-bottom: 3px; }
+    .stat strong { display: block; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .stage-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 230px;
+      min-height: 0;
+    }
+    .transcript {
+      overflow: auto;
+      padding: 16px;
+      background:
+        linear-gradient(rgba(247, 242, 231, .86), rgba(247, 242, 231, .94)),
+        repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(104, 86, 53, .06) 32px);
+    }
+    .line {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+      align-items: start;
+    }
+    .bubble {
+      border: 1px solid var(--line);
+      background: #fffdf6;
+      border-radius: 8px;
+      padding: 11px 12px;
+    }
+    .bubble header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .bubble header strong { font-size: 14px; }
+    .bubble header span { color: var(--muted); font-size: 12px; }
+    .bubble p { margin: 0; line-height: 1.55; }
+    .line.director .bubble {
+      background: #f3ead7;
+      border-color: #c9ad76;
+    }
+    .line.director .avatar { background: var(--gold); }
+
+    .inspector {
+      border-left: 1px solid var(--line);
+      background: rgba(239, 229, 210, .72);
+      overflow: auto;
+    }
+    .meter { margin: 10px 0; }
+    .meter-row { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    .bar { height: 8px; border-radius: 99px; background: #dfd0b8; overflow: hidden; }
+    .bar i { display: block; height: 100%; width: 50%; background: var(--blue); border-radius: 99px; transition: width .25s ease; }
+    .bar.fear i { background: var(--red); }
+    .bar.trust i { background: var(--green); }
+    .thought {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff8e9;
+      padding: 9px;
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #393129;
+    }
+
+    .timeline {
+      overflow: auto;
+      padding: 12px;
+      display: grid;
+      gap: 10px;
+    }
+    .event {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: #fff8e9;
+    }
+    .event strong { display: block; font-size: 14px; margin-bottom: 5px; }
+    .event p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .event.used { opacity: .55; }
+
+    .dock {
+      border-top: 1px solid var(--line);
+      background: rgba(255, 250, 240, .86);
+      padding: 10px 12px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: end;
+    }
+    .dock textarea { min-height: 45px; max-height: 110px; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--line);
+      background: #fff8e9;
+      border-radius: 99px;
+      padding: 5px 8px;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 1120px) {
+      .app { grid-template-columns: 300px minmax(0, 1fr); }
+      .right { grid-column: 1 / -1; min-height: 360px; }
+    }
+    @media (max-width: 760px) {
+      .app { grid-template-columns: 1fr; padding: 8px; }
+      .stage { min-height: 760px; }
+      .stage-body { grid-template-columns: 1fr; }
+      .inspector { border-left: 0; border-top: 1px solid var(--line); max-height: 360px; }
+      .dock { grid-template-columns: 1fr; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .controls { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <aside class="pane left">
+      <section class="section">
+        <h2>场景</h2>
+        <div class="scene-fields">
+          <div class="field">
+            <label for="scene">地点</label>
+            <input id="scene" value="1942 年秋，欧洲边境小镇的一间废弃火车站候车室">
+          </div>
+          <div class="field">
+            <label for="premise">开场条件</label>
+            <textarea id="premise">暴雨把三个人困在同一个房间。桌上有一份当天报纸，火炉快熄灭，外面偶尔传来远处的炮声。</textarea>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>角色侧写</h2>
+      </section>
+      <div id="agents" class="agents"></div>
+    </aside>
+
+    <section class="pane stage">
+      <header class="topbar">
+        <div class="brand">
+          <h1>Agent Theater</h1>
+          <p>给角色人生，不给剧本。让关系、秘密和世界状态推动剧情。</p>
+        </div>
+        <div class="controls">
+          <span id="clock" class="pill">20:15 · 第 0 回合</span>
+          <button id="reset" class="icon" title="重置">↺</button>
+          <button id="event" title="导演事件">导演事件</button>
+          <button id="next" class="primary">下一回合</button>
+        </div>
+      </header>
+      <div class="stage-body">
+        <div id="transcript" class="transcript" aria-live="polite"></div>
+        <aside class="inspector">
+          <section class="section">
+            <h2>世界状态</h2>
+            <div class="world-grid">
+              <div class="stat"><small>天气</small><strong id="w-weather">暴雨</strong></div>
+              <div class="stat"><small>温度</small><strong id="w-temp">寒冷</strong></div>
+              <div class="stat"><small>报纸</small><strong id="w-news">东线激战</strong></div>
+              <div class="stat"><small>资源</small><strong id="w-food">黑面包 2 片</strong></div>
+            </div>
+          </section>
+          <section class="section">
+            <h2>内心状态</h2>
+            <div id="state"></div>
+          </section>
+        </aside>
+      </div>
+      <footer class="dock">
+        <div class="field">
+          <label for="cue">给导演一句提示</label>
+          <textarea id="cue" placeholder="例如：让他们听见窗外有脚步声，或者让某个秘密差点暴露。"></textarea>
+        </div>
+        <button id="cueBtn">投放提示</button>
+      </footer>
+    </section>
+
+    <aside class="pane right">
+      <section class="section">
+        <h2>导演时间线</h2>
+        <p style="margin:0;color:var(--muted);font-size:13px;line-height:1.45;">事件不会替角色做决定，只改变环境压力，让角色自己反应。</p>
+      </section>
+      <div id="timeline" class="timeline"></div>
+    </aside>
+  </main>
+
+  <script>
+    const initialAgents = [
+      {
+        key: "math", name: "Karl Weiss", role: "数学家", age: 48, avatar: "K", color: "math",
+        publicIdentity: "德国来的数学教授，声称只是路过边境。",
+        truth: "曾参与密码学研究，担心自己的研究被军方利用。",
+        values: "理性、真理、保护儿子。",
+        goal: "安全离开，不暴露与军方密码项目的关系。",
+        fear: 36, trust: { writer: 38, politic: 42 },
+        mood: "克制而警觉",
+        lines: [
+          "如果这份报纸没有夸大，东线的数字并不乐观。",
+          "战争喜欢把每个人都变成工具，哪怕是研究真理的人。",
+          "我不习惯在陌生人面前谈身份，但今晚似乎很难保持沉默。"
+        ],
+        thoughts: "他在计算每句话的风险，也在想儿子是否还活着。"
+      },
+      {
+        key: "writer", name: "Anna Moreau", role: "文学家", age: 35, avatar: "A", color: "writer",
+        publicIdentity: "法国小说家，巴黎沦陷后辗转流亡。",
+        truth: "为地下抵抗组织写过文章，包里藏着一封未寄出的联络信。",
+        values: "自由、人性、语言的尊严。",
+        goal: "判断另外两人是否可信，同时保护自己的联络信。",
+        fear: 58, trust: { math: 28, politic: 31 },
+        mood: "敏感而倔强",
+        lines: [
+          "报纸上的每个词都像被人审查过，留下来的反而最可疑。",
+          "有些人说自己只相信理性，可理性也常常替权力洗手。",
+          "如果一个人连姓名都要斟酌，那么他一定不只是路过。"
+        ],
+        thoughts: "她觉得数学家的口音危险，也觉得政治家的镇定过于熟练。"
+      },
+      {
+        key: "politic", name: "Richard Bell", role: "政治家", age: 56, avatar: "R", color: "politic",
+        publicIdentity: "英国议员，正在前往一次秘密会面。",
+        truth: "曾支持过一次造成平民伤亡的军事行动。",
+        values: "国家利益、秩序、结果。",
+        goal: "弄清两人的立场，并确保自己能准时离开。",
+        fear: 30, trust: { math: 36, writer: 34 },
+        mood: "礼貌但审慎",
+        lines: [
+          "此刻欧洲没有真正的旁观者，只有承认与不承认的人。",
+          "国家在危急时刻做出的选择，未必适合在炉火旁审判。",
+          "我关心军事，因为失败的代价会落到每一个家庭身上。"
+        ],
+        thoughts: "他听出 Anna 的敌意，也开始怀疑 Karl 不只是学者。"
+      }
+    ];
+
+    const eventDeck = [
+      { title: "火炉熄灭", text: "房间忽然更冷，三个人不得不靠近同一张桌子。", impact: { fear: 4, trust: 3 }, used: false },
+      { title: "远处传来军靴声", text: "窗外短暂出现手电光，所有人同时停止说话。", impact: { fear: 12, trust: -2 }, used: false },
+      { title: "火车汽笛", text: "一列没有亮灯的货车缓慢进站，月台上有人影移动。", impact: { fear: 8, trust: 2 }, used: false },
+      { title: "报纸被风吹开", text: "头版露出一行小字：边境搜捕仍在继续。", impact: { fear: 9, trust: -4 }, used: false },
+      { title: "敲门声", text: "有人在候车室外敲了三下，然后沉默。", impact: { fear: 14, trust: 4 }, used: false }
+    ];
+
+    let agents, events, turn, timeMinutes, transcript;
+
+    const $ = (id) => document.getElementById(id);
+
+    function clone(data) {
+      return JSON.parse(JSON.stringify(data));
+    }
+
+    function resetState() {
+      agents = clone(initialAgents);
+      events = clone(eventDeck);
+      turn = 0;
+      timeMinutes = 20 * 60 + 15;
+      transcript = [];
+      renderAgents();
+      renderTimeline();
+      renderWorld();
+      renderState();
+      addDirector("开场", `${$("scene").value}。${$("premise").value}`);
+    }
+
+    function renderAgents() {
+      $("agents").innerHTML = agents.map((agent, index) => `
+        <article class="agent-card">
+          <div class="agent-head">
+            <div class="avatar ${agent.color}">${agent.avatar}</div>
+            <div>
+              <strong>${agent.name}</strong>
+              <span>${agent.role} · ${agent.age} 岁</span>
+            </div>
+          </div>
+          <div class="agent-body">
+            ${field(`publicIdentity-${index}`, "公开身份", agent.publicIdentity)}
+            ${field(`truth-${index}`, "隐藏秘密", agent.truth)}
+            ${field(`goal-${index}`, "当前目标", agent.goal)}
+            ${field(`values-${index}`, "价值观", agent.values)}
+          </div>
+        </article>
+      `).join("");
+
+      agents.forEach((agent, index) => {
+        ["publicIdentity", "truth", "goal", "values"].forEach((prop) => {
+          const id = `${prop}-${index}`;
+          $(id).addEventListener("input", (event) => agent[prop] = event.target.value);
+        });
+      });
+    }
+
+    function field(id, label, value) {
+      return `<div class="field"><label for="${id}">${label}</label><textarea id="${id}">${value}</textarea></div>`;
+    }
+
+    function renderWorld() {
+      const minute = String(timeMinutes % 60).padStart(2, "0");
+      $("clock").textContent = `${Math.floor(timeMinutes / 60)}:${minute} · 第 ${turn} 回合`;
+      $("w-weather").textContent = turn > 4 ? "暴雨减弱" : "暴雨";
+      $("w-temp").textContent = turn > 2 ? "更冷" : "寒冷";
+      $("w-news").textContent = turn > 3 ? "边境搜捕" : "东线激战";
+      $("w-food").textContent = turn > 5 ? "黑面包 1 片" : "黑面包 2 片";
+    }
+
+    function renderState() {
+      $("state").innerHTML = agents.map((agent) => {
+        const trustAverage = Math.round(Object.values(agent.trust).reduce((a, b) => a + b, 0) / 2);
+        return `
+          <div class="meter">
+            <div class="meter-row"><strong>${agent.role}</strong><span>${agent.mood}</span></div>
+            <div class="meter-row"><span>恐惧</span><span>${agent.fear}</span></div>
+            <div class="bar fear"><i style="width:${agent.fear}%"></i></div>
+            <div class="meter-row"><span>平均信任</span><span>${trustAverage}</span></div>
+            <div class="bar trust"><i style="width:${trustAverage}%"></i></div>
+            <div class="thought">${agent.thoughts}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderTranscript() {
+      $("transcript").innerHTML = transcript.map((item) => `
+        <div class="line ${item.type === "director" ? "director" : ""}">
+          <div class="avatar ${item.color || ""}">${item.avatar}</div>
+          <div class="bubble">
+            <header><strong>${item.name}</strong><span>${item.meta}</span></header>
+            <p>${item.text}</p>
+          </div>
+        </div>
+      `).join("");
+      $("transcript").scrollTop = $("transcript").scrollHeight;
+    }
+
+    function renderTimeline() {
+      $("timeline").innerHTML = events.map((event, index) => `
+        <button class="event ${event.used ? "used" : ""}" data-event="${index}" ${event.used ? "disabled" : ""}>
+          <strong>${event.title}</strong>
+          <p>${event.text}</p>
+        </button>
+      `).join("");
+      document.querySelectorAll("[data-event]").forEach((button) => {
+        button.addEventListener("click", () => triggerEvent(Number(button.dataset.event)));
+      });
+    }
+
+    function addDirector(name, text) {
+      transcript.push({ type: "director", name: `导演 · ${name}`, avatar: "D", meta: "世界状态", text });
+      renderTranscript();
+    }
+
+    function clamp(value) {
+      return Math.max(0, Math.min(100, Math.round(value)));
+    }
+
+    function advanceTurn() {
+      turn += 1;
+      timeMinutes += 7;
+      const speaker = chooseSpeaker();
+      const line = composeLine(speaker);
+      transcript.push({
+        type: "agent",
+        name: `${speaker.name} · ${speaker.role}`,
+        avatar: speaker.avatar,
+        color: speaker.color,
+        meta: speaker.mood,
+        text: line
+      });
+      updateRelationships(speaker);
+      maybeRevealSecret(speaker);
+      renderWorld();
+      renderState();
+      renderTranscript();
+    }
+
+    function chooseSpeaker() {
+      const sorted = [...agents].sort((a, b) => (b.fear + turnBias(b)) - (a.fear + turnBias(a)));
+      return sorted[turn % sorted.length];
+    }
+
+    function turnBias(agent) {
+      return agent.key === "writer" && turn > 2 ? 8 : agent.key === "politic" && turn % 3 === 0 ? 7 : 0;
+    }
+
+    function composeLine(agent) {
+      const base = agent.lines[(turn + agent.name.length) % agent.lines.length];
+      const cue = $("cue").value.trim();
+      if (cue && turn % 2 === 1) return `${base} ${cueResponse(agent, cue)}`;
+      if (agent.fear > 70) return `${base} 我建议我们先弄清楚外面到底是谁。`;
+      if (averageTrust(agent) < 32) return `${base} 但在这里，信任恐怕比火柴还稀缺。`;
+      if (turn > 5) return `${base} 也许我们都在隐瞒什么，只是程度不同。`;
+      return base;
+    }
+
+    function cueResponse(agent, cue) {
+      if (cue.includes("脚步") || cue.includes("敲门") || cue.includes("士兵")) {
+        return agent.key === "politic" ? "请先别靠近窗户，等声音过去。" : "那声音不像普通旅人。";
+      }
+      if (cue.includes("秘密") || cue.includes("暴露")) {
+        return "秘密一旦被说出口，就会变成别人手里的武器。";
+      }
+      return "这改变了我们刚才的判断。";
+    }
+
+    function averageTrust(agent) {
+      return Object.values(agent.trust).reduce((a, b) => a + b, 0) / 2;
+    }
+
+    function updateRelationships(speaker) {
+      agents.forEach((agent) => {
+        if (agent.key === speaker.key) return;
+        const delta = speaker.fear > 65 ? -3 : 4;
+        agent.trust[speaker.key] = clamp(agent.trust[speaker.key] + delta);
+        agent.fear = clamp(agent.fear + (averageTrust(agent) < 30 ? 3 : -1));
+      });
+      speaker.fear = clamp(speaker.fear - 3);
+      speaker.thoughts = nextThought(speaker);
+    }
+
+    function nextThought(agent) {
+      if (agent.key === "math") return "他意识到沉默也会暴露立场，于是开始选择性地说真话。";
+      if (agent.key === "writer") return "她决定继续试探，尤其是那个声称只关心秩序的英国人。";
+      return "他开始把这场避雨视作一次小型审讯，而不是偶遇。";
+    }
+
+    function maybeRevealSecret(speaker) {
+      if (turn === 4 && speaker.key === "math") {
+        addDirector("裂缝", "Anna 听见 Karl 提到一个只有军方密码部门才会使用的缩写。");
+      }
+      if (turn === 6 && speaker.key === "writer") {
+        addDirector("纸张", "Anna 的包被椅脚勾住，一封没有寄出的信露出一角。");
+      }
+    }
+
+    function triggerEvent(index) {
+      const event = events[index];
+      if (!event || event.used) return;
+      event.used = true;
+      agents.forEach((agent) => {
+        agent.fear = clamp(agent.fear + event.impact.fear);
+        Object.keys(agent.trust).forEach((key) => agent.trust[key] = clamp(agent.trust[key] + event.impact.trust));
+      });
+      addDirector(event.title, event.text);
+      renderTimeline();
+      renderState();
+    }
+
+    function triggerNextEvent() {
+      const index = events.findIndex((event) => !event.used);
+      if (index >= 0) triggerEvent(index);
+    }
+
+    function addCue() {
+      const cue = $("cue").value.trim();
+      if (!cue) return;
+      addDirector("用户提示", cue);
+      agents.forEach((agent) => agent.fear = clamp(agent.fear + 5));
+      renderState();
+      $("cue").value = "";
+    }
+
+    $("next").addEventListener("click", advanceTurn);
+    $("event").addEventListener("click", triggerNextEvent);
+    $("reset").addEventListener("click", resetState);
+    $("cueBtn").addEventListener("click", addCue);
+    $("scene").addEventListener("change", () => addDirector("场景更新", $("scene").value));
+    $("premise").addEventListener("change", () => addDirector("条件更新", $("premise").value));
+
+    resetState();
+  </script>
+</body>
+</html>
