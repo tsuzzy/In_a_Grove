@@ -1,7 +1,7 @@
 # In a Grove, Again
 
 Code and manuscript for **In a Grove, Again: Optimizing over Feasible Event Histories for
-Incentive-Driven Testimony** (NeurIPS 2026, Creative AI track).
+Incentive-Driven Testimony**.
 
 A deterministic simulator enumerates $\mathrm{Feasible}(F)$, the set of event histories
 consistent with public evidence $F$. Each witness then selects the feasible history that
@@ -46,11 +46,10 @@ The paper's figures are not copied into `paper/`: the figure scripts write them 
 
 - **Node.js** ≥ 20 (developed on v24). There is no `package.json`; the deterministic
   experiments have no npm dependencies.
-- **Python 3** with `matplotlib` and `numpy` (only for the Ring learning-curve figure).
-- **LaTeX** with `pgfplots` and `standalone` (figures and paper).
+- **Python 3** with `matplotlib` and `numpy` .
 - **API keys** only for the LLM baselines (step 4).
 
-All commands below are run from `experiment-code/` unless stated otherwise.
+All commands below are run from `experiment-code/`.
 
 ## 1. Run the test suites
 
@@ -190,38 +189,16 @@ share, distinct accounts) with the paper's rows, not individual accounts. Agreem
 statistical: with 3 samples per cell, one changed account moves an infeasible share by 11.1
 points. Hosted model versions can also change over time.
 
-### 4.4 Claude Opus 4.8 accounts
 
-No script generates the Claude accounts. They were written by isolated Claude Opus 4.8
-sessions, each shown only the generator prompt for one witness and rung: the public facts $F$
-and that witness's self-interest, with nothing about $\mathrm{Feasible}(F)$, $U_i$, the
-enumerated answer or this project. `claude-ladder.mjs` only extracts and scores them. To
-regenerate:
+## Citation
 
-1. Build the prompts with `genMessages(cond, witness)` in `recon/prompt-ladder.mjs`, which
-   `gpt5-ladder.mjs` copies verbatim. For `selfrevise`, generate a draft from the `shown`
-   prompt, then revise it with `reviseMessages(witness, draft)`.
-2. Generate 3 accounts per witness (Tajomaru, Masago, Takehiro) per rung (`shown`,
-   `instructed`, `consequence`, `selfcheck`, `selfrevise`), each in a fresh context.
-3. Save them as `recon/claude-accounts.json`: an array of
-   `{ "cond", "witness", "sample", "account" }` with `sample` 0–2, 45 entries.
-4. Run `node recon/claude-ladder.mjs`.
+If you use this code or build on this work, please cite the paper:
 
-## 5. Build the paper
-
-The track style file `neurips_2026.sty` is not tracked. Take it from the official template,
-[Formatting_Instructions_For_NeurIPS_2026.zip](https://media.neurips.cc/Conferences/NeurIPS2026/Formatting_Instructions_For_NeurIPS_2026.zip),
-and put it in `paper/` (git-ignored there). Then build from `paper/`:
-
-```bash
-cd paper
-pdflatex neurips_2026_v2.tex && bibtex neurips_2026_v2
-pdflatex neurips_2026_v2.tex && pdflatex neurips_2026_v2.tex
-pdffonts neurips_2026_v2.pdf      # body must be NimbusRomNo9L (Times); no Type 3 fonts
+```bibtex
+@inproceedings{song2026grove,
+  title     = {{In a Grove, Again}: Optimizing over Feasible Event Histories for Incentive-Driven Testimony},
+  author    = {Song, Ruixin and Zheng, Jingjing},
+  booktitle = {40th Conference on Neural Information Processing Systems (NeurIPS 2026), Creative AI Track},
+  year      = {2026}
+}
 ```
-
-A body set in Computer Modern (`SFRM`/`CMR` in `pdffonts`) means LaTeX found some other
-`neurips_2026.sty` instead of the official one; the layout and page count are then wrong.
-If `pdffonts` lists a Type 3 font, run `updmap-user --enable Map=cm-super-t1.map` and rebuild.
-The supplement uses the plain `article` class and builds directly, also from `paper/`:
-`pdflatex neurips_2026_v2_supplement.tex`.
